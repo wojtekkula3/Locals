@@ -2,8 +2,9 @@ package com.wojciechkula.locals.navigation
 
 import androidx.navigation.NavController
 import com.wojciechkula.locals.presentation.splashscreen.SplashScreenFragmentDirections
+import javax.inject.Inject
 
-internal class SplashScreenNavigator {
+internal class SplashScreenNavigator @Inject constructor() {
 
     fun openLogin(navController: NavController) {
         val direction = SplashScreenFragmentDirections.openLogin()
