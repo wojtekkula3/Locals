@@ -9,10 +9,14 @@
         android:id="@+id/splashScreenFragment"
         android:name="com.wojciechkula.locals.presentation.splashscreen.SplashScreenFragment"
         android:label="fragment_splash_screen"
-        tools:layout="@layout/fragment_splash_screen" >
+        tools:layout="@layout/fragment_splash_screen">
         <action
             android:id="@+id/openLogin"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"
+            app:popUpTo="@id/nav_main"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/openDashboard"
             app:destination="@id/dashboardFragment" />
@@ -28,7 +32,7 @@
         android:id="@+id/loginFragment"
         android:name="com.wojciechkula.locals.presentation.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/openDashboard"
             app:destination="@id/dashboardFragment" />
@@ -41,7 +45,7 @@
         android:id="@+id/registerUserDataFragment"
         android:name="com.wojciechkula.locals.presentation.register.userdata.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/openRegisterHobbies"
             app:destination="@id/registerHobbies" />
@@ -51,7 +55,7 @@
         android:id="@+id/registerHobbies"
         android:name="com.wojciechkula.locals.presentation.register.hobbies.RegisterHobbies"
         android:label="fragment_register_hobbies"
-        tools:layout="@layout/fragment_register_hobbies" >
+        tools:layout="@layout/fragment_register_hobbies">
         <action
             android:id="@+id/openDashboard"
             app:destination="@id/dashboardFragment" />

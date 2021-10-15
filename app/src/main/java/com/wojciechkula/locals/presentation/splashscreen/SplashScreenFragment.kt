@@ -24,7 +24,7 @@ internal class SplashScreenFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-    val viewModel: SplashScreenViewModel by viewModels()
+    private val viewModel: SplashScreenViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,12 +40,9 @@ internal class SplashScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView()
         observeViewModel()
-    }
-
-    private fun initView() {
-        binding.button.setOnClickListener { navigator.openLogin(findNavController()) }
+        Thread.sleep(3000)
+        onOpenLogin()
     }
 
     private fun observeViewModel() {
