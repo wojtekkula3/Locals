@@ -1,5 +1,16 @@
 <resources>
     <string name="app_name">Locals</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Log in -->
+    <string name="log_in_title">Log in</string>
+    <string name="log_in_email">Email</string>
+    <string name="log_in_password">Password</string>
+    <string name="log_in_forgot_password"><b><u>I forgot my password</u></b></string>
+    <string name="log_in_sign_in_button">Log in</string>
+    <string name="log_in_i_am_new_here">I am new here</string>
+    <string name="log_in_credentials_error">Email or password is incorrect</string>
+    <string name="common_dialog_loading">Please wait...</string>
+
 </resources>

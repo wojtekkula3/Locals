@@ -41,8 +41,6 @@ internal class SplashScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeViewModel()
-        Thread.sleep(3000)
-        onOpenLogin()
     }
 
     private fun observeViewModel() {
