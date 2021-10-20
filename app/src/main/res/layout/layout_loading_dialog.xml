@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="250dp"
     android:layout_height="wrap_content"
+    android:background="@drawable/dialog_loading"
+    android:gravity="center"
     android:orientation="horizontal"
     android:padding="10dp">
 
     <ProgressBar
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:indeterminateTint="@color/teal_700"
-        android:paddingLeft="20dp" />
+        android:paddingLeft="10dp" />
 
     <TextView
-        android:id="@+id/txt_message2"
-        android:layout_width="0dp"
+        android:id="@+id/text"
+        android:layout_width="150dp"
         android:layout_height="match_parent"
-        android:layout_weight="4"
-        android:fontFamily="@font/muli_bold_italic"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:text="@string/common_dialog_loading" />
-
+        android:gravity="center"
+        android:text="@string/common_dialog_loading"
+        android:textAppearance="?textAppearanceB2"
+        android:textSize="18dp" />
 </LinearLayout>

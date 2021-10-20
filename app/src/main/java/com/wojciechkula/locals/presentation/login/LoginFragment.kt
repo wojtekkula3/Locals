@@ -9,9 +9,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.wojciechkula.locals.common.dialog.LoadingDialogFragment
 import com.wojciechkula.locals.databinding.FragmentLoginBinding
+import com.wojciechkula.locals.extension.showSnackbar
 import com.wojciechkula.locals.navigation.LoginNavigator
 import com.wojciechkula.locals.presentation.login.LoginViewEvent.*
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -69,6 +71,7 @@ internal class LoginFragment : Fragment() {
                 OpenDashboard -> openDashboard()
                 OpenForgotPassword -> openForgotPassword()
                 OpenRegister -> openRegister()
+                is Error -> onError(event)
             }
         }
     }
@@ -85,4 +88,9 @@ internal class LoginFragment : Fragment() {
         navigator.openRegister(findNavController())
     }
 
+    private fun onError(event: Error) {
+        if (event.message != null) {
+            binding.showSnackbar(event.message)
+        }
+    }
 }

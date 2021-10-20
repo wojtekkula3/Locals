@@ -1,6 +1,5 @@
 package com.wojciechkula.locals.presentation.login
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +10,7 @@ import com.wojciechkula.locals.common.validator.NotBlankValidator
 import com.wojciechkula.locals.domain.interactor.LogInUserInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -39,21 +39,22 @@ class LoginViewModel @Inject constructor(
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             _viewEvent.postValue(LoginViewEvent.OpenDashboard)
-                        } else {
-                            Log.e("Authentication failed", "Authentication failed")
+                            _showLoading.postValue(false)
+
                         }
                     }
-                    .addOnFailureListener {
-                        Log.e("Exception occured", it.message.toString())
+                    .addOnFailureListener { e ->
+                        Timber.e(e, "Occurs when login credentials are wrong")
+                        _viewEvent.postValue(LoginViewEvent.Error("Wrong email or password"))
+                        _showLoading.postValue(false)
                     }
-                _showLoading.postValue(false)
             } else {
                 _showLoading.postValue(false)
             }
         }
     }
 
-    fun onForgotPasswordClick(){
+    fun onForgotPasswordClick() {
         _viewEvent.postValue(LoginViewEvent.OpenForgotPassword)
     }
 
