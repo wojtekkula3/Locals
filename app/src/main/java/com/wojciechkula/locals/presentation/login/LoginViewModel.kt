@@ -53,6 +53,10 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    fun onForgotPasswordClick(){
+        _viewEvent.postValue(LoginViewEvent.OpenForgotPassword)
+    }
+
     fun onRegisterClick() {
         _viewEvent.postValue(LoginViewEvent.OpenRegister)
     }

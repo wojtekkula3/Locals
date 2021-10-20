@@ -14,12 +14,21 @@
         <!-- Status bar style. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
-    </style>
 
-    <!-- Splash screen theme. -->
-    <style name="Theme.Locals.SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_screen</item>
-        <item name="android:windowFullscreen">true</item>
+        <!-- Style text appearance -->
+        <item name="textAppearanceH1">@style/TextAppearance.Locals.H1</item>
+        <item name="textAppearanceH2">@style/TextAppearance.Locals.H2</item>
+        <item name="textAppearanceH3">@style/TextAppearance.Locals.H3</item>
+        <item name="textAppearanceH4">@style/TextAppearance.Locals.H4</item>
+        <item name="textAppearanceH5">@style/TextAppearance.Locals.H5</item>
+        <item name="textAppearanceH6">@style/TextAppearance.Locals.H6</item>
+        <item name="textAppearanceS1">@style/TextAppearance.Locals.S1</item>
+        <item name="textAppearanceS2">@style/TextAppearance.Locals.S2</item>
+        <item name="textAppearanceB1">@style/TextAppearance.Locals.B1</item>
+        <item name="textAppearanceB2">@style/TextAppearance.Locals.B2</item>
+        <item name="textAppearanceButton">@style/TextAppearance.Locals.Button</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.Locals.Caption</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.Locals.Overline</item>
     </style>
 
     <style name="ThemeOverlay.Locals.Login" parent=""></style>

@@ -39,6 +39,9 @@
         <action
             android:id="@+id/openRegister"
             app:destination="@id/registerUserDataFragment" />
+        <action
+            android:id="@+id/openForgotPassword"
+            app:destination="@id/forgotPasswordFragment" />
     </fragment>
 
     <fragment
@@ -59,5 +62,14 @@
         <action
             android:id="@+id/openDashboard"
             app:destination="@id/dashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.wojciechkula.locals.presentation.forgotpassword.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/openLogin"
+            app:destination="@id/loginFragment" />
     </fragment>
 </navigation>

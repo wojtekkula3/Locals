@@ -17,6 +17,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="4"
+        android:fontFamily="@font/muli_bold_italic"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
         android:text="@string/common_dialog_loading" />

@@ -53,6 +53,7 @@ internal class LoginFragment : Fragment() {
                     binding.passwordInput.text.toString()
                 )
             }
+            forgotPasswordButton.setOnClickListener { viewModel.onForgotPasswordClick() }
             registerButton.setOnClickListener { viewModel.onRegisterClick() }
         }
     }
@@ -66,7 +67,7 @@ internal class LoginFragment : Fragment() {
         viewModel.viewEvent.observe(viewLifecycleOwner) { event ->
             when (event) {
                 OpenDashboard -> openDashboard()
-                OpenForgotPassword -> TODO()
+                OpenForgotPassword -> openForgotPassword()
                 OpenRegister -> openRegister()
             }
         }
@@ -74,6 +75,10 @@ internal class LoginFragment : Fragment() {
 
     private fun openDashboard() {
         navigator.openDashboard(findNavController())
+    }
+
+    private fun openForgotPassword() {
+        navigator.openForgotPassword(findNavController())
     }
 
     private fun openRegister() {

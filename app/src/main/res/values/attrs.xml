@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Styles text appearance -->
+    <attr name="textAppearanceH1" format="reference" />
+    <attr name="textAppearanceH2" format="reference" />
+    <attr name="textAppearanceH3" format="reference" />
+    <attr name="textAppearanceH4" format="reference" />
+    <attr name="textAppearanceH5" format="reference" />
+    <attr name="textAppearanceH6" format="reference" />
+    <attr name="textAppearanceS1" format="reference" />
+    <attr name="textAppearanceS2" format="reference" />
+    <attr name="textAppearanceB1" format="reference" />
+    <attr name="textAppearanceB2" format="reference" />
+    <attr name="textAppearanceButton" format="reference" />
+    <attr name="textAppearanceCaption" format="reference" />
+    <attr name="textAppearanceOverline" format="reference" />
+
+</resources>
