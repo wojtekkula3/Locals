@@ -14,4 +14,9 @@
     <string name="common_dialog_loading">Please wait...</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- Register information -->
+    <string name="register_information_welcome_friend">Welcome Friend!</string>
+    <string name="register_information_introduction">Locals is the application which will help you get to know locals from your neighbourhood. \n\nBased on your hobbies we will propose you group chats that you may like. \n\n And don\'t worry, your location and personal data are safe here - only you decide which data are shown to public.</string>
+    <string name="register_information_start_registration">Start registration</string>
+
 </resources>

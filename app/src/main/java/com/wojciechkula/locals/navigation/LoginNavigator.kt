@@ -1,14 +1,13 @@
 package com.wojciechkula.locals.navigation
 
 import androidx.navigation.NavController
-import com.wojciechkula.locals.presentation.forgotpassword.ForgotPasswordFragmentDirections
 import com.wojciechkula.locals.presentation.login.LoginFragmentDirections
 import javax.inject.Inject
 
 internal class LoginNavigator @Inject constructor() {
 
     fun openRegister(navController: NavController) {
-        val direction = LoginFragmentDirections.openRegister()
+        val direction = LoginFragmentDirections.openRegisterInformation()
         navController.navigate(direction)
     }
 

@@ -1,18 +1,18 @@
-package com.wojciechkula.locals.presentation.register.hobbies
+package com.wojciechkula.locals.presentation.register.userdata
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.wojciechkula.locals.databinding.FragmentRegisterHobbiesBinding
-import com.wojciechkula.locals.navigation.RegisterHobbiesNavigator
+import com.wojciechkula.locals.databinding.FragmentRegisterUserDataBinding
+import com.wojciechkula.locals.navigation.RegisterUserDataNavigator
 
-internal class RegisterHobbies : Fragment() {
+internal class RegisterUserDataFragment : Fragment() {
 
-    lateinit var navigator: RegisterHobbiesNavigator
+    lateinit var userDataNavigator: RegisterUserDataNavigator
 
-    private var _binding: FragmentRegisterHobbiesBinding? = null
+    private var _binding: FragmentRegisterUserDataBinding? = null
     private val binding
         get() = _binding!!
 
@@ -24,7 +24,7 @@ internal class RegisterHobbies : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentRegisterHobbiesBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentRegisterUserDataBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
