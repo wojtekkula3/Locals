@@ -8,6 +8,20 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="gray_50">#535353</color>
+    <color name="button_unactive">#89BAC6</color>
+
+    <color name="background_100">#F0F2F1</color>
+    <color name="background_90">#F1F3F2</color>
+    <color name="background_80">#F3F5F4</color>
+    <color name="background_70">#F5F6F5</color>
+    <color name="background_60">#F6F7F7</color>
+    <color name="background_50">#F7F8F8</color>
+    <color name="background_40">#F9FAF9</color>
+    <color name="background_30">#FBFBFB</color>
+    <color name="background_20">#FCFCFC</color>
+    <color name="background_10">#FEFEFE</color>
+
     <color name="blue_100">#B2EBF2</color>
     <color name="blue_200">#80DEEA</color>
     <color name="blue_300">#4DD0E1</color>
@@ -40,5 +54,4 @@
     <color name="red_800">#C62828</color>
 
     <color name="warning">@color/red_700</color>
-
 </resources>

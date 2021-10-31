@@ -71,6 +71,9 @@
         <action
             android:id="@+id/openDashboard"
             app:destination="@id/dashboardFragment" />
+        <argument
+            android:name="userData"
+            app:argType="com.wojciechkula.locals.presentation.model.User" />
     </fragment>
     <fragment
         android:id="@+id/registerInformationFragment"

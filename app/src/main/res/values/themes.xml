@@ -1,19 +1,25 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="Theme.Locals" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.Locals" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/blue_800</item>
+        <item name="colorPrimaryVariant">@color/blue_900</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
 
+        <item name="android:colorBackground">@color/background_100</item>
+
         <!-- Status bar style. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/background_100</item>
         <item name="android:windowLightStatusBar">true</item>
+
+        <!-- Styles -->
+        <item name="textInputStyle">@style/Widget.Locals.TextInputLayout.OutLined</item>
+        <item name="buttonStyle">@style/Widget.Locals.Button</item>
 
         <!-- Style text appearance -->
         <item name="textAppearanceH1">@style/TextAppearance.Locals.H1</item>
@@ -26,13 +32,17 @@
         <item name="textAppearanceS2">@style/TextAppearance.Locals.S2</item>
         <item name="textAppearanceB1">@style/TextAppearance.Locals.B1</item>
         <item name="textAppearanceB2">@style/TextAppearance.Locals.B2</item>
-        <item name="textAppearanceButton">@style/TextAppearance.Locals.Button</item>
+        <item name="textAppearanceButtonCapital">@style/TextAppearance.Locals.Button</item>
         <item name="textAppearanceCaption">@style/TextAppearance.Locals.Caption</item>
         <item name="textAppearanceOverline">@style/TextAppearance.Locals.Overline</item>
     </style>
 
-    <style name="ThemeOverlay.Locals.Login" parent=""></style>
+    <style name="ThemeOverlay.Locals.Login" parent="Theme.Locals">
+        <!--        <item name="android:windowBackground">@color/green_100</item>-->
+    </style>
 
-    <style name="ThemeOverlay.Locals.Register" parent=""></style>
+    <style name="ThemeOverlay.Locals.Register" parent="Theme.Locals">
+        <!--        <item name="android:background">@color/background_100</item>-->
+    </style>
 
 </resources>

@@ -18,5 +18,16 @@
     <string name="register_information_welcome_friend">Welcome Friend!</string>
     <string name="register_information_introduction">Locals is the application which will help you get to know locals from your neighbourhood. \n\nBased on your hobbies we will propose you group chats that you may like. \n\n And don\'t worry, your location and personal data are safe here - only you decide which data are shown to public.</string>
     <string name="register_information_start_registration">Start registration</string>
+    <string name="register_data_name">Name</string>
+    <string name="register_data_surname">Surname</string>
+    <string name="register_data_email">Email</string>
+    <string name="register_data_password">Password</string>
+    <string name="register_data_phone_number">Phone number</string>
+    <string name="register_data_next">Next</string>
+    <string name="register_data_accept_terms_and_conditions">Accept terms and conditions</string>
+    <string name="register_user_data_name_is_required">Name is required</string>
+    <string name="register_user_data_wrong_email">Wrong email</string>
+    <string name="register_user_data_password_requirements">At least 8 characters, a capital letter, number and special sign</string>
+    <string name="register_user_data_insert_correct_number_or_leave_empty">Enter correct number or leave the empty field</string>
 
 </resources>
