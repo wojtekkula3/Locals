@@ -35,17 +35,16 @@ class LoginViewModel @Inject constructor(
             val emailValid = emailValidator.validate(email)
             val passwordValid = notBlankValidator.validate(password)
             if (emailValid && passwordValid) {
-                loginUserInteractor.invoke(email, password)
+                loginUserInteractor(email, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             _viewEvent.postValue(LoginViewEvent.OpenDashboard)
                             _showLoading.postValue(false)
-
                         }
                     }
                     .addOnFailureListener { e ->
                         Timber.e(e, "Occurs when login credentials are wrong")
-                        _viewEvent.postValue(LoginViewEvent.Error("Wrong email or password"))
+                        _viewEvent.postValue(LoginViewEvent.Error(e.message))
                         _showLoading.postValue(false)
                     }
             } else {

@@ -5,11 +5,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.children
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipDrawable
+import com.wojciechkula.locals.R
+import com.wojciechkula.locals.common.dialog.LoadingDialogFragment
 import com.wojciechkula.locals.databinding.FragmentRegisterHobbiesBinding
+import com.wojciechkula.locals.domain.model.HobbyModel
+import com.wojciechkula.locals.extension.showSnackbar
 import com.wojciechkula.locals.navigation.RegisterHobbiesNavigator
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
+import kotlinx.coroutines.flow.dropWhile
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+import reactivecircus.flowbinding.android.widget.textChanges
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -17,6 +31,7 @@ internal class RegisterHobbiesFragment : Fragment() {
 
     @Inject
     lateinit var navigator: RegisterHobbiesNavigator
+    val viewModel: RegisterHobbiesViewModel by viewModels()
 
     private var _binding: FragmentRegisterHobbiesBinding? = null
     private val binding
@@ -24,18 +39,173 @@ internal class RegisterHobbiesFragment : Fragment() {
 
     private val args: RegisterHobbiesFragmentArgs by navArgs()
 
+    private val searchInput get() = binding.searchInput.text.toString()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentRegisterHobbiesBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Timber.d("This is my args: ${args.toString()}")
+        initViews()
+        observeViewModel()
     }
 
+    private fun initViews() {
+        with(binding) {
+            searchInput
+                .textChanges()
+                .dropWhile { it.isBlank() }
+                .onEach { onSearchInput() }
+                .launchIn(lifecycleScope)
+
+            nextButton.setOnClickListener {
+                viewModel.onNextClick(args)
+            }
+        }
+    }
+
+    private fun onSearchInput() {
+        binding.searchHobbiesChipGroup.removeAllViews()
+        if (!binding.searchInput.text.isNullOrEmpty())
+            viewModel.onSearchChange(this@RegisterHobbiesFragment.searchInput)
+        else
+            viewModel.onSearchChangeEmptyString()
+    }
+
+    private fun observeViewModel() {
+        viewModel.viewState.observe(viewLifecycleOwner, ::bindState)
+        viewModel.viewEvent.observe(viewLifecycleOwner, ::handleEvents)
+        viewModel.showLoading.observe(viewLifecycleOwner, ::handleLoading)
+    }
+
+    private fun bindState(state: RegisterHobbiesViewState) {
+        with(binding) {
+            nextButton.isEnabled = state.registerActionEnabled
+
+            if (!state.selectedHobbiesList.isNullOrEmpty()) {
+                selectedHobbiesChipGroup.removeAllViews()
+                for (hobby in state.selectedHobbiesList) {
+                    selectedHobbiesChipGroup.addView(createSelectedChip(hobby))
+                }
+            }
+        }
+    }
+
+    private fun handleEvents(event: RegisterHobbiesViewEvent) {
+        when (event) {
+            is RegisterHobbiesViewEvent.GetHighPriorityHobbies -> getHighPriorityHobbies(event)
+            is RegisterHobbiesViewEvent.GetCustomHobbies -> getCustomHobbies(event)
+            is RegisterHobbiesViewEvent.Error -> onError(event)
+            is RegisterHobbiesViewEvent.OpenDashboard -> openDashboard()
+        }
+    }
+
+    private fun handleLoading(isLoading: Boolean) {
+        LoadingDialogFragment.toggle(childFragmentManager, isLoading)
+    }
+
+    private fun getHighPriorityHobbies(event: RegisterHobbiesViewEvent.GetHighPriorityHobbies) {
+        lifecycleScope.launch {
+            if (event.priorityHighHobbiesList != null) {
+                binding.searchHobbiesChipGroup.removeAllViews()
+                for (hobby in event.priorityHighHobbiesList) {
+                    binding.searchHobbiesChipGroup.addView(createChip(hobby))
+                }
+
+                val chipGroup = binding.searchHobbiesChipGroup.children
+                    .map { it as Chip }
+
+
+                if (event.selectedHobbiesList != null) {
+                    for (chip in chipGroup) {
+                        for (hobby in event.selectedHobbiesList) {
+                            if (chip.text == hobby.name)
+                                chip.visibility = View.GONE
+                        }
+                    }
+                }
+            } else {
+                binding.searchHobbiesChipGroup.removeAllViews()
+            }
+        }
+    }
+
+    private fun getCustomHobbies(event: RegisterHobbiesViewEvent.GetCustomHobbies) {
+        lifecycleScope.launch {
+            if (event.customHobbiesList != null) {
+
+                binding.searchHobbiesChipGroup.removeAllViews()
+                for (hobby in event.customHobbiesList) {
+                    binding.searchHobbiesChipGroup.addView(createChip(hobby))
+
+                }
+
+                val chipGroup = binding.searchHobbiesChipGroup.children
+                    .map { it as Chip }
+
+                if (event.selectedHobbiesList != null) {
+                    for (chip in chipGroup) {
+                        for (hobby in event.selectedHobbiesList) {
+                            if (chip.text == hobby.name)
+                                chip.visibility = View.GONE
+                        }
+                    }
+                }
+            } else {
+                binding.searchHobbiesChipGroup.removeAllViews()
+            }
+        }
+    }
+
+    private fun onError(event: RegisterHobbiesViewEvent.Error) {
+        if (event.message != null) {
+            binding.showSnackbar(event.message)
+        }
+    }
+
+    private fun openDashboard() {
+        navigator.openDashboard(findNavController())
+    }
+
+    private fun createChip(hobby: HobbyModel): Chip {
+        val chip = Chip(context)
+        val drawable =
+            ChipDrawable.createFromAttributes(layoutInflater.context, null, 0, R.style.Widget_Locals_Chip)
+        chip.setChipDrawable(drawable)
+        chip.text = hobby.name
+
+        chip.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                viewModel.addHobby(hobby)
+                chip.visibility = View.GONE
+            } else {
+                viewModel.removeHobby(hobby)
+            }
+        }
+        return chip
+    }
+
+    private fun createSelectedChip(hobby: HobbyModel): Chip {
+        val chip = Chip(context)
+        val drawable =
+            ChipDrawable.createFromAttributes(layoutInflater.context, null, 0, R.style.Widget_Locals_Chip)
+        chip.setChipDrawable(drawable)
+        chip.text = hobby.name
+        chip.isChecked = true
+
+        chip.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                viewModel.addHobby(hobby)
+            } else {
+                viewModel.removeHobby(hobby)
+                chip.visibility = View.GONE
+            }
+        }
+        return chip
+    }
 }

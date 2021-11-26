@@ -9,7 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.wojciechkula.locals.R
+import com.wojciechkula.locals.common.dialog.LoadingDialogFragment
 import com.wojciechkula.locals.databinding.FragmentRegisterUserDataBinding
+import com.wojciechkula.locals.extension.showSnackbar
 import com.wojciechkula.locals.navigation.RegisterUserDataNavigator
 import com.wojciechkula.locals.presentation.model.User
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,6 +35,7 @@ internal class RegisterUserDataFragment : Fragment() {
         get() = _binding!!
 
     private val name get() = binding.nameInput.text.toString()
+    private val surname get() = binding.surnameInput.text.toString()
     private val email get() = binding.emailInput.text.toString()
     private val password get() = binding.passwordInput.text.toString()
     private val phoneNumber get() = binding.phoneNumberInput.text.toString()
@@ -85,7 +88,7 @@ internal class RegisterUserDataFragment : Fragment() {
                 .onEach { viewModel.onTermsChange(name, email, password, phoneNumber, terms) }
                 .launchIn(lifecycleScope)
 
-            nextButton.setOnClickListener { viewModel.openRegisterHobbies() }
+            nextButton.setOnClickListener { viewModel.openRegisterHobbies(emailInput.text.toString()) }
         }
 
     }
@@ -93,6 +96,7 @@ internal class RegisterUserDataFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.viewState.observe(viewLifecycleOwner, ::bindState)
         viewModel.viewEvent.observe(viewLifecycleOwner, ::handleEvents)
+        viewModel.showLoading.observe(viewLifecycleOwner, ::handleLoading)
     }
 
     private fun bindState(state: RegisterUserDataViewState) {
@@ -126,19 +130,28 @@ internal class RegisterUserDataFragment : Fragment() {
                 phoneNumberLayout.error = getString(R.string.register_user_data_insert_correct_number_or_leave_empty)
             }
 
-            nextButton.isEnabled = state.signUpActionEnabled
+            nextButton.isEnabled = state.nextActionEnabled
         }
     }
 
     private fun handleEvents(event: RegisterUserDataViewEvent?) {
         when (event) {
             RegisterUserDataViewEvent.OpenRegisterHobbies -> onOpenRegisterHobbies()
+            RegisterUserDataViewEvent.ErrorUserExists -> showError()
         }
     }
 
+    private fun handleLoading(isLoading: Boolean) {
+        LoadingDialogFragment.toggle(childFragmentManager, isLoading)
+    }
+
     private fun onOpenRegisterHobbies() {
-        val user = User(name, surname = null, email, password, phoneNumber = null, photoUrl = null)
+        val user = User(name, surname, email, password, phoneNumber, photoUrl = null)
         navigator.openRegisterHobbies(findNavController(), user)
+    }
+
+    private fun showError() {
+        binding.showSnackbar(getString(R.string.register_data_this_email_already_exists_in_database))
     }
 
 }

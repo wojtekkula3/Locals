@@ -36,4 +36,8 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textAppearance">?textAppearanceB1</item>
     </style>
+
+    <style name="Widget.Locals.Chip" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="chipBackgroundColor">@drawable/selector_chip</item>
+    </style>
 </resources>

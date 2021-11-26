@@ -1,9 +1,9 @@
 package com.wojciechkula.locals.domain.interactor
 
-import com.wojciechkula.locals.data.repository.AuthRepository
+import com.wojciechkula.locals.data.repository.AuthRepositoryImpl
 import javax.inject.Inject
 
-class LogInUserInteractor @Inject constructor(private val authRepository: AuthRepository) {
+class LogInUserInteractor @Inject constructor(private val repository: AuthRepositoryImpl) {
 
-    suspend operator fun invoke(email: String, password: String) = authRepository.logIn(email, password)
+    suspend operator fun invoke(email: String, password: String) = repository.logIn(email, password)
 }

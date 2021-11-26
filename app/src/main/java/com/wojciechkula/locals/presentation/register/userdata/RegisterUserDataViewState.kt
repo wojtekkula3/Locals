@@ -6,5 +6,5 @@ data class RegisterUserDataViewState(
     val passwordValid: Boolean = true,
     val phoneNumberValid: Boolean = true,
     val acceptTermsValid: Boolean = true,
-    val signUpActionEnabled: Boolean = false
+    val nextActionEnabled: Boolean = false
 )
