@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainCard"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="14dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="10dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/cardUp"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/pictureImage"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/groupNameLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pictureImage"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:text="To jest grupa fanych ludzi"
+                android:textAlignment="center"
+                android:textAppearance="?textAppearanceB1"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cardUp">
+
+            <TextView
+                android:id="@+id/hobbiesListLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="6dp"
+                android:paddingTop="3dp"
+                android:paddingRight="6dp"
+                android:paddingBottom="4dp"
+
+                android:text="jeździectwo, piernikarstwo, smaczne obiadki, lalki, taniec, sklep"
+                android:textStyle="italic" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/hobbiesListLabel"
+                android:background="@color/blue_800" />
+
+            <TextView
+                android:id="@+id/distanceLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hobbiesListLabel"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="6dp"
+                android:gravity="bottom"
+                android:text="@string/explore_distance"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/kmLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/hobbiesListLabel"
+                android:layout_marginTop="6dp"
+                android:layout_toRightOf="@id/distanceLabel"
+                android:gravity="bottom"
+                android:text=" 20 km"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/groupSizeIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/distanceLabel"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/ic_person_in_circle" />
+
+            <TextView
+                android:id="@+id/groupSizeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/kmLabel"
+                android:layout_marginTop="9dp"
+                android:layout_toRightOf="@id/groupSizeIcon"
+                android:text="25"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/joinButton"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_below="@id/kmLabel"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="6dp"
+                android:backgroundTint="@color/blue_700"
+                android:text="@string/explore_join"
+                android:textSize="15dp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

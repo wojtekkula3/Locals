@@ -45,4 +45,14 @@
         <!--        <item name="android:background">@color/background_100</item>-->
     </style>
 
+    <style name="ThemeOverlay.Locals.Explore" parent="Theme.Locals">
+    </style>
+
+    <style name="ThemeOverlay.Locals.Profile" parent="Theme.Locals">
+    </style>
+
+    <style name="ThemeOverlay.Locals.MyGroups" parent="Theme.Locals">
+    </style>
+
+
 </resources>

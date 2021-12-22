@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/exploreFragment"
         android:name="com.wojciechkula.locals.presentation.explore.ExploreFragment"
-        android:label="fragment_explore"
+        android:label="@string/explore_explore"
         tools:layout="@layout/fragment_explore" />
 
 </navigation>

@@ -11,8 +11,8 @@ class HobbyRepositoryImpl @Inject constructor(
     private val mapper: HobbyMapper
 ) : HobbyRepository {
 
-    override suspend fun getHobbiesPriorityHigh(): List<HobbyModel> =
-        dataSource.getHobbiesPriorityHigh().map { hobby ->
+    override suspend fun getHobbiesGeneral(): List<HobbyModel> =
+        dataSource.getHobbiesGeneral().map { hobby ->
             mapper.mapToDomain(hobby)
         }
 

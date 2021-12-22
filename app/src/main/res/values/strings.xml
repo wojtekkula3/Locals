@@ -16,7 +16,7 @@
 
     <!-- Register information -->
     <string name="register_information_welcome_friend">Welcome Friend!</string>
-    <string name="register_information_introduction">Locals is the application which will help you get to know locals from your neighbourhood. \n\nBased on your hobbies we will propose you group chats that you may like. \n\n And don\'t worry, your location and personal data are safe here - only you decide which data are shown to public.</string>
+    <string name="register_information_introduction">Locals is the application which will help you get to know locals from your neighbourhood.   Based on your hobbies we will propose you group chats that you may like.    And don\'t worry, your location and personal data are safe here - only you decide which data are shown to public.</string>
     <string name="register_information_start_registration">Start registration</string>
     <string name="register_data_name">Name</string>
     <string name="register_data_surname">Surname</string>
@@ -33,10 +33,35 @@
     <string name="register_user_data_insert_correct_number_or_leave_empty">Enter correct number or leave the empty field</string>
 
     <!-- Register user hobbies -->
-    <string name="register_hobbies_select_your_interests">Select your \nInterests</string>
-    <string name="register_hobbies_select_at_least_3_interests">Select at least 3 interests</string>
+    <string name="register_hobbies_select_your_interests">Select your  Interests</string>
+    <string name="register_hobbies_select_at_from_3_to_max_20_interests">Select from 3 to max 20 interests.</string>
 
     <!-- Common -->
     <string name="common_next">Next</string>
+
+    <string name="explore_there_is_no_groups_to_show">There is no groups to show</string>
+    <string name="explore_distance">Distance:\u0020</string>
+    <string name="explore_join">Join</string>
+    <string name="explore_there_is_no_such_interest">There is no such interest</string>
+    <string name="explore_explore">Search...</string>
+    <string name="bottom_nav_explore">Explore</string>
+    <string name="bottom_nav_my_groups">My groups</string>
+    <string name="bottom_nav_profile">Profile</string>
+    <string name="profile_about_me">About me</string>
+    <string name="profile_name">Name</string>
+    <string name="profile_surname">Surname</string>
+    <string name="profile_email">Email</string>
+    <string name="profile_phone">Phone</string>
+    <string name="profile_personal_information">Personal information</string>
+    <string name="profile_my_hobbies">My hobbies</string>
+    <string name="profile_change">Change</string>
+    <string name="profile_change_password">Change password</string>
+    <string name="profile_log_out">Log out</string>
+    <string name="public_visibiliy_info">Determine which elements can be visible in your profile for the rest of the users.</string>
+    <string name="public_public_visibility">Public visibility</string>
+    <string name="register_data_insert_your_data">Insert personal data</string>
+    <string name="register_data_add_avatar">Add avatar</string>
+    <string name="profile_empty">(empty)</string>
+    <string name="explore_you_need_accept_location_permissions">You need to accept localisation permissions to use this app.</string>
 
 </resources>

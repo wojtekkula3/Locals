@@ -37,7 +37,19 @@
         <item name="android:textAppearance">?textAppearanceB1</item>
     </style>
 
-    <style name="Widget.Locals.Chip" parent="Widget.MaterialComponents.Chip.Filter">
-        <item name="chipBackgroundColor">@drawable/selector_chip</item>
+    <style name="Widget.Locals.RegisterChip" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="chipBackgroundColor">@drawable/selector_chip_register</item>
+        <item name="android:textColor">@drawable/selector_chip_text_color</item>
+        <item name="chipMinTouchTargetSize">42dp</item>
+    </style>
+
+    <style name="Widget.Locals.SearchChip" parent="Widget.MaterialComponents.Chip.Entry">
+        <item name="chipBackgroundColor">@drawable/selector_chip_explore</item>
+        <item name="android:textColor">@drawable/selector_chip_text_color</item>
+        <item name="chipIconVisible">false</item>
+    </style>
+
+    <style name="Widget.Locals.ToolBarStyle" parent="Theme.AppCompat">
+        <item name="actionMenuTextColor">@android:color/white</item>
     </style>
 </resources>

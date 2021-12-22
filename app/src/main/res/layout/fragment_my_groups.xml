@@ -3,12 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/ThemeOverlay.Locals.MyGroups"
     tools:context=".presentation.mygroups.MyGroupsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello! This is my groups fragment!" />
+        android:gravity="center"
+        android:text="W budowie..."
+        android:textAppearance="?textAppearanceH6" />
 
 </FrameLayout>

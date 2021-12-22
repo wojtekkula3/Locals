@@ -38,5 +38,5 @@ class FirebaseAuthDataSource @Inject constructor(private val auth: FirebaseAuth)
                 }
         }
 
-    fun logOut() : Unit = auth.signOut()
+    fun logOut(): Unit = auth.signOut()
 }

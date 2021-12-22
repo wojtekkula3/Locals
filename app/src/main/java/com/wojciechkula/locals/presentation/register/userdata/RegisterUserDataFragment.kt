@@ -1,10 +1,10 @@
 package com.wojciechkula.locals.presentation.register.userdata
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -88,7 +88,8 @@ internal class RegisterUserDataFragment : Fragment() {
                 .onEach { viewModel.onTermsChange(name, email, password, phoneNumber, terms) }
                 .launchIn(lifecycleScope)
 
-            nextButton.setOnClickListener { viewModel.openRegisterHobbies(emailInput.text.toString()) }
+            backButton.setOnClickListener { findNavController().popBackStack() }
+            nextButton.setOnClickListener { viewModel.onNextClick(emailInput.text.toString()) }
         }
 
     }
@@ -137,7 +138,7 @@ internal class RegisterUserDataFragment : Fragment() {
     private fun handleEvents(event: RegisterUserDataViewEvent?) {
         when (event) {
             RegisterUserDataViewEvent.OpenRegisterHobbies -> onOpenRegisterHobbies()
-            RegisterUserDataViewEvent.ErrorUserExists -> showError()
+            RegisterUserDataViewEvent.ErrorUserExists -> onShowError()
         }
     }
 
@@ -150,7 +151,7 @@ internal class RegisterUserDataFragment : Fragment() {
         navigator.openRegisterHobbies(findNavController(), user)
     }
 
-    private fun showError() {
+    private fun onShowError() {
         binding.showSnackbar(getString(R.string.register_data_this_email_already_exists_in_database))
     }
 

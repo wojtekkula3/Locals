@@ -4,10 +4,10 @@ import com.wojciechkula.locals.domain.model.HobbyModel
 
 sealed class RegisterHobbiesViewEvent {
 
-    object OpenDashboard : RegisterHobbiesViewEvent()
+    object GetGroupsForExplore : RegisterHobbiesViewEvent()
 
-    data class GetHighPriorityHobbies(
-        val priorityHighHobbiesList: ArrayList<HobbyModel>?,
+    data class GetGeneralHobbies(
+        val generalHobbiesList: ArrayList<HobbyModel>?,
         val selectedHobbiesList: ArrayList<HobbyModel>?
     ) : RegisterHobbiesViewEvent()
 
@@ -15,6 +15,4 @@ sealed class RegisterHobbiesViewEvent {
         val customHobbiesList: ArrayList<HobbyModel>?,
         val selectedHobbiesList: ArrayList<HobbyModel>?
     ) : RegisterHobbiesViewEvent()
-
-    data class Error(val message: String?) : RegisterHobbiesViewEvent()
 }

@@ -1,6 +1,5 @@
 package com.wojciechkula.locals.data.repository
 
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.wojciechkula.locals.data.datasource.FirebaseAuthDataSource
 import com.wojciechkula.locals.domain.repository.AuthRepository
@@ -16,5 +15,5 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun isNewUser(email: String): Boolean = firebaseAuthDataSource.isNewUser(email)
 
-    override fun logOut() : Unit = firebaseAuthDataSource.logOut()
+    override fun logOut(): Unit = firebaseAuthDataSource.logOut()
 }

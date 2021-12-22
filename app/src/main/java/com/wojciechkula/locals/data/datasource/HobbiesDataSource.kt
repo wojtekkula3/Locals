@@ -12,10 +12,11 @@ class HobbiesDataSource @Inject constructor() {
 
     private val db = Firebase.firestore
 
-    suspend fun getHobbiesPriorityHigh(): ArrayList<Hobby> =
+    suspend fun getHobbiesGeneral(): ArrayList<Hobby> =
         suspendCoroutine { continuation ->
             db.collection("Hobbies")
-                .whereEqualTo("priority", "high")
+                .whereEqualTo("general", true)
+                .orderBy("name")
                 .get()
                 .addOnCompleteListener { task ->
                     var hobbiesList = ArrayList<Hobby>()
@@ -24,10 +25,9 @@ class HobbiesDataSource @Inject constructor() {
                             val hobby = document.toObject(Hobby::class.java)
                             hobbiesList.add(hobby)
                         }
-                        Timber.d(hobbiesList.toString())
                         continuation.resume(hobbiesList)
                     } else {
-                        Timber.e(task.exception, "Error getting documents: ")
+                        Timber.e(task.exception, "Error getting documents ")
                     }
                 }
         }
@@ -37,6 +37,7 @@ class HobbiesDataSource @Inject constructor() {
             db.collection("Hobbies")
                 .whereGreaterThanOrEqualTo("name", name)
                 .whereLessThanOrEqualTo("name", name + "\uF7FF")
+                .orderBy("name")
                 .get()
                 .addOnCompleteListener { task ->
                     var hobbiesList = ArrayList<Hobby>()
@@ -45,7 +46,6 @@ class HobbiesDataSource @Inject constructor() {
                             val hobby = document.toObject(Hobby::class.java)
                             hobbiesList.add(hobby)
                         }
-                        Timber.d(hobbiesList.toString())
                         continuation.resume(hobbiesList)
                     } else {
                         Timber.e(task.exception, "Error getting documents: ")

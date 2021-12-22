@@ -38,8 +38,7 @@ class LoginViewModel @Inject constructor(
                 loginUserInteractor(email, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            _viewEvent.postValue(LoginViewEvent.OpenDashboard)
-                            _showLoading.postValue(false)
+                            _viewEvent.postValue(LoginViewEvent.GetGroupsForExplore)
                         }
                     }
                     .addOnFailureListener { e ->

@@ -102,7 +102,7 @@ class RegisterUserDataViewModel @Inject constructor(
         }
     }
 
-    fun openRegisterHobbies(email: String) {
+    fun onNextClick(email: String) {
         _showLoading.postValue(true)
         viewModelScope.launch {
             if (_viewState.value?.nextActionEnabled == true) {

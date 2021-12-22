@@ -1,14 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/ThemeOverlay.Locals.Explore"
     tools:context=".presentation.explore.ExploreFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/Widget.Locals.ToolBarStyle"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:title="Explore"
+            app:titleTextColor="@color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/top_bar"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <HorizontalScrollView
+            android:id="@+id/selectedHobbiesScrollView"
+            android:layout_width="185dp"
+            android:layout_height="50dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:scrollbars="none">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/selectedHobbiesChipGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingTop="2dp"
+                android:paddingRight="10dp" />
+        </HorizontalScrollView>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/selectedHobbiesScrollView"
+            android:background="@color/blue_700" />
+
+        <SeekBar
+            android:id="@+id/distanceSeekBar"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/selectedHobbiesScrollView"
+            android:max="100"
+            android:min="0"
+            android:progress="10" />
+
+        <TextView
+            android:id="@+id/distanceKMLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toEndOf="@id/distanceSeekBar"
+            android:text="10 km"
+            android:textAlignment="center" />
+
+    </RelativeLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/searchHobbiesCardView"
+        android:layout_width="match_parent"
+        android:layout_height="155dp"
+        android:layout_marginTop="52dp"
+        android:visibility="gone"
+        app:cardCornerRadius="10dp">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/searchHobbiesChipGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingTop="8dp"
+                android:paddingRight="10dp" />
+        </androidx.core.widget.NestedScrollView>
+
+        <TextView
+            android:id="@+id/thereIsNoSuchInterestLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/explore_there_is_no_such_interest"
+            android:textAppearance="?textAppearanceCaption" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/groupsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello! This is explore fragment!" />
+        android:layout_marginTop="50dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/emptyListInfoLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/explore_there_is_no_groups_to_show"
+        android:textAppearance="?textAppearanceCaption" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/blue_400"
+        android:src="@drawable/ic_add"
+        android:tintMode="@color/white" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

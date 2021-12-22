@@ -1,11 +1,12 @@
 package com.wojciechkula.locals.presentation.register.hobbies
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.children
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -18,6 +19,8 @@ import com.wojciechkula.locals.databinding.FragmentRegisterHobbiesBinding
 import com.wojciechkula.locals.domain.model.HobbyModel
 import com.wojciechkula.locals.extension.showSnackbar
 import com.wojciechkula.locals.navigation.RegisterHobbiesNavigator
+import com.wojciechkula.locals.presentation.common.SharedViewEvent
+import com.wojciechkula.locals.presentation.common.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.dropWhile
 import kotlinx.coroutines.flow.launchIn
@@ -31,7 +34,8 @@ internal class RegisterHobbiesFragment : Fragment() {
 
     @Inject
     lateinit var navigator: RegisterHobbiesNavigator
-    val viewModel: RegisterHobbiesViewModel by viewModels()
+    private val viewModel: RegisterHobbiesViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private var _binding: FragmentRegisterHobbiesBinding? = null
     private val binding
@@ -66,6 +70,8 @@ internal class RegisterHobbiesFragment : Fragment() {
             nextButton.setOnClickListener {
                 viewModel.onNextClick(args)
             }
+            backButton.setOnClickListener { findNavController().popBackStack() }
+
         }
     }
 
@@ -81,6 +87,7 @@ internal class RegisterHobbiesFragment : Fragment() {
         viewModel.viewState.observe(viewLifecycleOwner, ::bindState)
         viewModel.viewEvent.observe(viewLifecycleOwner, ::handleEvents)
         viewModel.showLoading.observe(viewLifecycleOwner, ::handleLoading)
+        sharedViewModel.viewEvent.observe(viewLifecycleOwner, ::handleSharedEvents)
     }
 
     private fun bindState(state: RegisterHobbiesViewState) {
@@ -90,7 +97,7 @@ internal class RegisterHobbiesFragment : Fragment() {
             if (!state.selectedHobbiesList.isNullOrEmpty()) {
                 selectedHobbiesChipGroup.removeAllViews()
                 for (hobby in state.selectedHobbiesList) {
-                    selectedHobbiesChipGroup.addView(createSelectedChip(hobby))
+                    selectedHobbiesChipGroup.addView(createChip(hobby, true))
                 }
             }
         }
@@ -98,10 +105,9 @@ internal class RegisterHobbiesFragment : Fragment() {
 
     private fun handleEvents(event: RegisterHobbiesViewEvent) {
         when (event) {
-            is RegisterHobbiesViewEvent.GetHighPriorityHobbies -> getHighPriorityHobbies(event)
+            is RegisterHobbiesViewEvent.GetGeneralHobbies -> getGeneralHobbies(event)
             is RegisterHobbiesViewEvent.GetCustomHobbies -> getCustomHobbies(event)
-            is RegisterHobbiesViewEvent.Error -> onError(event)
-            is RegisterHobbiesViewEvent.OpenDashboard -> openDashboard()
+            is RegisterHobbiesViewEvent.GetGroupsForExplore -> onGetGroupsForExplore()
         }
     }
 
@@ -109,17 +115,22 @@ internal class RegisterHobbiesFragment : Fragment() {
         LoadingDialogFragment.toggle(childFragmentManager, isLoading)
     }
 
-    private fun getHighPriorityHobbies(event: RegisterHobbiesViewEvent.GetHighPriorityHobbies) {
+    private fun handleSharedEvents(event: SharedViewEvent) {
+        when (event) {
+            is SharedViewEvent.OpenDashboard -> onOpenDashboard()
+        }
+    }
+
+    private fun getGeneralHobbies(event: RegisterHobbiesViewEvent.GetGeneralHobbies) {
         lifecycleScope.launch {
-            if (event.priorityHighHobbiesList != null) {
+            if (event.generalHobbiesList != null) {
                 binding.searchHobbiesChipGroup.removeAllViews()
-                for (hobby in event.priorityHighHobbiesList) {
-                    binding.searchHobbiesChipGroup.addView(createChip(hobby))
+                for (hobby in event.generalHobbiesList) {
+                    binding.searchHobbiesChipGroup.addView(createChip(hobby, false))
                 }
 
                 val chipGroup = binding.searchHobbiesChipGroup.children
                     .map { it as Chip }
-
 
                 if (event.selectedHobbiesList != null) {
                     for (chip in chipGroup) {
@@ -141,7 +152,7 @@ internal class RegisterHobbiesFragment : Fragment() {
 
                 binding.searchHobbiesChipGroup.removeAllViews()
                 for (hobby in event.customHobbiesList) {
-                    binding.searchHobbiesChipGroup.addView(createChip(hobby))
+                    binding.searchHobbiesChipGroup.addView(createChip(hobby, false))
 
                 }
 
@@ -162,45 +173,30 @@ internal class RegisterHobbiesFragment : Fragment() {
         }
     }
 
-    private fun onError(event: RegisterHobbiesViewEvent.Error) {
-        if (event.message != null) {
-            binding.showSnackbar(event.message)
-        }
+    private fun onError(message: String) {
+        binding.showSnackbar(message)
     }
 
-    private fun openDashboard() {
+    private fun onGetGroupsForExplore() {
+        sharedViewModel.getGroupsForExplore()
+    }
+
+    private fun onOpenDashboard() {
         navigator.openDashboard(findNavController())
     }
 
-    private fun createChip(hobby: HobbyModel): Chip {
+    private fun createChip(hobby: HobbyModel, isChecked: Boolean): Chip {
         val chip = Chip(context)
         val drawable =
-            ChipDrawable.createFromAttributes(layoutInflater.context, null, 0, R.style.Widget_Locals_Chip)
+            ChipDrawable.createFromAttributes(layoutInflater.context, null, 0, R.style.Widget_Locals_RegisterChip)
         chip.setChipDrawable(drawable)
         chip.text = hobby.name
+        chip.isChecked = isChecked
 
         chip.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 viewModel.addHobby(hobby)
                 chip.visibility = View.GONE
-            } else {
-                viewModel.removeHobby(hobby)
-            }
-        }
-        return chip
-    }
-
-    private fun createSelectedChip(hobby: HobbyModel): Chip {
-        val chip = Chip(context)
-        val drawable =
-            ChipDrawable.createFromAttributes(layoutInflater.context, null, 0, R.style.Widget_Locals_Chip)
-        chip.setChipDrawable(drawable)
-        chip.text = hobby.name
-        chip.isChecked = true
-
-        chip.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                viewModel.addHobby(hobby)
             } else {
                 viewModel.removeHobby(hobby)
                 chip.visibility = View.GONE

@@ -4,19 +4,19 @@
     <item
         android:id="@+id/nav_explore"
         android:enabled="true"
-        android:icon="@drawable/ic_chat"
-        android:title="My groups" />
+        android:icon="@drawable/ic_explore"
+        android:title="@string/bottom_nav_explore" />
 
     <item
         android:id="@+id/nav_my_groups"
         android:enabled="true"
-        android:icon="@drawable/ic_explore"
-        android:title="Explore" />
+        android:icon="@drawable/ic_chat"
+        android:title="@string/bottom_nav_my_groups" />
 
     <item
         android:id="@+id/nav_profile"
         android:enabled="true"
         android:icon="@drawable/ic_person"
-        android:title="Profile" />
+        android:title="@string/bottom_nav_profile" />
 
 </menu>

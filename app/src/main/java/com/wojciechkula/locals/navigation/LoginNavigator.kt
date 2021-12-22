@@ -11,7 +11,7 @@ internal class LoginNavigator @Inject constructor() {
         navController.navigate(direction)
     }
 
-    fun openForgotPassword(navController: NavController){
+    fun openForgotPassword(navController: NavController) {
         val direction = LoginFragmentDirections.openForgotPassword()
         navController.navigate(direction)
     }

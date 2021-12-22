@@ -1,11 +1,7 @@
 package com.wojciechkula.locals.di
 
-import com.wojciechkula.locals.data.repository.AuthRepositoryImpl
-import com.wojciechkula.locals.data.repository.HobbyRepositoryImpl
-import com.wojciechkula.locals.data.repository.RegisterRepositoryImpl
-import com.wojciechkula.locals.domain.repository.AuthRepository
-import com.wojciechkula.locals.domain.repository.HobbyRepository
-import com.wojciechkula.locals.domain.repository.RegisterRepository
+import com.wojciechkula.locals.data.repository.*
+import com.wojciechkula.locals.domain.repository.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -24,4 +20,9 @@ abstract class RepositoriesModule {
     @Binds
     abstract fun hobbyRepository(repository: HobbyRepositoryImpl): HobbyRepository
 
+    @Binds
+    abstract fun groupRepository(repository: GroupRepositoryImpl): GroupRepository
+
+    @Binds
+    abstract fun userRepository(repositoryImpl: UserRepositoryImpl): UserRepository
 }

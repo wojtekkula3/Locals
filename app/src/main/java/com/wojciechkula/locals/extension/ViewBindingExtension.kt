@@ -1,7 +1,6 @@
 package com.wojciechkula.locals.extension
 
 import android.annotation.SuppressLint
-import android.view.View
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar

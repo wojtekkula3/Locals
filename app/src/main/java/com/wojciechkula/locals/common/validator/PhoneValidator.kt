@@ -1,6 +1,5 @@
 package com.wojciechkula.locals.common.validator
 
-import android.util.Patterns
 import javax.inject.Inject
 
 class PhoneValidator @Inject constructor() {

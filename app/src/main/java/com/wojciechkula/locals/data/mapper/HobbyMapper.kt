@@ -7,15 +7,13 @@ import javax.inject.Inject
 class HobbyMapper @Inject constructor() {
 
     fun mapToDomain(hobby: Hobby): HobbyModel {
-        return hobby?.let {
-            HobbyModel(hobby.name, hobby.priority, hobby.language)
-        }
+        return HobbyModel(hobby.name, hobby.general, hobby.language)
     }
 
     fun mapToEntity(hobby: HobbyModel): Hobby =
         Hobby(
             name = hobby.name,
-            priority = hobby.priority,
+            general = hobby.general,
             language = hobby.language
         )
 }

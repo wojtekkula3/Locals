@@ -1,10 +1,10 @@
 package com.wojciechkula.locals.presentation.dashboard
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -41,6 +41,16 @@ internal class DashboardFragment : Fragment() {
 
     private fun getDashboardNestedNavController(): NavController {
         val navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
+        navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.exploreFragment, R.id.myGroupsFragment, R.id.profileFragment -> setBottomNavVisibility(View.VISIBLE)
+                else -> setBottomNavVisibility(View.GONE)
+            }
+        }
         return navHostFragment.navController
+    }
+
+    private fun setBottomNavVisibility(visibility: Int) {
+        binding.bottomNavigationView.visibility = visibility
     }
 }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Locals</string>
+    <string name="log_in_title">Zaloguj</string>
+    <string name="log_in_email">Email</string>
+    <string name="log_in_password">Hasło</string>
+    <string name="log_in_forgot_password"><b><u>Zapomniałem hasła</u></b></string>
+    <string name="log_in_sign_in_button">Zaloguj się</string>
+    <string name="log_in_i_am_new_here">Jestem tu nowy</string>
+    <string name="log_in_credentials_error">Email lub/i hasło jest niepoprawne</string>
+    <string name="common_dialog_loading">Proszę czekać...</string>
+    <string name="register_information_welcome_friend">Witaj towarzyszu!</string>
+    <string name="register_information_introduction">Locals to aplikacja, która pomoże Ci poznać mieszkańców ze swojej okolicy. Na podstawie twoich hobby zaproponujemy ci rozmowy grupowe, które możesz polubić. \n\nI nie martw się, Twoja lokalizacja i dane osobowe są tutaj bezpieczne - Tylko Ty decydujesz, które dane są wyświetlane dla innych użytkowników.</string>
+    <string name="register_information_start_registration">Zarejestruj się</string>
+    <string name="register_data_insert_your_data">Dane personalne</string>
+    <string name="register_data_add_avatar">Dodaj avatar</string>
+    <string name="register_data_name">Imie</string>
+    <string name="register_data_surname">Nazwisko</string>
+    <string name="register_data_email">Email</string>
+    <string name="register_data_password">Hasło</string>
+    <string name="register_data_phone_number">Numer telefonu</string>
+    <string name="register_data_accept_terms_and_conditions">Akceptuj zasady i warunki</string>
+    <string name="register_data_this_email_already_exists_in_database">Ten email już istnieje w bazie danych</string>
+    <string name="register_user_data_name_is_required">Imię jest wymagane</string>
+    <string name="register_user_data_wrong_email">Błędny email</string>
+    <string name="register_user_data_password_requirements">Wprowadź przynajmniej 8 znaków, dużą literę, numer i znak specjalny</string>
+    <string name="explore_explore">Szukaj...</string>
+    <string name="explore_there_is_no_such_interest">Nie ma takiego zainteresowania</string>
+    <string name="explore_join">Dołącz</string>
+    <string name="explore_distance">Odległość:\u0020</string>
+    <string name="explore_there_is_no_groups_to_show">Nie ma grup z takimi kryteriami</string>
+    <string name="common_next">Dalej</string>
+    <string name="register_hobbies_select_at_from_3_to_max_20_interests">Wybierz od 3 do 20 zainteresowań</string>
+    <string name="register_hobbies_select_your_interests">Twoje zainteresowania</string>
+    <string name="register_user_data_insert_correct_number_or_leave_empty">Wprowadź poprawny numer lub pozostaw puste pole</string>
+    <string name="hello_blank_fragment">Witaj pusty fragmencie</string>
+    <string name="bottom_nav_profile">Profil</string>
+    <string name="bottom_nav_explore">Eksploruj</string>
+    <string name="bottom_nav_my_groups">Moje grupy</string>
+    <string name="profile_about_me">O mnie</string>
+    <string name="profile_name">Imię</string>
+    <string name="profile_surname">Nazwisko</string>
+    <string name="profile_email">Email</string>
+    <string name="profile_phone">Numer telefonu</string>
+    <string name="profile_personal_information">Informacje personalne</string>
+    <string name="profile_my_hobbies">Moje zainteresowania</string>
+    <string name="profile_change">Zmień</string>
+    <string name="profile_change_password">Zmień hasło</string>
+    <string name="profile_log_out">Wyloguj się</string>
+    <string name="public_visibiliy_info">Określ, które informacje mogą być widoczne w twoim profilu dla reszty użytkowników.</string>
+    <string name="public_public_visibility">Widoczność informacji</string>
+    <string name="profile_empty">(brak)</string>
+    <string name="explore_you_need_accept_location_permissions">Aby używać aplikacji musisz zezwolić na dostęp do lokalizacji urządzenia.</string>
+
+</resources>
