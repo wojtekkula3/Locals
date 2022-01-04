@@ -12,7 +12,14 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.wojciechkula.locals.data.entity.*
+import com.wojciechkula.locals.data.entity.Group
+import com.wojciechkula.locals.data.entity.Hobby
+import com.wojciechkula.locals.data.entity.Location
+import com.wojciechkula.locals.data.entity.User
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -22,6 +29,7 @@ class GroupsDataSource @Inject constructor(private val fusedLocationClient: Fuse
 
     private val db = Firebase.firestore
 
+    // NOT CHECKED YET
     suspend fun addGroup(group: Group): DocumentReference = suspendCoroutine { continuation ->
         db.collection("Groups")
             .add(group)
@@ -54,7 +62,7 @@ class GroupsDataSource @Inject constructor(private val fusedLocationClient: Fuse
                 val tasks: MutableList<Task<QuerySnapshot>> = ArrayList()
                 for (b in bounds) {
                     val q: Query = db.collection("Groups")
-                        .orderBy("Location.geohash")
+                        .orderBy("location.geohash")
                         .startAt(b.startHash)
                         .endAt(b.endHash)
                     tasks.add(q.get())
@@ -67,8 +75,8 @@ class GroupsDataSource @Inject constructor(private val fusedLocationClient: Fuse
                         for (task in tasks) {
                             val snap = task.result
                             for (doc in snap.documents) {
-                                val lat = doc.getDouble("Location.latitude")!!
-                                val lng = doc.getDouble("Location.longitude")!!
+                                val lat = doc.getDouble("location.latitude")!!
+                                val lng = doc.getDouble("location.longitude")!!
 
                                 // We have to filter out a few false positives due to GeoHash
                                 // accuracy, but most will match
@@ -77,31 +85,31 @@ class GroupsDataSource @Inject constructor(private val fusedLocationClient: Fuse
 //                                val members = doc.get("members") as ArrayList<Map<Member, Member>>
 //                                val memb = members.map{ member -> member.}
 
-                                val membersHashMap = doc.get("members") as List<Map<String, Any>>
-                                val members: ArrayList<Member> = arrayListOf()
-                                for (member in membersHashMap) {
-
-                                    val member = Member(
-                                        name = member["name"] as String,
-                                        surname = member["surname"] as String?,
-                                        userId = member["userId"] as String,
-                                        avatar = member["avatar"] as String
-                                    )
-                                    members.add(member)
-                                }
+//                                val membersHashMap = doc.get("members") as List<Map<String, Any>>
+//                                val members: ArrayList<Member> = arrayListOf()
+//                                for (member in membersHashMap) {
+//
+//                                    val member = Member(
+//                                        name = member["name"] as String,
+//                                        surname = member["surname"] as String?,
+//                                        userId = member["userId"] as String,
+//                                        avatar = member["avatar"] as String
+//                                    )
+//                                    members.add(member)
+//                                }
 
                                 val group = Group(
                                     id = doc.id,
                                     name = doc.get("name") as String,
                                     location = Location(
-                                        doc.get("Location.geohash") as String,
-                                        doc.get("Location.latitude") as Double,
-                                        doc.get("Location.longitude") as Double,
+                                        doc.get("location.geohash") as String,
+                                        doc.get("location.latitude") as Double,
+                                        doc.get("location.longitude") as Double,
                                     ),
                                     distance = distanceInM,
                                     avatar = null,
                                     hobbies = doc.get("hobbies") as ArrayList<String>,
-                                    members = members
+                                    members = doc.get("members") as ArrayList<String>,
                                 )
 //                                Timber.d(group.members.toString())
 //                                Dla lokacji oddalonej o 75 600 m, po wybraniu odległości 75km
@@ -127,7 +135,7 @@ class GroupsDataSource @Inject constructor(private val fusedLocationClient: Fuse
                         var groupsThatUserIsAMember: ArrayList<Group> = arrayListOf()
                         for (group in matchingGroups) {
                             for (member in group.members) {
-                                if (member.userId == user.documentId) {
+                                if (member == user.id) {
                                     groupsThatUserIsAMember.add(group)
                                 }
                             }
@@ -141,20 +149,36 @@ class GroupsDataSource @Inject constructor(private val fusedLocationClient: Fuse
             }
         }
 
+    suspend fun getUserGroups(user: User): Flow<List<Group>> = callbackFlow {
+        val query = db.collection("Groups")
+            .whereArrayContains("members", user.id)
+            .orderBy("latestMessage.sentAt", Query.Direction.DESCENDING)
+
+        val snapshotListener = query.addSnapshotListener { snapshot, error ->
+            if (error == null) {
+                if (snapshot != null) {
+                    this.trySend(snapshot.toObjects(Group::class.java)).isSuccess
+                } else {
+                    this.trySend(emptyList())
+                }
+            } else {
+                cancel(message = "Error while getting users chats.", cause = error)
+            }
+        }
+        awaitClose {
+            snapshotListener.remove()
+            cancel()
+        }
+    }
+
     suspend fun joinGroup(id: String, user: User): Boolean = suspendCoroutine { continuation ->
         val reference = db.document("/Groups/$id")
 
-        val userToSend = HashMap<String, Any>()
-        userToSend["avatar"] = user.avatar.toString()
-        userToSend["name"] = user.name
-        userToSend["surname"] = user.surname.toString()
-        userToSend["userId"] = user.documentId
-
-        val addGroupToUser = db.collection("Users").document(user.documentId)
+        val addGroupToUser = db.collection("Users").document(user.id)
             .update("groups", FieldValue.arrayUnion(reference))
 
         val addMemberToGroup = db.collection("Groups").document(id)
-            .update("members", FieldValue.arrayUnion(userToSend))
+            .update("members", FieldValue.arrayUnion(user.id))
 
         Tasks.whenAllSuccess<Any>(addGroupToUser, addMemberToGroup)
             .addOnSuccessListener {

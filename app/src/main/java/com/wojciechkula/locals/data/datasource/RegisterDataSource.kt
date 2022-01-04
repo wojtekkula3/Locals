@@ -32,6 +32,19 @@ class RegisterDataSource @Inject constructor() {
     suspend fun registerUser(email: String, password: String): Task<AuthResult> =
         auth.createUserWithEmailAndPassword(email, password)
 
-    suspend fun registerUserData(user: User): Task<DocumentReference> = db.collection("Users").add(user)
+    suspend fun registerUserData(user: User): Task<DocumentReference> {
+        val user = User(
+            name = user.name,
+            surname = user.surname,
+            email = user.email,
+            avatar = user.avatar,
+            phoneNumber = user.phoneNumber,
+            hobbies = user.hobbies,
+            about = user.about,
+            elementsVisibility = user.elementsVisibility,
+            groups = user.groups
+        )
+        return db.collection("Users").add(user)
+    }
 
 }

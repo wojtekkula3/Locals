@@ -8,6 +8,6 @@
     <fragment
         android:id="@+id/myGroupsFragment"
         android:name="com.wojciechkula.locals.presentation.mygroups.MyGroupsFragment"
-        android:label="fragment_my_groups"
+        android:label="My groups"
         tools:layout="@layout/fragment_my_groups" />
 </navigation>

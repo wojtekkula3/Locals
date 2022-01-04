@@ -4,6 +4,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.wojciechkula.locals.data.entity.User
+import timber.log.Timber
 import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -23,6 +24,7 @@ class UserDataSource @Inject constructor() {
                     var user: User = User()
                     for (document in task.result) {
                         user = document.toObject(User::class.java)
+                        Timber.d(user.toString())
                     }
                     continuation.resume(user)
                 }
@@ -30,7 +32,7 @@ class UserDataSource @Inject constructor() {
 
     suspend fun changeEmailVisibility(isVisible: Boolean, user: User): Boolean =
         suspendCoroutine { continuation ->
-            db.collection("Users").document(user.documentId)
+            db.collection("Users").document(user.id)
                 .update("elementsVisibility.email", isVisible)
                 .addOnCompleteListener { task ->
                     continuation.resume(true)
@@ -42,7 +44,7 @@ class UserDataSource @Inject constructor() {
 
     suspend fun changePhoneNumberVisibility(isVisible: Boolean, user: User): Boolean =
         suspendCoroutine { continuation ->
-            db.collection("Users").document(user.documentId)
+            db.collection("Users").document(user.id)
                 .update("elementsVisibility.phoneNumber", isVisible)
                 .addOnCompleteListener { task ->
                     continuation.resume(true)
@@ -54,7 +56,7 @@ class UserDataSource @Inject constructor() {
 
     suspend fun changeHobbiesVisibility(isVisible: Boolean, user: User): Boolean =
         suspendCoroutine { continuation ->
-            db.collection("Users").document(user.documentId)
+            db.collection("Users").document(user.id)
                 .update("elementsVisibility.hobbies", isVisible)
                 .addOnCompleteListener { task ->
                     continuation.resume(true)

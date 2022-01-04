@@ -27,6 +27,7 @@ class UserMapper @Inject constructor(
     )
 
     fun mapToDomain(user: User): UserModel = UserModel(
+        id = user.id,
         name = user.name,
         surname = user.surname,
         email = user.email,

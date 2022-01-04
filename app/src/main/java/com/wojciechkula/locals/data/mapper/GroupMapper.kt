@@ -2,10 +2,9 @@ package com.wojciechkula.locals.data.mapper
 
 import com.wojciechkula.locals.data.entity.Group
 import com.wojciechkula.locals.data.entity.Location
-import com.wojciechkula.locals.data.entity.Member
 import com.wojciechkula.locals.domain.model.GroupModel
+import com.wojciechkula.locals.domain.model.LatestMessage
 import com.wojciechkula.locals.domain.model.LocationModel
-import com.wojciechkula.locals.domain.model.MemberModel
 import javax.inject.Inject
 
 class GroupMapper @Inject constructor(private val mapper: MemberMapper) {
@@ -18,7 +17,7 @@ class GroupMapper @Inject constructor(private val mapper: MemberMapper) {
             distance = group.distance,
             avatar = group.avatar,
             hobbies = group.hobbies,
-            members = group.members.map { member -> mapper.mapToEntity(member) } as ArrayList<Member>
+            members = group.members,
         )
 
     fun mapToDomain(group: Group): GroupModel =
@@ -29,6 +28,23 @@ class GroupMapper @Inject constructor(private val mapper: MemberMapper) {
             distance = group.distance,
             avatar = group.avatar,
             hobbies = group.hobbies,
-            members = group.members.map { member -> mapper.mapToDomain(member) } as ArrayList<MemberModel>
+            members = group.members,
+            latestMessage = LatestMessage(
+                group.latestMessage.authorId,
+                group.latestMessage.authorName,
+                group.latestMessage.message,
+                group.latestMessage.sentAt
+            )
         )
+
+    fun mapListToDomain(groups: List<Group>?): List<GroupModel> {
+        val groupsModelList: ArrayList<GroupModel> = arrayListOf()
+        if (groups != null) {
+            for (group in groups) {
+                val groupModel = mapToDomain(group)
+                groupsModelList.add(groupModel)
+            }
+        }
+        return groupsModelList
+    }
 }

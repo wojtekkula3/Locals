@@ -7,6 +7,8 @@ import com.wojciechkula.locals.data.mapper.HobbyMapper
 import com.wojciechkula.locals.domain.model.GroupModel
 import com.wojciechkula.locals.domain.model.HobbyModel
 import com.wojciechkula.locals.domain.repository.GroupRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class GroupRepositoryImpl @Inject constructor(
@@ -26,6 +28,9 @@ class GroupRepositoryImpl @Inject constructor(
             .map { group -> groupMapper.mapToDomain(group) }
 
     }
+
+    override suspend fun getUserGroups(): Flow<List<GroupModel>> = dataSource.getUserGroups(userDataSource.getUser())
+        .map { group -> groupMapper.mapListToDomain(group) }
 
     override suspend fun joinGroup(groupId: String): Boolean = dataSource.joinGroup(groupId, userDataSource.getUser())
 }

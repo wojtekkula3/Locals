@@ -1,11 +1,12 @@
 package com.wojciechkula.locals.data.entity
 
 import com.google.firebase.firestore.DocumentId
+import com.google.firebase.firestore.DocumentReference
 
 data class User constructor(
 
     @DocumentId
-    val documentId: String = "",
+    val id: String = "",
     val name: String = "",
     val surname: String? = "",
     val email: String = "",
@@ -13,5 +14,6 @@ data class User constructor(
     val phoneNumber: String? = "",
     val hobbies: ArrayList<Hobby>? = arrayListOf(),
     val about: String? = "",
-    val elementsVisibility: PersonalElementsVisibility = PersonalElementsVisibility()
+    val elementsVisibility: PersonalElementsVisibility = PersonalElementsVisibility(),
+    val groups: ArrayList<DocumentReference> = arrayListOf()
 )

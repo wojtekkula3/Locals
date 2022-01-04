@@ -7,5 +7,6 @@ data class GroupModel constructor(
     val distance: Double,
     val avatar: String?,
     val hobbies: ArrayList<String>,
-    val members: ArrayList<MemberModel>,
+    val members: ArrayList<String>,
+    val latestMessage: LatestMessage
 )

@@ -1,7 +1,5 @@
 package com.wojciechkula.locals.presentation.explore.list
 
-import com.wojciechkula.locals.domain.model.MemberModel
-
 data class ExploreItem(
     val avatar: String?,
     val name: String,
@@ -9,5 +7,5 @@ data class ExploreItem(
     val hobbies: ArrayList<String>,
     val distance: Double,
     val size: Int = 0,
-    val members: ArrayList<MemberModel>
+    val members: ArrayList<String>
 )

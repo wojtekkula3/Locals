@@ -176,6 +176,9 @@ internal class ExploreFragment : Fragment(), EasyPermissions.PermissionCallbacks
                 for (hobby in state.selectedHobbiesList) {
                     selectedHobbiesChipGroup.addView(createChip(hobby, true))
                 }
+                binding.selectedHobbiesRelativeLayout.visibility = View.VISIBLE
+            } else {
+                binding.selectedHobbiesRelativeLayout.visibility = View.GONE
             }
         }
     }
