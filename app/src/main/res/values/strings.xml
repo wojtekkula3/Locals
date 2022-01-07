@@ -31,6 +31,9 @@
     <string name="register_user_data_wrong_email">Wrong email</string>
     <string name="register_user_data_password_requirements">At least 8 characters, a capital letter, number and special sign</string>
     <string name="register_user_data_insert_correct_number_or_leave_empty">Enter correct number or leave the empty field</string>
+    <string name="register_user_data_insert_your_data">Insert personal data</string>
+    <string name="register_user_data_add_avatar">Add avatar</string>
+
 
     <!-- Register user hobbies -->
     <string name="register_hobbies_select_your_interests">Select your  Interests</string>
@@ -38,15 +41,26 @@
 
     <!-- Common -->
     <string name="common_next">Next</string>
+    <string name="common_confirm">Confirm</string>
+    <string name="common_decline">Decline</string>
 
     <string name="explore_there_is_no_groups_to_show">There is no groups to show</string>
     <string name="explore_distance">Distance:\u0020</string>
     <string name="explore_join">Join</string>
     <string name="explore_there_is_no_such_interest">There is no such interest</string>
     <string name="explore_explore">Search...</string>
+    <string name="explore_you_need_accept_location_permissions">You need to accept localisation permissions to use this app.</string>
+    <string name="explore_create_new_group_content_description">Create new Group</string>
+    <string name="explore_10_km">10 km</string>
+    <string name="explore_enter_hobby_hint">Enter hobby...</string>
+
     <string name="bottom_nav_explore">Explore</string>
     <string name="bottom_nav_my_groups">My groups</string>
     <string name="bottom_nav_profile">Profile</string>
+
+    <string name="my_groups_you_dont_have_any_group_yet">You don\'t have any group yet</string>
+    <string name="my_groups_enter_name_hint">Enter name...</string>
+
     <string name="profile_about_me">About me</string>
     <string name="profile_name">Name</string>
     <string name="profile_surname">Surname</string>
@@ -57,22 +71,15 @@
     <string name="profile_change">Change</string>
     <string name="profile_change_password">Change password</string>
     <string name="profile_log_out">Log out</string>
-    <string name="public_visibiliy_info">Determine which elements can be visible in your profile for the rest of the users.</string>
-    <string name="public_public_visibility">Public visibility</string>
-    <string name="register_data_insert_your_data">Insert personal data</string>
-    <string name="register_data_add_avatar">Add avatar</string>
+    <string name="profile_public_visibility_info">Determine which elements can be visible in your profile for the rest of the users.</string>
+    <string name="profile_public_public_visibility">Public visibility</string>
     <string name="profile_empty">(empty)</string>
-    <string name="explore_you_need_accept_location_permissions">You need to accept localisation permissions to use this app.</string>
-    <string name="chat_type_a_message">Type a message...</string>
+
+    <string name="group_type_a_message">Type a message...</string>
     <string name="group_leave_the_group">Leave the Group</string>
     <string name="group_dialog_confirm_to_leave">Confirm to leave</string>
-    <string name="common_confirm">Confirm</string>
-    <string name="common_decline">Decline</string>
     <string name="group_are_you_sure_you_want_to_leave">Are you sure you want to leave the group?</string>
-    <string name="my_groups_you_dont_have_any_group_yet">You don\'t have any group yet</string>
     <string name="group_there_is_no_messages_yet_say_hello">There is no messages yet.\nSay \'Hello!\'</string>
-    <string name="explore_create_new_group_content_description">Create new Group</string>
-    <string name="explore_10_km">10 km</string>
     <string name="group_go_back_to_my_groups_content_desc">Go back to my groups</string>
     <string name="group_more_information_about_current_group_content_desc">More information about current group</string>
 

@@ -9,9 +9,9 @@ data class UserModel constructor(
     val phoneNumber: String?,
     val hobbies: ArrayList<HobbyModel>?,
     val about: String?,
-    val elementsVisibility: PersonalElementsVisibility
+    val elementsVisibility: PersonalElementsVisibilityModel
 ) {
-    constructor() : this("", "", "", "", "", "", arrayListOf(), "", PersonalElementsVisibility())
+    constructor() : this("", "", "", "", "", "", arrayListOf(), "", PersonalElementsVisibilityModel())
     constructor(
         name: String,
         surname: String?,
@@ -20,6 +20,6 @@ data class UserModel constructor(
         phoneNumber: String?,
         hobbies: ArrayList<HobbyModel>?,
         about: String?,
-        elementsVisibility: PersonalElementsVisibility
+        elementsVisibility: PersonalElementsVisibilityModel
     ) : this("", name, surname, email, avatar, phoneNumber, hobbies, about, elementsVisibility)
 }

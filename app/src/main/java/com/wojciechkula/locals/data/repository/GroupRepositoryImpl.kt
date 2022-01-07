@@ -1,6 +1,6 @@
 package com.wojciechkula.locals.data.repository
 
-import com.wojciechkula.locals.data.datasource.GroupsDataSource
+import com.wojciechkula.locals.data.datasource.GroupDataSource
 import com.wojciechkula.locals.data.datasource.UserDataSource
 import com.wojciechkula.locals.data.mapper.GroupMapper
 import com.wojciechkula.locals.data.mapper.HobbyMapper
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class GroupRepositoryImpl @Inject constructor(
-    private val dataSource: GroupsDataSource,
+    private val dataSource: GroupDataSource,
     private val userDataSource: UserDataSource,
     private val groupMapper: GroupMapper,
     private val hobbyMapper: HobbyMapper

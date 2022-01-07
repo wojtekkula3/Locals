@@ -11,12 +11,12 @@
         android:id="@+id/profileFragment"
         android:name="com.wojciechkula.locals.presentation.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/openLogin"
             app:destination="@id/nav_main"
             app:popUpTo="@id/nav_profile"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
 
 </navigation>

@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_below="@id/selectedHobbiesRelativeLayout"
-            android:background="@drawable/top_bar">
+            android:background="@drawable/background_explore_distance_bar">
 
             <SeekBar
                 android:id="@+id/distanceSeekBar"

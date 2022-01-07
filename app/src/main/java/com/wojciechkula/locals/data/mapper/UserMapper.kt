@@ -35,7 +35,7 @@ class UserMapper @Inject constructor(
         phoneNumber = user.phoneNumber,
         hobbies = user.hobbies?.map { hobby -> hobbyMapper.mapToDomain(hobby = hobby) } as ArrayList<HobbyModel>,
         about = user.about,
-        elementsVisibility = com.wojciechkula.locals.domain.model.PersonalElementsVisibility(
+        elementsVisibility = com.wojciechkula.locals.domain.model.PersonalElementsVisibilityModel(
             user.elementsVisibility.email,
             user.elementsVisibility.phoneNumber,
             user.elementsVisibility.hobbies

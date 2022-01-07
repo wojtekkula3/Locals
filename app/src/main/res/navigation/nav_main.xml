@@ -21,7 +21,7 @@
             android:id="@+id/openDashboard"
             app:destination="@id/dashboardFragment"
             app:popUpTo="@id/nav_main"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -39,7 +39,7 @@
             android:id="@+id/openDashboard"
             app:destination="@id/dashboardFragment"
             app:popUpTo="@id/nav_main"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/openForgotPassword"
             app:destination="@id/forgotPasswordFragment" />
@@ -76,7 +76,7 @@
             android:id="@+id/openDashboard"
             app:destination="@id/dashboardFragment"
             app:popUpTo="@id/nav_main"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
         <argument
             android:name="userData"
             app:argType="com.wojciechkula.locals.presentation.model.User" />

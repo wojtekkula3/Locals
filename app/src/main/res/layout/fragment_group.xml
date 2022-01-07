@@ -133,7 +133,7 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/background_chat_message_input"
         android:backgroundTint="@color/blue_950"
-        android:hint="@string/chat_type_a_message"
+        android:hint="@string/group_type_a_message"
         android:imeOptions="actionDone"
         android:importantForAutofill="no"
         android:inputType="text"

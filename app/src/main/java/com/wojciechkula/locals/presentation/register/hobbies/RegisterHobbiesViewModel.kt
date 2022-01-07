@@ -10,7 +10,7 @@ import com.wojciechkula.locals.domain.interactor.GetHobbiesInteractor
 import com.wojciechkula.locals.domain.interactor.RegisterUserDataInteractor
 import com.wojciechkula.locals.domain.interactor.RegisterUserInteractor
 import com.wojciechkula.locals.domain.model.HobbyModel
-import com.wojciechkula.locals.domain.model.PersonalElementsVisibility
+import com.wojciechkula.locals.domain.model.PersonalElementsVisibilityModel
 import com.wojciechkula.locals.domain.model.UserModel
 import com.wojciechkula.locals.extension.newBuilder
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -124,7 +124,7 @@ class RegisterHobbiesViewModel @Inject constructor(
                                 phoneNumber = args.userData.phoneNumber,
                                 hobbies = _viewState.value?.selectedHobbiesList,
                                 about = null,
-                                elementsVisibility = PersonalElementsVisibility(false, false, true)
+                                elementsVisibility = PersonalElementsVisibilityModel(false, false, true)
                             )
                             viewModelScope.launch {
                                 registerUserDataInteractor(user).addOnSuccessListener {

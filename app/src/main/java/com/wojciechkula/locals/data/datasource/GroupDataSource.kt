@@ -25,7 +25,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class GroupsDataSource @Inject constructor(private val fusedLocationClient: FusedLocationProviderClient) {
+class GroupDataSource @Inject constructor(private val fusedLocationClient: FusedLocationProviderClient) {
 
     private val db = Firebase.firestore
 

@@ -12,8 +12,8 @@
     <string name="register_information_welcome_friend">Witaj towarzyszu!</string>
     <string name="register_information_introduction">Locals to aplikacja, która pomoże Ci poznać mieszkańców ze swojej okolicy. Na podstawie twoich hobby zaproponujemy ci rozmowy grupowe, które możesz polubić. \n\nI nie martw się, Twoja lokalizacja i dane osobowe są tutaj bezpieczne - Tylko Ty decydujesz, które dane są wyświetlane dla innych użytkowników.</string>
     <string name="register_information_start_registration">Zarejestruj się</string>
-    <string name="register_data_insert_your_data">Dane personalne</string>
-    <string name="register_data_add_avatar">Dodaj avatar</string>
+    <string name="register_user_data_insert_your_data">Dane personalne</string>
+    <string name="register_user_data_add_avatar">Dodaj avatar</string>
     <string name="register_data_name">Imie</string>
     <string name="register_data_surname">Nazwisko</string>
     <string name="register_data_email">Email</string>
@@ -47,11 +47,11 @@
     <string name="profile_change">Zmień</string>
     <string name="profile_change_password">Zmień hasło</string>
     <string name="profile_log_out">Wyloguj się</string>
-    <string name="public_visibiliy_info">Określ, które informacje mogą być widoczne w twoim profilu dla reszty użytkowników.</string>
-    <string name="public_public_visibility">Widoczność informacji</string>
+    <string name="profile_public_visibility_info">Określ, które informacje mogą być widoczne w twoim profilu dla reszty użytkowników.</string>
+    <string name="profile_public_public_visibility">Widoczność informacji</string>
     <string name="profile_empty">(brak)</string>
     <string name="explore_you_need_accept_location_permissions">Aby używać aplikacji musisz zezwolić na dostęp do lokalizacji urządzenia.</string>
-    <string name="chat_type_a_message">Napisz wiadomość...</string>
+    <string name="group_type_a_message">Napisz wiadomość...</string>
     <string name="group_leave_the_group">Opuść grupę</string>
     <string name="group_dialog_confirm_to_leave">Opuść grupę</string>
     <string name="common_confirm">Potwierdź</string>
@@ -63,5 +63,7 @@
     <string name="explore_create_new_group_content_description">Stwórz nową grupę</string>
     <string name="group_go_back_to_my_groups_content_desc">Wróć do moich grup</string>
     <string name="group_more_information_about_current_group_content_desc">Więcej informacji o grupie</string>
+    <string name="explore_enter_hobby_hint">Wpisz hobby...</string>
+    <string name="my_groups_enter_name_hint">Wpisz nazwę...</string>
 
 </resources>

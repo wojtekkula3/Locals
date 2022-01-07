@@ -65,6 +65,7 @@ internal class ExploreFragment : Fragment(), EasyPermissions.PermissionCallbacks
         inflater.inflate(R.menu.explore_toolbar_menu, menu)
         val item = menu.findItem(R.id.search)
         searchView = item?.actionView as SearchView
+        searchView.queryHint=getString(R.string.explore_enter_hobby_hint)
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {

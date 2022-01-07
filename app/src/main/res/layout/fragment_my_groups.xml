@@ -23,9 +23,9 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
-        android:paddingTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="10dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -37,11 +37,11 @@
 
     <TextView
         android:id="@+id/emptyListInfoLabel"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/my_groups_you_dont_have_any_group_yet"
-        android:textAppearance="?textAppearanceCaption" />
+        android:textAppearance="?textAppearanceCaption"
+        android:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

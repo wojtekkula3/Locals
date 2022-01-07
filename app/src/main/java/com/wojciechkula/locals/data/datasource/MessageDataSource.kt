@@ -15,7 +15,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class ChatDataSource @Inject constructor() {
+class MessageDataSource @Inject constructor() {
 
     private val db = Firebase.firestore
 
@@ -61,7 +61,6 @@ class ChatDataSource @Inject constructor() {
 
         Tasks.whenAllSuccess<Any>(addNewMessage, changeMessage)
             .addOnSuccessListener {
-                it
                 continuation.resume(true)
             }
             .addOnFailureListener { exception ->

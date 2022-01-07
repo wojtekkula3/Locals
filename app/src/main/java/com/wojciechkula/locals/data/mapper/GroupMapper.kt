@@ -3,7 +3,7 @@ package com.wojciechkula.locals.data.mapper
 import com.wojciechkula.locals.data.entity.Group
 import com.wojciechkula.locals.data.entity.Location
 import com.wojciechkula.locals.domain.model.GroupModel
-import com.wojciechkula.locals.domain.model.LatestMessage
+import com.wojciechkula.locals.domain.model.LatestMessageModel
 import com.wojciechkula.locals.domain.model.LocationModel
 import javax.inject.Inject
 
@@ -29,7 +29,7 @@ class GroupMapper @Inject constructor(private val mapper: MemberMapper) {
             avatar = group.avatar,
             hobbies = group.hobbies,
             members = group.members,
-            latestMessage = LatestMessage(
+            latestMessage = LatestMessageModel(
                 group.latestMessage.authorId,
                 group.latestMessage.authorName,
                 group.latestMessage.message,

@@ -8,7 +8,7 @@ import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-class HobbiesDataSource @Inject constructor() {
+class HobbyDataSource @Inject constructor() {
 
     private val db = Firebase.firestore
 

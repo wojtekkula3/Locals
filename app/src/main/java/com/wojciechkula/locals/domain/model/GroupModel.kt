@@ -8,7 +8,7 @@ data class GroupModel constructor(
     val avatar: String?,
     val hobbies: ArrayList<String>,
     val members: ArrayList<String>,
-    val latestMessage: LatestMessage
+    val latestMessage: LatestMessageModel
 ) {
-    constructor() : this("", "", LocationModel(), 0.0, "", arrayListOf(), arrayListOf(), LatestMessage())
+    constructor() : this("", "", LocationModel(), 0.0, "", arrayListOf(), arrayListOf(), LatestMessageModel())
 }

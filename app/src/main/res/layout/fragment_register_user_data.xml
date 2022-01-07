@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/avatarImage"
+            android:id="@+id/avatarRegisterImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -47,12 +47,12 @@
             android:layout_width="130dp"
             android:layout_height="40dp"
             android:layout_marginTop="12dp"
-            android:text="@string/register_data_add_avatar"
+            android:text="@string/register_user_data_add_avatar"
             android:textAppearance="?textAppearanceB2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/avatarImage"
+            app:layout_constraintTop_toBottomOf="@+id/avatarRegisterImage"
             tools:ignore="TouchTargetSizeCheck" />
 
         <TextView
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="64dp"
-            android:text="@string/register_data_insert_your_data"
+            android:text="@string/register_user_data_insert_your_data"
             android:textAppearance="?textAppearanceH4"
             android:textColor="@color/blue_800"
             app:layout_constraintEnd_toEndOf="parent"

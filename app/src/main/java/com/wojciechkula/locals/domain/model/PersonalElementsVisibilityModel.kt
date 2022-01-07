@@ -1,6 +1,6 @@
 package com.wojciechkula.locals.domain.model
 
-data class PersonalElementsVisibility(
+data class PersonalElementsVisibilityModel(
     var email: Boolean,
     val phoneNumber: Boolean,
     val hobbies: Boolean,
