@@ -7,4 +7,6 @@ data class LatestMessage constructor(
     val authorName: String,
     val message: String,
     val sentAt: Timestamp,
-)
+) {
+    constructor() : this("", "", "", Timestamp.now())
+}

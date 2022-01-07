@@ -32,5 +32,11 @@ class GroupRepositoryImpl @Inject constructor(
     override suspend fun getUserGroups(): Flow<List<GroupModel>> = dataSource.getUserGroups(userDataSource.getUser())
         .map { group -> groupMapper.mapListToDomain(group) }
 
+    override suspend fun getGroup(groupId: String): Flow<GroupModel> =
+        dataSource.getGroup(groupId).map { group -> groupMapper.mapToDomain(group) }
+
     override suspend fun joinGroup(groupId: String): Boolean = dataSource.joinGroup(groupId, userDataSource.getUser())
+
+    override suspend fun leaveGroup(groupId: String): Boolean = dataSource.leaveGroup(groupId, userDataSource.getUser())
+
 }

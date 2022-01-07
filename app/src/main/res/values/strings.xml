@@ -63,5 +63,17 @@
     <string name="register_data_add_avatar">Add avatar</string>
     <string name="profile_empty">(empty)</string>
     <string name="explore_you_need_accept_location_permissions">You need to accept localisation permissions to use this app.</string>
+    <string name="chat_type_a_message">Type a message...</string>
+    <string name="group_leave_the_group">Leave the Group</string>
+    <string name="group_dialog_confirm_to_leave">Confirm to leave</string>
+    <string name="common_confirm">Confirm</string>
+    <string name="common_decline">Decline</string>
+    <string name="group_are_you_sure_you_want_to_leave">Are you sure you want to leave the group?</string>
+    <string name="my_groups_you_dont_have_any_group_yet">You don\'t have any group yet</string>
+    <string name="group_there_is_no_messages_yet_say_hello">There is no messages yet.\nSay \'Hello!\'</string>
+    <string name="explore_create_new_group_content_description">Create new Group</string>
+    <string name="explore_10_km">10 km</string>
+    <string name="group_go_back_to_my_groups_content_desc">Go back to my groups</string>
+    <string name="group_more_information_about_current_group_content_desc">More information about current group</string>
 
 </resources>

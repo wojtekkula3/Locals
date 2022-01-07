@@ -12,7 +12,7 @@
         <item name="boxBackgroundColor">@color/white</item>
         <item name="boxBackgroundMode">outline</item>
         <item name="startIconTint">@color/blue_800</item>
-        <item name="android:textColorHint">@color/gray_50</item>
+        <item name="android:textColorHint">@color/gray_500</item>
         <item name="hintTextAppearance">?textAppearanceOverline</item>
         <item name="materialThemeOverlay">@style/ThemeOverlay.Locals.TextInputEditText.OutlinedBox</item>
     </style>
@@ -51,5 +51,6 @@
 
     <style name="Widget.Locals.ToolBarStyle" parent="Theme.AppCompat">
         <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="android:background">@color/blue_900</item>
     </style>
 </resources>

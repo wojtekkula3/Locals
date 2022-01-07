@@ -158,7 +158,7 @@ internal class ProfileFragment : Fragment() {
 
                 if (about.isNullOrEmpty()) {
                     binding.aboutMeOutput.setTypeface(null, Typeface.ITALIC)
-                    binding.aboutMeOutput.setTextColor(ContextCompat.getColor(context!!, R.color.gray_50))
+                    binding.aboutMeOutput.setTextColor(ContextCompat.getColor(context!!, R.color.gray_500))
                     binding.aboutMeOutput.text = getString(R.string.profile_empty)
                 } else {
                     binding.aboutMeOutput.setTypeface(null, Typeface.NORMAL)

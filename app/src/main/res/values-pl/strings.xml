@@ -51,5 +51,17 @@
     <string name="public_public_visibility">Widoczność informacji</string>
     <string name="profile_empty">(brak)</string>
     <string name="explore_you_need_accept_location_permissions">Aby używać aplikacji musisz zezwolić na dostęp do lokalizacji urządzenia.</string>
+    <string name="chat_type_a_message">Napisz wiadomość...</string>
+    <string name="group_leave_the_group">Opuść grupę</string>
+    <string name="group_dialog_confirm_to_leave">Opuść grupę</string>
+    <string name="common_confirm">Potwierdź</string>
+    <string name="common_decline">Wyjdź</string>
+    <string name="group_are_you_sure_you_want_to_leave">Czy na pewno chcesz opuścić tą grupę?</string>
+    <string name="my_groups_you_dont_have_any_group_yet">Nie należysz do żadnej grupy</string>
+    <string name="group_there_is_no_messages_yet_say_hello">Nie ma jeszcze żadnej wiadomości. Przywitaj się pierwszy...</string>
+    <string name="explore_10_km">10 km</string>
+    <string name="explore_create_new_group_content_description">Stwórz nową grupę</string>
+    <string name="group_go_back_to_my_groups_content_desc">Wróć do moich grup</string>
+    <string name="group_more_information_about_current_group_content_desc">Więcej informacji o grupie</string>
 
 </resources>

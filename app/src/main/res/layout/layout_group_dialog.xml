@@ -1,0 +1,128 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/card_view_ractangle">
+
+    <ImageButton
+        android:id="@+id/closeButton"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_margin="2dp"
+        android:background="@drawable/ic_close"
+        android:padding="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/avatarCardView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/groupAvatarImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/avatar_default" />
+
+            <ImageButton
+                android:id="@+id/editAvatarButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="2dp"
+                android:background="@drawable/ic_edit_photo"
+                android:padding="8dp" />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/groupNameOutput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="24dp"
+        android:gravity="center"
+        android:textAppearance="?textAppearanceB1"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/avatarCardView"
+        tools:text="Chór ACPO" />
+
+    <ImageButton
+        android:id="@+id/editNameButton"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/ic_edit"
+        android:backgroundTint="@color/gray_500"
+        app:layout_constraintBottom_toBottomOf="@id/groupNameOutput"
+        app:layout_constraintStart_toEndOf="@id/groupNameOutput" />
+
+    <View
+        android:id="@+id/nameSeparatorView"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/gray_500"
+        app:layout_constraintTop_toBottomOf="@id/groupNameOutput" />
+
+    <TextView
+        android:id="@+id/groupHobbiesOutput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="24dp"
+        android:gravity="center"
+        android:textAppearance="?textAppearanceS2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/groupNameOutput"
+        tools:text="śpiew, muzyka rozrywkowa, konkursy, politechnika opolska" />
+
+    <ImageButton
+        android:id="@+id/editHobbiesButton"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/ic_edit"
+        android:backgroundTint="@color/gray_500"
+        app:layout_constraintBottom_toBottomOf="@id/groupHobbiesOutput"
+        app:layout_constraintStart_toEndOf="@id/groupHobbiesOutput" />
+
+    <View
+        android:id="@+id/hobbiesSeparatorView"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/gray_500"
+        app:layout_constraintTop_toBottomOf="@id/groupHobbiesOutput" />
+
+    <Button
+        android:id="@+id/leaveGroupButton"
+        style="?buttonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/group_leave_the_group"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/hobbiesSeparatorView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

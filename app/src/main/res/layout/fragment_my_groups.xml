@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/explore_there_is_no_groups_to_show"
+        android:text="@string/my_groups_you_dont_have_any_group_yet"
         android:textAppearance="?textAppearanceCaption" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.wojciechkula.locals.R
 
 class MyGroupsListAdapter(
-    private val onButtonClicked: (groupId: String) -> Unit
+    private val onButtonClicked: (selectedGroup: MyGroupsItem) -> Unit
 ) : ListAdapter<MyGroupsItem, MyGroupsViewHolder>(MyGroupsDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyGroupsViewHolder {

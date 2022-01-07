@@ -5,9 +5,25 @@
     android:id="@+id/nav_my_groups"
     app:startDestination="@id/myGroupsFragment">
 
+    <include app:graph="@navigation/nav_group" />
+
     <fragment
         android:id="@+id/myGroupsFragment"
         android:name="com.wojciechkula.locals.presentation.mygroups.MyGroupsFragment"
         android:label="My groups"
-        tools:layout="@layout/fragment_my_groups" />
+        tools:layout="@layout/fragment_my_groups">
+        <action
+            android:id="@+id/openGroup"
+            app:destination="@id/nav_group">
+            <argument
+                android:name="groupId"
+                app:argType="string" />
+            <argument
+                android:name="groupName"
+                app:argType="string" />
+            <argument
+                android:name="userId"
+                app:argType="string" />
+        </action>
+    </fragment>
 </navigation>

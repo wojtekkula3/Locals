@@ -5,36 +5,48 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wojciechkula.locals.R
 import com.wojciechkula.locals.common.dialog.LoadingDialogFragment
 import com.wojciechkula.locals.databinding.FragmentMyGroupsBinding
+import com.wojciechkula.locals.navigation.MyGroupsNavigator
+import com.wojciechkula.locals.presentation.common.SharedViewModel
+import com.wojciechkula.locals.presentation.common.SharedViewState
 import com.wojciechkula.locals.presentation.mygroups.list.MyGroupsItem
 import com.wojciechkula.locals.presentation.mygroups.list.MyGroupsListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class MyGroupsFragment : Fragment() {
+internal class MyGroupsFragment : Fragment() {
 
     private var _binding: FragmentMyGroupsBinding? = null
     private val binding
         get() = _binding!!
 
-    private val viewModel: MyGroupsViewModel by viewModels()
     private lateinit var searchView: SearchView
+    private val viewModel: MyGroupsViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+
+    @Inject
+    lateinit var navigator: MyGroupsNavigator
 
     private val adapter by lazy {
-        MyGroupsListAdapter { groupId -> viewModel.openGroup(groupId) }
+        MyGroupsListAdapter { selectedGroup -> viewModel.openGroup(selectedGroup) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        Timber.d("my groups onCreate")
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -80,6 +92,7 @@ class MyGroupsFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.showLoading.observe(viewLifecycleOwner, ::handleLoading)
+        sharedViewModel.viewState.observe(viewLifecycleOwner, ::handleSharedState)
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.viewState.collect(::bindState)
@@ -93,15 +106,18 @@ class MyGroupsFragment : Fragment() {
         LoadingDialogFragment.toggle(childFragmentManager, isLoading)
     }
 
+    private fun handleSharedState(state: SharedViewState) {
+        viewModel.setUser(state.user)
+    }
+
     private fun bindState(state: MyGroupsViewState) {
-        when (state) {
-            is MyGroupsViewState.Success -> getGroups(state.groups)
-        }
+        getGroups(state.groups)
     }
 
     private fun handleEvents(event: MyGroupsViewEvent) {
         when (event) {
             is MyGroupsViewEvent.SearchGroups -> getGroups(event.groups)
+            is MyGroupsViewEvent.OpenGroup -> openGroup(event.group, event.userId)
         }
     }
 
@@ -114,4 +130,7 @@ class MyGroupsFragment : Fragment() {
         }
     }
 
+    private fun openGroup(group: MyGroupsItem, userId: String) {
+        navigator.openGroup(findNavController(), group.id, group.name, userId)
+    }
 }

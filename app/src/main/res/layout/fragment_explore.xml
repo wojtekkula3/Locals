@@ -31,9 +31,14 @@
             android:id="@+id/selectedHobbiesRelativeLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/button_unactive"
-            android:visibility="gone"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:background="@color/blue_250"
+            android:visibility="gone">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/blue_800" />
 
             <HorizontalScrollView
                 android:id="@+id/selectedHobbiesScrollView"
@@ -58,8 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_below="@id/selectedHobbiesRelativeLayout"
-            android:background="@drawable/top_bar"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:background="@drawable/top_bar">
 
             <SeekBar
                 android:id="@+id/distanceSeekBar"
@@ -79,7 +83,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="2"
                 android:orientation="vertical"
-                android:text="10 km"
+                android:text="@string/explore_10_km"
                 android:textAlignment="center" />
 
         </LinearLayout>
@@ -122,6 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/distanceRelativeLayout"
+            android:layout_marginTop="1dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <TextView
@@ -140,7 +145,9 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/blue_400"
+        android:alpha="0.5"
+        android:backgroundTint="@color/blue_600"
+        android:contentDescription="@string/explore_create_new_group_content_description"
         android:src="@drawable/ic_add"
         android:tintMode="@color/white" />
 

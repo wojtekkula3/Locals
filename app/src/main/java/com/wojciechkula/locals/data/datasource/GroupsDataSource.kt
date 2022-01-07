@@ -29,7 +29,6 @@ class GroupsDataSource @Inject constructor(private val fusedLocationClient: Fuse
 
     private val db = Firebase.firestore
 
-    // NOT CHECKED YET
     suspend fun addGroup(group: Group): DocumentReference = suspendCoroutine { continuation ->
         db.collection("Groups")
             .add(group)
@@ -171,6 +170,25 @@ class GroupsDataSource @Inject constructor(private val fusedLocationClient: Fuse
         }
     }
 
+    suspend fun getGroup(groupId: String): Flow<Group> = callbackFlow {
+        val query = db.collection("Groups")
+            .document(groupId)
+
+        val snapshotListener = query.addSnapshotListener { snapshot, error ->
+            if (error == null) {
+                if (snapshot != null) {
+                    snapshot.toObject(Group::class.java)?.let { this.trySend(it).isSuccess }
+                }
+            } else {
+                cancel(message = "Error while getting users chats.", cause = error)
+            }
+        }
+        awaitClose {
+            snapshotListener.remove()
+            cancel()
+        }
+    }
+
     suspend fun joinGroup(id: String, user: User): Boolean = suspendCoroutine { continuation ->
         val reference = db.document("/Groups/$id")
 
@@ -181,6 +199,24 @@ class GroupsDataSource @Inject constructor(private val fusedLocationClient: Fuse
             .update("members", FieldValue.arrayUnion(user.id))
 
         Tasks.whenAllSuccess<Any>(addGroupToUser, addMemberToGroup)
+            .addOnSuccessListener {
+                continuation.resume(true)
+            }
+            .addOnFailureListener { exception ->
+                continuation.resumeWithException(exception)
+            }
+    }
+
+    suspend fun leaveGroup(groupId: String, user: User): Boolean = suspendCoroutine { continuation ->
+        val reference = db.document("/Groups/$groupId")
+
+        val deleteGroupFromUser = db.collection("Users").document(user.id)
+            .update("groups", FieldValue.arrayRemove(reference))
+
+        val deleteMemberFromGroup = db.collection("Groups").document(groupId)
+            .update("members", FieldValue.arrayRemove(user.id))
+
+        Tasks.whenAllSuccess<Any>(deleteGroupFromUser, deleteMemberFromGroup)
             .addOnSuccessListener {
                 continuation.resume(true)
             }

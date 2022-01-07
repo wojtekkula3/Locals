@@ -117,7 +117,6 @@ class RegisterHobbiesViewModel @Inject constructor(
                     registerUserInteractor(args.userData.email, args.userData.password)
                         .addOnSuccessListener {
                             val user = UserModel(
-                                id = null,
                                 name = args.userData.name,
                                 surname = args.userData.surname,
                                 email = args.userData.email,

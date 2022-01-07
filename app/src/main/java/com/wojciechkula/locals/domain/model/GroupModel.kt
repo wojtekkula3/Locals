@@ -9,4 +9,6 @@ data class GroupModel constructor(
     val hobbies: ArrayList<String>,
     val members: ArrayList<String>,
     val latestMessage: LatestMessage
-)
+) {
+    constructor() : this("", "", LocationModel(), 0.0, "", arrayListOf(), arrayListOf(), LatestMessage())
+}

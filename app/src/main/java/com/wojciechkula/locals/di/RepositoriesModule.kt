@@ -24,5 +24,8 @@ abstract class RepositoriesModule {
     abstract fun groupRepository(repository: GroupRepositoryImpl): GroupRepository
 
     @Binds
-    abstract fun userRepository(repositoryImpl: UserRepositoryImpl): UserRepository
+    abstract fun userRepository(repository: UserRepositoryImpl): UserRepository
+
+    @Binds
+    abstract fun chatRepository(repository: ChatRepositoryImpl): ChatRepository
 }
