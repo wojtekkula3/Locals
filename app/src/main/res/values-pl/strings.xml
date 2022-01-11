@@ -65,5 +65,15 @@
     <string name="group_more_information_about_current_group_content_desc">Więcej informacji o grupie</string>
     <string name="explore_enter_hobby_hint">Wpisz hobby...</string>
     <string name="my_groups_enter_name_hint">Wpisz nazwę...</string>
+    <string name="create_group_create_new_group">Stwórz nową grupę</string>
+    <string name="create_group_group_name">Nazwa</string>
+    <string name="create_group_description">Opis</string>
+    <string name="create_group_search_hobby">Wyszukaj hobby...</string>
+    <string name="create_group_create_group">Stwórz grupę</string>
+    <string name="submit">Zatwierdź</string>
+    <string name="create_group_location_established">Lokalizacja ustalona</string>
+    <string name="create_group_new_hobbies_alert_dialog">Podałeś kilka zainteresowań, które nie istnieją jeszcze w aplikacji. Czy na pewno chcesz dodać poniższe zainteresowania:\n\n%1$s</string>
+    <string name="create_group_confirm_to_create_group">Potwierdź by utworzyć grupę</string>
+    <string name="create_group_group_created_latest_message">Utworzono grupę</string>
 
 </resources>

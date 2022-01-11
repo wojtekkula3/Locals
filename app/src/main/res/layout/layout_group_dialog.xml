@@ -42,7 +42,10 @@
                 android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_margin="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="2dp"
                 android:background="@drawable/ic_edit_photo"
                 android:padding="8dp" />
         </RelativeLayout>
@@ -88,7 +91,7 @@
         android:layout_marginLeft="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="24dp"
-        android:gravity="center"
+        android:gravity="left"
         android:textAppearance="?textAppearanceS2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -112,6 +115,37 @@
         android:background="@color/gray_500"
         app:layout_constraintTop_toBottomOf="@id/groupHobbiesOutput" />
 
+    <TextView
+        android:id="@+id/groupDescriptionOutput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="24dp"
+        android:gravity="left"
+        android:textAppearance="?textAppearanceS2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/groupHobbiesOutput"
+        tools:text="Zapraszamy wszystkich do chóru! Rekrutacja otwarta cały czas :D" />
+
+    <ImageButton
+        android:id="@+id/editDescriptionButton"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/ic_edit"
+        android:backgroundTint="@color/gray_500"
+        app:layout_constraintBottom_toBottomOf="@id/groupDescriptionOutput"
+        app:layout_constraintStart_toEndOf="@id/groupDescriptionOutput" />
+
+    <View
+        android:id="@+id/descriptionSeparatorView"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/gray_500"
+        app:layout_constraintTop_toBottomOf="@id/groupDescriptionOutput" />
+
     <Button
         android:id="@+id/leaveGroupButton"
         style="?buttonStyle"
@@ -123,6 +157,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/hobbiesSeparatorView" />
+        app:layout_constraintTop_toBottomOf="@id/descriptionSeparatorView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

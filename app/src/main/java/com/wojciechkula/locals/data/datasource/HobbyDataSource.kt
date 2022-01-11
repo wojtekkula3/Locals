@@ -6,11 +6,13 @@ import com.wojciechkula.locals.data.entity.Hobby
 import timber.log.Timber
 import javax.inject.Inject
 import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 class HobbyDataSource @Inject constructor() {
 
     private val db = Firebase.firestore
+    private val batch = db.batch()
 
     suspend fun getHobbiesGeneral(): ArrayList<Hobby> =
         suspendCoroutine { continuation ->
@@ -35,8 +37,8 @@ class HobbyDataSource @Inject constructor() {
     suspend fun getHobbies(name: String): ArrayList<Hobby> =
         suspendCoroutine { continuation ->
             db.collection("Hobbies")
-                .whereGreaterThanOrEqualTo("name", name)
-                .whereLessThanOrEqualTo("name", name + "\uF7FF")
+                .whereGreaterThanOrEqualTo("name", name.lowercase())
+                .whereLessThanOrEqualTo("name", name.lowercase() + "\uF7FF")
                 .orderBy("name")
                 .get()
                 .addOnCompleteListener { task ->
@@ -50,6 +52,22 @@ class HobbyDataSource @Inject constructor() {
                     } else {
                         Timber.e(task.exception, "Error getting documents: ")
                     }
+                }
+        }
+
+    suspend fun createNewHobbies(newHobbies: List<Hobby>): Boolean =
+        suspendCoroutine { continuation ->
+            for (hobby in newHobbies) {
+                val docRef = db.collection("Hobbies").document()
+                batch.set(docRef, hobby)
+            }
+
+            batch.commit()
+                .addOnCompleteListener {
+                    continuation.resume(true)
+                }
+                .addOnFailureListener { exception ->
+                    continuation.resumeWithException(exception)
                 }
         }
 }

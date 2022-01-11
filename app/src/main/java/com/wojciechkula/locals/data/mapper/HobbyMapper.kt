@@ -6,9 +6,13 @@ import javax.inject.Inject
 
 class HobbyMapper @Inject constructor() {
 
-    fun mapToDomain(hobby: Hobby): HobbyModel {
-        return HobbyModel(hobby.name, hobby.general, hobby.language)
-    }
+    fun mapToDomain(hobby: Hobby): HobbyModel =
+        HobbyModel(
+            name = hobby.name,
+            general = hobby.general,
+            language = hobby.language
+        )
+
 
     fun mapToEntity(hobby: HobbyModel): Hobby =
         Hobby(

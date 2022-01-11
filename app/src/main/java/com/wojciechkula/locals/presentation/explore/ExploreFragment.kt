@@ -40,12 +40,12 @@ internal class ExploreFragment : Fragment(), EasyPermissions.PermissionCallbacks
 
     private val REQUIRE_CODE_LOCATION_PERMISSION = 0
 
-    @Inject
-    lateinit var navigator: ExploreNavigator
-
     private var _binding: FragmentExploreBinding? = null
     private val binding
         get() = _binding!!
+
+    @Inject
+    lateinit var navigator: ExploreNavigator
 
     private val viewModel: ExploreViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
@@ -65,7 +65,7 @@ internal class ExploreFragment : Fragment(), EasyPermissions.PermissionCallbacks
         inflater.inflate(R.menu.explore_toolbar_menu, menu)
         val item = menu.findItem(R.id.search)
         searchView = item?.actionView as SearchView
-        searchView.queryHint=getString(R.string.explore_enter_hobby_hint)
+        searchView.queryHint = getString(R.string.explore_enter_hobby_hint)
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
@@ -125,6 +125,7 @@ internal class ExploreFragment : Fragment(), EasyPermissions.PermissionCallbacks
                     getGroupsByDistanceAndHobbies()
                 }
             })
+            createGroupButton.setOnClickListener { navigator.openCreateGroup(findNavController()) }
         }
     }
 

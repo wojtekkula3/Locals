@@ -22,7 +22,6 @@ import com.wojciechkula.locals.presentation.mygroups.list.MyGroupsItem
 import com.wojciechkula.locals.presentation.mygroups.list.MyGroupsListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -52,7 +51,7 @@ internal class MyGroupsFragment : Fragment() {
         inflater.inflate(R.menu.explore_toolbar_menu, menu)
         val item = menu.findItem(R.id.search)
         searchView = item?.actionView as SearchView
-        searchView.queryHint=getString(R.string.my_groups_enter_name_hint)
+        searchView.queryHint = getString(R.string.my_groups_enter_name_hint)
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(searchText: String?): Boolean {

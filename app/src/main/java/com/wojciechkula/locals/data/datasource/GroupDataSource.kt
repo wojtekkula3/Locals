@@ -29,17 +29,6 @@ class GroupDataSource @Inject constructor(private val fusedLocationClient: Fused
 
     private val db = Firebase.firestore
 
-    suspend fun addGroup(group: Group): DocumentReference = suspendCoroutine { continuation ->
-        db.collection("Groups")
-            .add(group)
-            .addOnSuccessListener { documentReference ->
-                continuation.resume(documentReference)
-            }
-            .addOnFailureListener { exception ->
-                continuation.resumeWithException(exception)
-            }
-    }
-
     @SuppressLint("MissingPermission")
     suspend fun getGroupsByDistanceAndHobbies(
         distance: Int,
@@ -100,6 +89,7 @@ class GroupDataSource @Inject constructor(private val fusedLocationClient: Fused
                                 val group = Group(
                                     id = doc.id,
                                     name = doc.get("name") as String,
+                                    description = doc.get("description") as String,
                                     location = Location(
                                         doc.get("location.geohash") as String,
                                         doc.get("location.latitude") as Double,
@@ -147,6 +137,17 @@ class GroupDataSource @Inject constructor(private val fusedLocationClient: Fused
                     }
             }
         }
+
+    suspend fun createGroup(group: Group): DocumentReference = suspendCoroutine { continuation ->
+        db.collection("Groups")
+            .add(group)
+            .addOnSuccessListener { documentReference ->
+                continuation.resume(documentReference)
+            }
+            .addOnFailureListener { exception ->
+                continuation.resumeWithException(exception)
+            }
+    }
 
     suspend fun getUserGroups(user: User): Flow<List<Group>> = callbackFlow {
         val query = db.collection("Groups")

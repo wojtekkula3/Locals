@@ -5,10 +5,16 @@
     android:id="@+id/nav_explore"
     app:startDestination="@id/exploreFragment">
 
+    <include app:graph="@navigation/nav_create_group" />
+
     <fragment
         android:id="@+id/exploreFragment"
         android:name="com.wojciechkula.locals.presentation.explore.ExploreFragment"
         android:label="@string/explore_explore"
-        tools:layout="@layout/fragment_explore" />
+        tools:layout="@layout/fragment_explore">
+        <action
+            android:id="@+id/openCreateGroup"
+            app:destination="@id/nav_create_group"></action>
+    </fragment>
 
 </navigation>

@@ -18,4 +18,7 @@ class HobbyRepositoryImpl @Inject constructor(
 
     override suspend fun getHobbies(name: String): List<HobbyModel> =
         dataSource.getHobbies(name).map { hobby -> mapper.mapToDomain(hobby) }
+
+    override suspend fun createNewHobbies(newHobbies: List<HobbyModel>) =
+        dataSource.createNewHobbies(newHobbies.map { hobbyModel -> mapper.mapToEntity(hobbyModel) })
 }

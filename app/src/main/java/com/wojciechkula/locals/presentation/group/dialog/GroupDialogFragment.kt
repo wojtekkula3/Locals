@@ -49,6 +49,7 @@ class GroupDialogFragment(private val group: GroupModel) : DialogFragment() {
                 hobbies = "$hobbies$hobby, "
             }
             groupHobbiesOutput.text = hobbies
+            groupDescriptionOutput.text = group.description
             leaveGroupButton.setOnClickListener { showAcceptDialog() }
             closeButton.setOnClickListener { closeGroupDialog() }
         }

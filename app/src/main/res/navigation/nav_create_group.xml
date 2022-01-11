@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_create_group"
+    app:startDestination="@id/createGroupFragment">
+
+    <include app:graph="@navigation/nav_create_group_map" />
+    <include app:graph="@navigation/nav_my_groups" />
+
+    <fragment
+        android:id="@+id/createGroupFragment"
+        android:name="com.wojciechkula.locals.presentation.creategroup.CreateGroupFragment"
+        android:label="@string/create_group_create_group"
+        tools:layout="@layout/fragment_create_group">
+        <action
+            android:id="@+id/openMap"
+            app:destination="@id/nav_create_group_map" />
+        <action
+            android:id="@+id/openMyGroups"
+            app:destination="@id/nav_my_groups"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+</navigation>

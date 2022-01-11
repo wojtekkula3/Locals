@@ -82,5 +82,15 @@
     <string name="group_there_is_no_messages_yet_say_hello">There is no messages yet.\nSay \'Hello!\'</string>
     <string name="group_go_back_to_my_groups_content_desc">Go back to my groups</string>
     <string name="group_more_information_about_current_group_content_desc">More information about current group</string>
+    <string name="create_group_create_new_group">Create new group</string>
+    <string name="create_group_group_name">Group name</string>
+    <string name="create_group_description">Description</string>
+    <string name="create_group_search_hobby">Search hobby...</string>
+    <string name="create_group_create_group">Create group</string>
+    <string name="submit">common_submit</string>
+    <string name="create_group_location_established">Location established</string>
+    <string name="create_group_confirm_to_create_group">Confirm to create group</string>
+    <string name="create_group_new_hobbies_alert_dialog">You selected interests that don\'t exists in application yet. Are you sure you want to create a group with following interests:\n\n%1$s</string>
+    <string name="create_group_group_created_latest_message">Group created</string>
 
 </resources>
