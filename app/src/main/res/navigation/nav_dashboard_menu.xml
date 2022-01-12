@@ -8,4 +8,9 @@
     <include app:graph="@navigation/nav_my_groups" />
     <include app:graph="@navigation/nav_profile" />
 
+    <action
+        android:id="@+id/openMyGroups"
+        app:destination="@+id/nav_my_groups"
+        app:popUpTo="@id/nav_dashboard_menu" />
+
 </navigation>

@@ -6,7 +6,6 @@
     app:startDestination="@id/createGroupFragment">
 
     <include app:graph="@navigation/nav_create_group_map" />
-    <include app:graph="@navigation/nav_my_groups" />
 
     <fragment
         android:id="@+id/createGroupFragment"
@@ -16,10 +15,6 @@
         <action
             android:id="@+id/openMap"
             app:destination="@id/nav_create_group_map" />
-        <action
-            android:id="@+id/openMyGroups"
-            app:destination="@id/nav_my_groups"
-            app:popUpToInclusive="true" />
     </fragment>
 
 </navigation>

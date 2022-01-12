@@ -14,7 +14,7 @@
         tools:layout="@layout/fragment_explore">
         <action
             android:id="@+id/openCreateGroup"
-            app:destination="@id/nav_create_group"></action>
+            app:destination="@id/nav_create_group" />
     </fragment>
 
 </navigation>

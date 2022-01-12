@@ -49,7 +49,7 @@ internal class CreateGroupFragment : Fragment() {
     private val hobbiesSize get() = binding.selectedHobbiesChipGroup.size
     private val searchInputText get() = binding.searchInput.text.toString().lowercase()
     private var selectedLocation: LocationModel? = null
-    private val groupCreatedMessage = getString(R.string.create_group_group_created_latest_message)
+    private lateinit var groupCreatedMessage: String
 
     private val adapter: HobbyListAdapter by lazy {
         HobbyListAdapter { name -> viewModel.selectHobby(name) }
@@ -57,6 +57,7 @@ internal class CreateGroupFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        groupCreatedMessage = getString(R.string.create_group_group_created_latest_message)
         getResultFromMap()
     }
 
