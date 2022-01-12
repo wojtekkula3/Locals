@@ -4,8 +4,6 @@ import com.wojciechkula.locals.domain.model.HobbyModel
 
 sealed class RegisterHobbiesViewEvent {
 
-    object GetGroupsForExplore : RegisterHobbiesViewEvent()
-
     data class GetGeneralHobbies(
         val generalHobbiesList: ArrayList<HobbyModel>?,
         val selectedHobbiesList: ArrayList<HobbyModel>?
@@ -15,4 +13,7 @@ sealed class RegisterHobbiesViewEvent {
         val customHobbiesList: ArrayList<HobbyModel>?,
         val selectedHobbiesList: ArrayList<HobbyModel>?
     ) : RegisterHobbiesViewEvent()
+
+    object CheckLocationPermissions : RegisterHobbiesViewEvent()
+    object GetGroupsForExplore : RegisterHobbiesViewEvent()
 }

@@ -108,7 +108,11 @@ class RegisterHobbiesViewModel @Inject constructor(
         )
     }
 
-    fun onNextClick(args: RegisterHobbiesFragmentArgs) {
+    fun onNextCLick() {
+        _viewEvent.postValue(RegisterHobbiesViewEvent.CheckLocationPermissions)
+    }
+
+    fun onPermissionChecked(args: RegisterHobbiesFragmentArgs) {
         _showLoading.postValue(true)
         val selectedHobbiesSize = _viewState.value?.selectedHobbiesList?.size
         if (selectedHobbiesSize != null) {

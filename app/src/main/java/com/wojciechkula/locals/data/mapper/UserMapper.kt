@@ -39,6 +39,7 @@ class UserMapper @Inject constructor(
             user.elementsVisibility.email,
             user.elementsVisibility.phoneNumber,
             user.elementsVisibility.hobbies
-        )
+        ),
+        groups = user.groups
     )
 }

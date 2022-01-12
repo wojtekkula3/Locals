@@ -1,5 +1,7 @@
 package com.wojciechkula.locals.domain.model
 
+import com.google.firebase.firestore.DocumentReference
+
 data class UserModel constructor(
     val id: String,
     val name: String,
@@ -9,7 +11,8 @@ data class UserModel constructor(
     val phoneNumber: String?,
     val hobbies: ArrayList<HobbyModel>?,
     val about: String?,
-    val elementsVisibility: PersonalElementsVisibilityModel
+    val elementsVisibility: PersonalElementsVisibilityModel,
+    val groups: ArrayList<DocumentReference>? = arrayListOf()
 ) {
     constructor() : this("", "", "", "", "", "", arrayListOf(), "", PersonalElementsVisibilityModel())
     constructor(

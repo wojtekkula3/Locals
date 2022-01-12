@@ -21,11 +21,15 @@ class SplashScreenViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             if (getFirebaseUserInteractor() != null) {
-                _viewEvent.postValue(SplashScreenViewEvent.GetGroupsForExplore)
+                _viewEvent.postValue(SplashScreenViewEvent.CheckLocationPermissions)
             } else {
                 _viewEvent.postValue(SplashScreenViewEvent.OpenLogin)
             }
         }
+    }
+
+    fun getGroupsForExplore() {
+        _viewEvent.postValue(SplashScreenViewEvent.GetGroupsForExplore)
     }
 
 }

@@ -126,7 +126,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/distanceRelativeLayout"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <TextView
@@ -146,7 +147,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:alpha="0.5"
+        android:alpha="0.6"
         android:backgroundTint="@color/blue_600"
         android:contentDescription="@string/explore_create_new_group_content_description"
         android:src="@drawable/ic_add"
