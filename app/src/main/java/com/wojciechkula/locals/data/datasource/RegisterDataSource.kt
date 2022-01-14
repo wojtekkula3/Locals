@@ -37,7 +37,7 @@ class RegisterDataSource @Inject constructor() {
             name = user.name,
             surname = user.surname,
             email = user.email,
-            avatar = user.avatar,
+            avatarReference = user.avatarReference,
             phoneNumber = user.phoneNumber,
             hobbies = user.hobbies,
             about = user.about,

@@ -5,18 +5,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hadilq.liveevent.LiveEvent
-import com.wojciechkula.locals.domain.interactor.GetFirestoreUserInteractor
+import com.wojciechkula.locals.domain.interactor.GetFirestoreUserFlowInteractor
 import com.wojciechkula.locals.domain.interactor.GetGroupsByDistanceAndHobbiesInteractor
+import com.wojciechkula.locals.domain.model.UserModel
 import com.wojciechkula.locals.extension.newBuilder
 import com.wojciechkula.locals.presentation.explore.list.ExploreItem
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class SharedViewModel @Inject constructor(
     private val getgroupsByDistanceAndHobbiesInteractor: GetGroupsByDistanceAndHobbiesInteractor,
-    private val getFirestoreUserInteractor: GetFirestoreUserInteractor,
+    private val getFirestoreUserFlowInteractor: GetFirestoreUserFlowInteractor,
 ) : ViewModel() {
 
     private var _viewState = MutableLiveData<SharedViewState>()
@@ -27,16 +30,19 @@ class SharedViewModel @Inject constructor(
     val viewEvent: LiveData<SharedViewEvent>
         get() = _viewEvent
 
-    private fun getUser() {
+    init {
         viewModelScope.launch {
-            val user = getFirestoreUserInteractor()
-            _viewState.postValue(SharedViewState(user = user, exploreGroups = null))
+            _viewState.postValue(SharedViewState(user = UserModel(), exploreGroups = null))
+            getFirestoreUserFlowInteractor()
+                .catch { exception -> Timber.e("Exception while getting user flow", exception) }
+                .collect { user ->
+                    _viewState.value = viewState.newBuilder { copy(user = user) }
+                }
         }
     }
 
     fun getGroupsForExplore() {
         viewModelScope.launch {
-            getUser()
             val groups: ArrayList<ExploreItem> =
                 getgroupsByDistanceAndHobbiesInteractor(10, arrayListOf()).map { groupModel ->
                     ExploreItem(
@@ -57,9 +63,5 @@ class SharedViewModel @Inject constructor(
 
     fun setGroupsForExplore() {
         _viewEvent.postValue(SharedViewEvent.SetGroupsForExplore(viewState.value?.exploreGroups))
-    }
-
-    fun setUserForProfile() {
-        _viewEvent.postValue(SharedViewEvent.SetUserInformation(viewState.value?.user!!))
     }
 }

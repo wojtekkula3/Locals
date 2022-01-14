@@ -31,6 +31,7 @@ class UserMapper @Inject constructor(
         name = user.name,
         surname = user.surname,
         email = user.email,
+        avatarReference = user.avatarReference,
         avatar = user.avatar,
         phoneNumber = user.phoneNumber,
         hobbies = user.hobbies?.map { hobby -> hobbyMapper.mapToDomain(hobby = hobby) } as ArrayList<HobbyModel>,

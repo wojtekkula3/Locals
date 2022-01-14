@@ -1,5 +1,6 @@
 package com.wojciechkula.locals.domain.model
 
+import android.graphics.Bitmap
 import com.google.firebase.firestore.DocumentReference
 
 data class UserModel constructor(
@@ -7,14 +8,15 @@ data class UserModel constructor(
     val name: String,
     val surname: String?,
     val email: String,
-    val avatar: String?,
+    val avatarReference: String?,
+    val avatar: Bitmap?,
     val phoneNumber: String?,
     val hobbies: ArrayList<HobbyModel>?,
     val about: String?,
     val elementsVisibility: PersonalElementsVisibilityModel,
     val groups: ArrayList<DocumentReference>? = arrayListOf()
 ) {
-    constructor() : this("", "", "", "", "", "", arrayListOf(), "", PersonalElementsVisibilityModel())
+    constructor() : this("", "", "", "", "", null, "", arrayListOf(), "", PersonalElementsVisibilityModel())
     constructor(
         name: String,
         surname: String?,
@@ -24,5 +26,5 @@ data class UserModel constructor(
         hobbies: ArrayList<HobbyModel>?,
         about: String?,
         elementsVisibility: PersonalElementsVisibilityModel
-    ) : this("", name, surname, email, avatar, phoneNumber, hobbies, about, elementsVisibility)
+    ) : this("", name, surname, email, avatar, null, phoneNumber, hobbies, about, elementsVisibility)
 }

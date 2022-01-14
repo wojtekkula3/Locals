@@ -44,30 +44,39 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/avatarImage"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/avatarImageCardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="40dp"
-                android:contentDescription="avatar"
-                android:src="@drawable/avatar_default"
-                tools:layout_editor_absoluteX="141dp"
-                tools:src="@drawable/avatar_default"
-                tools:srcCompat="@mipmap/ic_launcher_round" />
+                app:cardCornerRadius="12dp">
+
+                <ImageView
+                    android:id="@+id/avatarImage"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:contentDescription="@string/profile_avatar_image_description"
+                    android:src="@drawable/avatar_default"
+                    tools:layout_editor_absoluteX="141dp"
+                    tools:src="@drawable/avatar_default" />
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/fullNameOutput"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/avatarImage"
+                android:layout_below="@+id/avatarImageCardView"
                 android:layout_centerHorizontal="true"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="10dp"
-                android:text="Wojciech Kula"
+                android:gravity="center"
                 android:textAlignment="center"
                 android:textAppearance="?textAppearanceB1"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                tools:text="Karol Nowak" />
 
         </RelativeLayout>
 
@@ -117,7 +126,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="45dp"
-                    android:textAlignment="center"
+                    android:gravity="center"
                     android:textAppearance="@style/TextAppearance.Locals.B2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/personalInformationGuideline"

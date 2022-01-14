@@ -74,6 +74,8 @@
     <string name="profile_public_visibility_info">Determine which elements can be visible in your profile for the rest of the users.</string>
     <string name="profile_public_public_visibility">Public visibility</string>
     <string name="profile_empty">(empty)</string>
+    <string name="profile_image_changed_with_success">Image changed with success</string>
+    <string name="profile_avatar_image_description">Avatar Image</string>
 
     <string name="group_type_a_message">Type a message...</string>
     <string name="group_leave_the_group">Leave the Group</string>

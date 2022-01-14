@@ -19,7 +19,7 @@ import com.wojciechkula.locals.R
 import com.wojciechkula.locals.common.dialog.LoadingDialogFragment
 import com.wojciechkula.locals.databinding.FragmentRegisterHobbiesBinding
 import com.wojciechkula.locals.domain.model.HobbyModel
-import com.wojciechkula.locals.extension.showSnackbar
+import com.wojciechkula.locals.extension.showSnackbarError
 import com.wojciechkula.locals.navigation.RegisterHobbiesNavigator
 import com.wojciechkula.locals.presentation.common.SharedViewEvent
 import com.wojciechkula.locals.presentation.common.SharedViewModel
@@ -182,7 +182,7 @@ internal class RegisterHobbiesFragment : Fragment(), EasyPermissions.PermissionC
     }
 
     private fun onError(message: String) {
-        binding.showSnackbar(message)
+        binding.showSnackbarError(message)
     }
 
     private fun checkLocationPermissions() {

@@ -75,5 +75,6 @@
     <string name="create_group_new_hobbies_alert_dialog">Podałeś kilka zainteresowań, które nie istnieją jeszcze w aplikacji. Czy na pewno chcesz dodać poniższe zainteresowania:\n\n%1$s</string>
     <string name="create_group_confirm_to_create_group">Potwierdź by utworzyć grupę</string>
     <string name="create_group_group_created_latest_message">Utworzono grupę</string>
+    <string name="profile_image_changed_with_success">Pomyślnie zmieniono zdjęcie profilowe</string>
 
 </resources>

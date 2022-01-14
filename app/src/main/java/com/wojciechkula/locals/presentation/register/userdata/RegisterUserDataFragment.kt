@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.wojciechkula.locals.R
 import com.wojciechkula.locals.common.dialog.LoadingDialogFragment
 import com.wojciechkula.locals.databinding.FragmentRegisterUserDataBinding
-import com.wojciechkula.locals.extension.showSnackbar
+import com.wojciechkula.locals.extension.showSnackbarError
 import com.wojciechkula.locals.navigation.RegisterUserDataNavigator
 import com.wojciechkula.locals.presentation.model.User
 import dagger.hilt.android.AndroidEntryPoint
@@ -152,7 +152,7 @@ internal class RegisterUserDataFragment : Fragment() {
     }
 
     private fun onShowError() {
-        binding.showSnackbar(getString(R.string.register_data_this_email_already_exists_in_database))
+        binding.showSnackbarError(getString(R.string.register_data_this_email_already_exists_in_database))
     }
 
 }

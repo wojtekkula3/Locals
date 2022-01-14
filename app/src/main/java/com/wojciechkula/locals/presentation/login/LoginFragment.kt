@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.wojciechkula.locals.common.dialog.LoadingDialogFragment
 import com.wojciechkula.locals.databinding.FragmentLoginBinding
-import com.wojciechkula.locals.extension.showSnackbar
+import com.wojciechkula.locals.extension.showSnackbarError
 import com.wojciechkula.locals.navigation.LoginNavigator
 import com.wojciechkula.locals.presentation.common.SharedViewEvent
 import com.wojciechkula.locals.presentation.common.SharedViewModel
@@ -100,7 +100,7 @@ internal class LoginFragment : Fragment() {
 
     private fun onError(event: Error) {
         if (event.message != null) {
-            binding.showSnackbar(event.message)
+            binding.showSnackbarError(event.message)
         }
     }
 }

@@ -18,6 +18,9 @@ abstract class RepositoriesModule {
     abstract fun registerRepository(repository: RegisterRepositoryImpl): RegisterRepository
 
     @Binds
+    abstract fun imageRepository(repository: ImageRepositoryImpl): ImageRepository
+
+    @Binds
     abstract fun hobbyRepository(repository: HobbyRepositoryImpl): HobbyRepository
 
     @Binds

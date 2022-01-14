@@ -1,7 +1,12 @@
 package com.wojciechkula.locals.presentation.profile
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Typeface
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +16,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.google.firebase.auth.FirebaseAuth
 import com.wojciechkula.locals.R
+import com.wojciechkula.locals.common.dialog.LoadingDialogFragment
 import com.wojciechkula.locals.databinding.FragmentProfileBinding
+import com.wojciechkula.locals.extension.showSnackbarError
+import com.wojciechkula.locals.extension.showSnackbarInfo
 import com.wojciechkula.locals.navigation.ProfileNavigator
-import com.wojciechkula.locals.presentation.common.SharedViewEvent
 import com.wojciechkula.locals.presentation.common.SharedViewModel
+import com.wojciechkula.locals.presentation.common.SharedViewState
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -26,6 +35,8 @@ internal class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding
         get() = _binding!!
+
+    private val PICK_IMAGE = 100
 
     @Inject
     lateinit var navigator: ProfileNavigator
@@ -59,7 +70,6 @@ internal class ProfileFragment : Fragment() {
     }
 
     private fun setCollapsingViews() {
-
         with(binding) {
             aboutMeArrowDown.setOnClickListener {
                 it.visibility = View.GONE
@@ -104,20 +114,24 @@ internal class ProfileFragment : Fragment() {
                 visibilityArrowDown.visibility = View.VISIBLE
                 publicVisibilityConstraint.visibility = View.GONE
             }
+
+            avatarImage.setOnClickListener {
+                val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+                startActivityForResult(gallery, PICK_IMAGE)
+            }
         }
     }
 
     private fun observeViewModel() {
         viewModel.viewState.observe(viewLifecycleOwner, ::bindState)
-        sharedViewModel.viewEvent.observe(viewLifecycleOwner, ::handleSharedEvents)
+        sharedViewModel.viewState.observe(viewLifecycleOwner, ::bindSharedState)
+        viewModel.viewEvent.observe(viewLifecycleOwner, ::handleEvents)
+        viewModel.showLoading.observe(viewLifecycleOwner, ::handleLoading)
     }
 
     private fun bindState(state: ProfileViewState) {
         with(state) {
 
-            if (state.user == null) {
-                sharedViewModel.setUserForProfile()
-            }
             setViewsWithUserData(this)
 
             binding.emailVisibilityButton.setImageDrawable(setVisibility(emailVisibility))
@@ -133,13 +147,27 @@ internal class ProfileFragment : Fragment() {
             binding.myHobbiesVisibilityButton.setOnClickListener {
                 viewModel.changeHobbiesVisibility(!hobbiesVisibility)
             }
+
+            if (state.user?.avatarReference != null) {
+                binding.avatarImage.load(state.user.avatarReference)
+            }
+
         }
     }
 
-    private fun handleSharedEvents(event: SharedViewEvent) {
+    private fun bindSharedState(state: SharedViewState) {
+        viewModel.setUserInformation(state.user)
+    }
+
+    private fun handleEvents(event: ProfileViewEvent) {
         when (event) {
-            is SharedViewEvent.SetUserInformation -> viewModel.setUserInformation(event.user)
+            is ProfileViewEvent.ShowImageChangeSuccess -> showImageChangeSuccess(event.uri)
+            is ProfileViewEvent.ShowError -> showError(event.message)
         }
+    }
+
+    private fun handleLoading(isLoading: Boolean) {
+        LoadingDialogFragment.toggle(childFragmentManager, isLoading)
     }
 
     private fun setViewsWithUserData(state: ProfileViewState) {
@@ -149,6 +177,7 @@ internal class ProfileFragment : Fragment() {
                 binding.nameOutput.text = name
                 binding.surnameOutput.text = surname
                 binding.emailOutput.text = email
+                binding.avatarImage.setImageBitmap(avatar)
 
                 if (phoneNumber.isNullOrEmpty()) {
                     binding.phoneOutput.text = "-"
@@ -183,4 +212,31 @@ internal class ProfileFragment : Fragment() {
             ResourcesCompat.getDrawable(activity!!.resources, R.drawable.ic_visibility_off, null)
         }
 
+//    private fun encodeImage(bitmap: Bitmap): String {
+//        val previewWidth = 150
+//        val previewHeight = bitmap.height * previewWidth / bitmap.width
+//        val previewBitmap = Bitmap.createScaledBitmap(bitmap, previewWidth, previewHeight, false)
+//        val byteArrayOutputStream = ByteArrayOutputStream()
+//        previewBitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream)
+//        val bytes = byteArrayOutputStream.toByteArray()
+//        return Base64.encodeToString(bytes, Base64.DEFAULT)
+//    }
+
+    private fun showImageChangeSuccess(uri: Uri?) {
+        binding.avatarImage.load(uri)
+        binding.showSnackbarInfo(getString(R.string.profile_image_changed_with_success))
+    }
+
+    private fun showError(message: String) {
+        binding.showSnackbarError(message)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
+            val imageUri = data?.data
+            val bitmap = BitmapFactory.decodeStream(imageUri?.let { context?.contentResolver?.openInputStream(it) })
+            viewModel.changeUserPicture(bitmap)
+        }
+    }
 }

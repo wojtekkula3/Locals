@@ -4,6 +4,8 @@ import com.wojciechkula.locals.data.datasource.UserDataSource
 import com.wojciechkula.locals.data.mapper.UserMapper
 import com.wojciechkula.locals.domain.model.UserModel
 import com.wojciechkula.locals.domain.repository.UserRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
@@ -12,6 +14,9 @@ class UserRepositoryImpl @Inject constructor(
 ) : UserRepository {
 
     override suspend fun getFirestoreUser(): UserModel = mapper.mapToDomain(dataSource.getUser())
+
+    override suspend fun getFirestoreUserFlow(): Flow<UserModel> =
+        dataSource.getUserFlow().map { user -> mapper.mapToDomain(user) }
 
     override suspend fun changeEmailVisibility(isVisible: Boolean): Boolean =
         dataSource.changeEmailVisibility(isVisible, dataSource.getUser())

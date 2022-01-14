@@ -91,7 +91,7 @@ internal class MyGroupsFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.showLoading.observe(viewLifecycleOwner, ::handleLoading)
-        sharedViewModel.viewState.observe(viewLifecycleOwner, ::handleSharedState)
+        sharedViewModel.viewState.observe(viewLifecycleOwner, ::bindSharedState)
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.viewState.collect(::bindState)
@@ -105,7 +105,7 @@ internal class MyGroupsFragment : Fragment() {
         LoadingDialogFragment.toggle(childFragmentManager, isLoading)
     }
 
-    private fun handleSharedState(state: SharedViewState) {
+    private fun bindSharedState(state: SharedViewState) {
         viewModel.setUser(state.user)
     }
 
