@@ -19,7 +19,7 @@ class ImageDataSource @Inject constructor(
     private val storage = FirebaseStorage.getInstance()
     private val storageRef = storage.reference
 
-    suspend fun addUserImage(imageBitmap: Bitmap, userId: String, userEmail: String): Uri? =
+    suspend fun addUserImage(imageBitmap: Bitmap, userId: String): Uri? =
         suspendCoroutine { continuation ->
             val imageRef = storageRef.child("Users avatars/$userId.jpg")
 

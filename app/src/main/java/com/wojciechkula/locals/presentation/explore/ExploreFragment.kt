@@ -97,6 +97,7 @@ internal class ExploreFragment : Fragment(), EasyPermissions.PermissionCallbacks
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedViewModel.getUser()
         hideLoading()
         requestPermissions()
         initViews()

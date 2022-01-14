@@ -16,4 +16,6 @@ sealed class RegisterHobbiesViewEvent {
 
     object CheckLocationPermissions : RegisterHobbiesViewEvent()
     object GetGroupsForExplore : RegisterHobbiesViewEvent()
+
+    data class ShowError(val exception: Exception) : RegisterHobbiesViewEvent()
 }

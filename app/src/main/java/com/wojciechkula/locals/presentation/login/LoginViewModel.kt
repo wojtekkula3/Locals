@@ -41,9 +41,9 @@ class LoginViewModel @Inject constructor(
                             _viewEvent.postValue(LoginViewEvent.GetGroupsForExplore)
                         }
                     }
-                    .addOnFailureListener { e ->
-                        Timber.e(e, "Occurs when login credentials are wrong")
-                        _viewEvent.postValue(LoginViewEvent.Error(e.message))
+                    .addOnFailureListener { exception ->
+                        Timber.e(exception, "Occurs when login credentials are wrong")
+                        _viewEvent.postValue(LoginViewEvent.Error(exception))
                         _showLoading.postValue(false)
                     }
             } else {

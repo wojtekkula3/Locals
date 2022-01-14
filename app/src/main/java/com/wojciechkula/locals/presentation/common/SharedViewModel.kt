@@ -31,18 +31,23 @@ class SharedViewModel @Inject constructor(
         get() = _viewEvent
 
     init {
+        _viewState.postValue(SharedViewState(user = UserModel(), exploreGroups = null))
+    }
+
+    fun getUser() {
         viewModelScope.launch {
-            _viewState.postValue(SharedViewState(user = UserModel(), exploreGroups = null))
             getFirestoreUserFlowInteractor()
                 .catch { exception -> Timber.e("Exception while getting user flow", exception) }
                 .collect { user ->
                     _viewState.value = viewState.newBuilder { copy(user = user) }
+                    Timber.d("user: $user")
                 }
         }
     }
 
     fun getGroupsForExplore() {
         viewModelScope.launch {
+            getUser()
             val groups: ArrayList<ExploreItem> =
                 getgroupsByDistanceAndHobbiesInteractor(10, arrayListOf()).map { groupModel ->
                     ExploreItem(

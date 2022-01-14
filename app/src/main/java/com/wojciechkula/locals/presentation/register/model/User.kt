@@ -1,5 +1,6 @@
-package com.wojciechkula.locals.presentation.model
+package com.wojciechkula.locals.presentation.register.model
 
+import android.graphics.Bitmap
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
@@ -10,5 +11,5 @@ data class User(
     val email: String,
     val password: String,
     val phoneNumber: String?,
-    val photoUrl: String?
+    val image: Bitmap?
 ) : Parcelable

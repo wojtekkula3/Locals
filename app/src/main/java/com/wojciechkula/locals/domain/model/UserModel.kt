@@ -21,10 +21,9 @@ data class UserModel constructor(
         name: String,
         surname: String?,
         email: String,
-        avatar: String?,
         phoneNumber: String?,
         hobbies: ArrayList<HobbyModel>?,
         about: String?,
         elementsVisibility: PersonalElementsVisibilityModel
-    ) : this("", name, surname, email, avatar, null, phoneNumber, hobbies, about, elementsVisibility)
+    ) : this("", name, surname, email, null, null, phoneNumber, hobbies, about, elementsVisibility)
 }

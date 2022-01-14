@@ -5,10 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hadilq.liveevent.LiveEvent
-import com.wojciechkula.locals.domain.interactor.GetHobbiesGeneralInteractor
-import com.wojciechkula.locals.domain.interactor.GetHobbiesInteractor
-import com.wojciechkula.locals.domain.interactor.RegisterUserDataInteractor
-import com.wojciechkula.locals.domain.interactor.RegisterUserInteractor
+import com.wojciechkula.locals.domain.interactor.*
 import com.wojciechkula.locals.domain.model.HobbyModel
 import com.wojciechkula.locals.domain.model.PersonalElementsVisibilityModel
 import com.wojciechkula.locals.domain.model.UserModel
@@ -23,7 +20,8 @@ class RegisterHobbiesViewModel @Inject constructor(
     private val getHobbiesInteractor: GetHobbiesInteractor,
     private val getHobbiesGeneralInteractor: GetHobbiesGeneralInteractor,
     private val registerUserInteractor: RegisterUserInteractor,
-    private val registerUserDataInteractor: RegisterUserDataInteractor
+    private val registerUserDataInteractor: RegisterUserDataInteractor,
+    private val addUserImageInteractor: AddUserImageInteractor
 ) : ViewModel() {
 
     private val _viewState = MutableLiveData<RegisterHobbiesViewState>()
@@ -124,19 +122,31 @@ class RegisterHobbiesViewModel @Inject constructor(
                                 name = args.userData.name,
                                 surname = args.userData.surname,
                                 email = args.userData.email,
-                                avatar = null,
                                 phoneNumber = args.userData.phoneNumber,
                                 hobbies = _viewState.value?.selectedHobbiesList,
                                 about = null,
                                 elementsVisibility = PersonalElementsVisibilityModel(false, false, true)
                             )
                             viewModelScope.launch {
-                                registerUserDataInteractor(user).addOnSuccessListener {
-                                    Timber.d("Register completed!")
-                                    _viewEvent.postValue(RegisterHobbiesViewEvent.GetGroupsForExplore)
+                                registerUserDataInteractor(user).addOnSuccessListener { documentReference ->
+                                    if (args.userData.image != null) {
+                                        viewModelScope.launch {
+                                            try {
+                                                addUserImageInteractor(args.userData.image!!, documentReference.id)
+                                                _viewEvent.postValue(RegisterHobbiesViewEvent.GetGroupsForExplore)
+                                                Timber.d("Register completed!")
+                                            } catch (exception: Exception) {
+                                                _viewEvent.postValue(RegisterHobbiesViewEvent.ShowError(exception))
+                                            }
+                                        }
+                                    } else {
+                                        _viewEvent.postValue(RegisterHobbiesViewEvent.GetGroupsForExplore)
+                                        Timber.d("Register completed!")
+                                    }
                                 }
                                     .addOnFailureListener { exception ->
                                         _showLoading.postValue(false)
+                                        _viewEvent.postValue(RegisterHobbiesViewEvent.ShowError(exception))
                                         Timber.e(
                                             exception,
                                             "Register exception - Error occurred when adding new user data to firestore"
@@ -145,6 +155,7 @@ class RegisterHobbiesViewModel @Inject constructor(
                             }
                         }
                         .addOnFailureListener { exception ->
+                            _viewEvent.postValue(RegisterHobbiesViewEvent.ShowError(exception))
                             Timber.e(exception, "Register exception - Error occurred when adding new user to firebase")
                         }
                 }

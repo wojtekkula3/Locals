@@ -177,7 +177,15 @@ internal class ProfileFragment : Fragment() {
                 binding.nameOutput.text = name
                 binding.surnameOutput.text = surname
                 binding.emailOutput.text = email
-                binding.avatarImage.setImageBitmap(avatar)
+                if (!avatarReference.isNullOrEmpty()) {
+                    binding.avatarImage.setImageBitmap(avatar)
+                }
+
+                if (surname.isNullOrEmpty()) {
+                    binding.surnameOutput.text = "-"
+                } else {
+                    binding.surnameOutput.text = surname
+                }
 
                 if (phoneNumber.isNullOrEmpty()) {
                     binding.phoneOutput.text = "-"

@@ -1,7 +1,7 @@
 package com.wojciechkula.locals.navigation
 
 import androidx.navigation.NavController
-import com.wojciechkula.locals.presentation.model.User
+import com.wojciechkula.locals.presentation.register.model.User
 import com.wojciechkula.locals.presentation.register.userdata.RegisterUserDataFragmentDirections
 import javax.inject.Inject
 

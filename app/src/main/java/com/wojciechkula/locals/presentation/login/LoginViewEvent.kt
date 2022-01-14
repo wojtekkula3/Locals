@@ -5,5 +5,5 @@ sealed class LoginViewEvent {
     object OpenRegister : LoginViewEvent()
     object OpenForgotPassword : LoginViewEvent()
 
-    data class Error(val message: String?) : LoginViewEvent()
+    data class Error(val exception: Exception) : LoginViewEvent()
 }

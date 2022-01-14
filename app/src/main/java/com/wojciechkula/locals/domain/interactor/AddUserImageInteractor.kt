@@ -6,6 +6,6 @@ import javax.inject.Inject
 
 class AddUserImageInteractor @Inject constructor(private val repository: ImageRepository) {
 
-    suspend operator fun invoke(image: Bitmap, userId: String, userEmail: String) =
-        repository.addUserImage(image, userId, userEmail)
+    suspend operator fun invoke(image: Bitmap, userId: String) =
+        repository.addUserImage(image, userId)
 }

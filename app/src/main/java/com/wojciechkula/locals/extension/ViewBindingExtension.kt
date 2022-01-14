@@ -25,7 +25,7 @@ fun ViewBinding.showSnackbarInfo(
 ): Snackbar {
     return Snackbar.make(root, message, duration).apply {
         setTextColor(ContextCompat.getColor(context, R.color.white))
-        setBackgroundTint(ContextCompat.getColor(context, R.color.gray_300))
+        setBackgroundTint(ContextCompat.getColor(context, R.color.green_400))
         show()
     }
 }

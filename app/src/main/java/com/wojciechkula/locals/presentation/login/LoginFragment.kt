@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.wojciechkula.locals.R
 import com.wojciechkula.locals.common.dialog.LoadingDialogFragment
 import com.wojciechkula.locals.databinding.FragmentLoginBinding
 import com.wojciechkula.locals.extension.showSnackbarError
@@ -72,7 +74,7 @@ internal class LoginFragment : Fragment() {
             GetGroupsForExplore -> onGetGroupsForExplore()
             OpenForgotPassword -> onOpenForgotPassword()
             OpenRegister -> onOpenRegister()
-            is Error -> onError(event)
+            is Error -> onError(event.exception)
         }
     }
 
@@ -98,9 +100,11 @@ internal class LoginFragment : Fragment() {
         navigator.openDashboard(findNavController())
     }
 
-    private fun onError(event: Error) {
-        if (event.message != null) {
-            binding.showSnackbarError(event.message)
+    private fun onError(exception: Exception) {
+        if (exception is FirebaseAuthInvalidCredentialsException) {
+            binding.showSnackbarError(getString(R.string.login_exception_wrong_email_or_password))
+        } else {
+            binding.showSnackbarError(exception.message.toString())
         }
     }
 }

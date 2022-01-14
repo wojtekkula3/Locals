@@ -76,5 +76,7 @@
     <string name="create_group_confirm_to_create_group">Potwierdź by utworzyć grupę</string>
     <string name="create_group_group_created_latest_message">Utworzono grupę</string>
     <string name="profile_image_changed_with_success">Pomyślnie zmieniono zdjęcie profilowe</string>
+    <string name="profile_avatar_image_description">Zdjęcie profilowe</string>
+    <string name="login_exception_wrong_email_or_password">Podano zły email lub hasło</string>
 
 </resources>

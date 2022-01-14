@@ -80,7 +80,7 @@ class ProfileViewModel @Inject constructor(
             val id = viewState.value?.user?.id
             if (email != null && id != null) {
                 try {
-                    val uri = addUserImageInteractor(image, id, email)
+                    val uri = addUserImageInteractor(image, id)
                     _viewEvent.postValue(ProfileViewEvent.ShowImageChangeSuccess(uri))
                 } catch (e: Exception) {
                     _viewEvent.postValue(ProfileViewEvent.ShowError(e.message.toString()))

@@ -94,5 +94,6 @@
     <string name="create_group_confirm_to_create_group">Confirm to create group</string>
     <string name="create_group_new_hobbies_alert_dialog">You selected interests that don\'t exists in application yet. Are you sure you want to create a group with following interests:\n\n%1$s</string>
     <string name="create_group_group_created_latest_message">Group created</string>
+    <string name="login_exception_wrong_email_or_password">Wrong email or password</string>
 
 </resources>

@@ -111,7 +111,7 @@ class RegisterUserDataViewModel @Inject constructor(
                     _showLoading.postValue(false)
                 } else {
                     _showLoading.postValue(false)
-                    _viewEvent.postValue(RegisterUserDataViewEvent.ErrorUserExists)
+                    _viewEvent.postValue(RegisterUserDataViewEvent.ShowErrorUserExists)
                 }
             }
         }

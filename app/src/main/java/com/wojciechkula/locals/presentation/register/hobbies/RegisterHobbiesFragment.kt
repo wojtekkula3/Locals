@@ -116,6 +116,7 @@ internal class RegisterHobbiesFragment : Fragment(), EasyPermissions.PermissionC
             is RegisterHobbiesViewEvent.GetCustomHobbies -> getCustomHobbies(event)
             RegisterHobbiesViewEvent.CheckLocationPermissions -> checkLocationPermissions()
             RegisterHobbiesViewEvent.GetGroupsForExplore -> onGetGroupsForExplore()
+            is RegisterHobbiesViewEvent.ShowError -> onError(event.exception)
         }
     }
 
@@ -181,8 +182,8 @@ internal class RegisterHobbiesFragment : Fragment(), EasyPermissions.PermissionC
         }
     }
 
-    private fun onError(message: String) {
-        binding.showSnackbarError(message)
+    private fun onError(exception: Exception) {
+        binding.showSnackbarError(exception.message.toString())
     }
 
     private fun checkLocationPermissions() {
