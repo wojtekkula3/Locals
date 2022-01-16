@@ -2,8 +2,10 @@ package com.wojciechkula.locals.presentation.group.list
 
 import android.annotation.SuppressLint
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.wojciechkula.locals.R
 import java.text.SimpleDateFormat
 import java.util.*
@@ -20,6 +22,9 @@ class MessagesViewHolder(
     fun bindReceivedMessage(message: MessageItem, onButtonClicked: (messageId: String) -> Unit) {
         (view.findViewById(R.id.messageOutput) as TextView).text = message.message
         (view.findViewById(R.id.dateTimeOutput) as TextView).text = setTime(message.sentAt)
+        if (!message.authorAvatar.isNullOrEmpty()) {
+            (view.findViewById(R.id.avatarReceivedMessageOutput) as ImageView).load(message.authorAvatar)
+        }
     }
 
     @SuppressLint("SimpleDateFormat")

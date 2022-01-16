@@ -131,7 +131,6 @@ internal class ProfileFragment : Fragment() {
 
     private fun bindState(state: ProfileViewState) {
         with(state) {
-
             setViewsWithUserData(this)
 
             binding.emailVisibilityButton.setImageDrawable(setVisibility(emailVisibility))
@@ -147,11 +146,6 @@ internal class ProfileFragment : Fragment() {
             binding.myHobbiesVisibilityButton.setOnClickListener {
                 viewModel.changeHobbiesVisibility(!hobbiesVisibility)
             }
-
-            if (state.user?.avatarReference != null) {
-                binding.avatarImage.load(state.user.avatarReference)
-            }
-
         }
     }
 
@@ -173,13 +167,14 @@ internal class ProfileFragment : Fragment() {
     private fun setViewsWithUserData(state: ProfileViewState) {
         if (state.user != null) {
             with(state.user) {
+
+                if (!avatarReference.isNullOrEmpty()) {
+                    binding.avatarImage.load(avatarReference)
+                }
+
                 binding.fullNameOutput.text = "$name $surname"
                 binding.nameOutput.text = name
-                binding.surnameOutput.text = surname
                 binding.emailOutput.text = email
-                if (!avatarReference.isNullOrEmpty()) {
-                    binding.avatarImage.setImageBitmap(avatar)
-                }
 
                 if (surname.isNullOrEmpty()) {
                     binding.surnameOutput.text = "-"

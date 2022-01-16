@@ -1,8 +1,10 @@
 package com.wojciechkula.locals.data.datasource
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.wojciechkula.locals.data.entity.Member
 import com.wojciechkula.locals.data.entity.User
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
@@ -55,6 +57,28 @@ class UserDataSource @Inject constructor() {
             cancel()
         }
     }
+
+    suspend fun getUsersByGroupMembers(membersId: ArrayList<String>): List<Member> =
+        suspendCoroutine { continuation ->
+            db.collection("Users")
+                .whereIn(FieldPath.documentId(), membersId)
+                .get()
+                .addOnSuccessListener { snapshot ->
+                    val users = snapshot.toObjects(User::class.java)
+                    val members = users.map { user ->
+                        Member(
+                            userId = user.id,
+                            name = user.name,
+                            surname = user.surname,
+                            avatar = user.avatarReference
+                        )
+                    }
+                    continuation.resume(members)
+                }
+                .addOnFailureListener { exception ->
+                    continuation.resumeWithException(exception)
+                }
+        }
 
     suspend fun changeEmailVisibility(isVisible: Boolean, user: User): Boolean =
         suspendCoroutine { continuation ->

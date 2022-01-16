@@ -5,6 +5,7 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.wojciechkula.locals.data.entity.LatestMessage
+import com.wojciechkula.locals.data.entity.Member
 import com.wojciechkula.locals.data.entity.Message
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
@@ -19,7 +20,7 @@ class MessageDataSource @Inject constructor() {
 
     private val db = Firebase.firestore
 
-    suspend fun getMessages(groupId: String): Flow<List<Message>> = callbackFlow {
+    suspend fun getMessages(groupId: String, members: List<Member>): Flow<List<Message>> = callbackFlow {
         val query = db.collection("Groups")
             .document(groupId)
             .collection("Messages")
@@ -28,7 +29,15 @@ class MessageDataSource @Inject constructor() {
         val snapshotListener = query.addSnapshotListener { snapshot, error ->
             if (error == null) {
                 if (snapshot != null) {
-                    this.trySend(snapshot.toObjects(Message::class.java)).isSuccess
+                    val messages = snapshot.toObjects(Message::class.java)
+                    for (member in members) {
+                        for (message in messages) {
+                            if (member.userId == message.authorId) {
+                                message.authorAvatar = member.avatar
+                            }
+                        }
+                    }
+                    this.trySend(messages).isSuccess
                 } else {
                     this.trySend(emptyList())
                 }

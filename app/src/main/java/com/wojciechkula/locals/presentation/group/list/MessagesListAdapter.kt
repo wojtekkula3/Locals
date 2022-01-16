@@ -19,7 +19,7 @@ class MessagesListAdapter(
         val view: View = if (viewType == VIEW_TYPE_SENT) {
             LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_item_sent_message, parent, false)
         } else {
-            LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_item_recieved_message, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_item_received_message, parent, false)
         }
         return MessagesViewHolder(view)
     }

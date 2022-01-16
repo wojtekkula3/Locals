@@ -228,6 +228,7 @@ internal class RegisterHobbiesFragment : Fragment(), EasyPermissions.PermissionC
     }
 
     private fun onGetGroupsForExplore() {
+        sharedViewModel.getUser()
         sharedViewModel.getGroupsForExplore()
     }
 

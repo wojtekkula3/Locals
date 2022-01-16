@@ -6,6 +6,7 @@ data class MessageItem(
     val id: String,
     val authorId: String,
     val authorName: String,
+    val authorAvatar: String?,
     val message: String,
     val sentAt: Date,
 )

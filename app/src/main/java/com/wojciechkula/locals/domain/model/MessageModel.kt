@@ -9,12 +9,21 @@ data class MessageModel(
     val id: String,
     val authorId: String,
     val authorName: String,
+    val authorAvatar: String?,
     val message: String,
     val sentAt: Timestamp,
 ) {
     constructor(
         authorId: String,
         authorName: String,
+        authorAvatar: String?,
         message: String,
-    ) : this("", authorId = authorId, authorName = authorName, message = message, sentAt = Timestamp.now())
+    ) : this(
+        "",
+        authorId = authorId,
+        authorName = authorName,
+        authorAvatar = authorAvatar,
+        message = message,
+        sentAt = Timestamp.now()
+    )
 }

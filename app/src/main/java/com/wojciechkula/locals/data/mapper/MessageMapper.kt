@@ -11,6 +11,7 @@ class MessageMapper @Inject constructor() {
             id = message.id,
             authorId = message.authorId,
             authorName = message.authorName,
+            authorAvatar = message.authorAvatar,
             message = message.message,
             sentAt = message.sentAt
         )
@@ -19,6 +20,7 @@ class MessageMapper @Inject constructor() {
         Message(
             authorId = message.authorId,
             authorName = message.authorName,
+            authorAvatar = message.authorAvatar,
             message = message.message,
             sentAt = message.sentAt
         )

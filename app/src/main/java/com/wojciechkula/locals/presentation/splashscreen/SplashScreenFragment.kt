@@ -76,6 +76,7 @@ internal class SplashScreenFragment : Fragment(), EasyPermissions.PermissionCall
 
     private fun checkLocationPermissions() {
         if (TrackingUtility.hasLocationPermissions(requireContext())) {
+            sharedViewModel.getUser()
             viewModel.getGroupsForExplore()
             return
         }
