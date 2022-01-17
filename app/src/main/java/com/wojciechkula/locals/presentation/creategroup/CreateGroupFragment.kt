@@ -113,7 +113,7 @@ internal class CreateGroupFragment : Fragment() {
 
             resetAvatarImageView.setOnClickListener {
                 bitmap = null
-                groupAvatarImageView.load(R.drawable.avatar_default)
+                groupAvatarImageView.load(R.drawable.image_default_group_avatar)
             }
 
             searchLayout.isEndIconVisible = false

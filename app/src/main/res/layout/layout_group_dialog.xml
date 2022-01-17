@@ -34,7 +34,7 @@
                 android:id="@+id/groupAvatarImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/avatar_default" />
+                android:src="@drawable/image_default_group_avatar" />
 
             <ImageView
                 android:id="@+id/editAvatarImageView"

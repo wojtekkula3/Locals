@@ -21,7 +21,7 @@
                 android:id="@+id/exploreGroupItemImageView"
                 android:layout_width="160dp"
                 android:layout_height="160dp"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@drawable/image_default_group_avatar" />
 
             <TextView
                 android:id="@+id/groupNameLabel"

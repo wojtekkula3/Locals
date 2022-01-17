@@ -106,7 +106,7 @@ internal class RegisterUserDataFragment : Fragment() {
 
             resetAvatarImageView.setOnClickListener {
                 bitmap = null
-                avatarImageView.load(R.drawable.avatar_default)
+                avatarImageView.load(R.drawable.image_default_user_avatar)
             }
 
             nextButton.setOnClickListener { viewModel.onNextClick(emailInput.text.toString()) }
