@@ -1,23 +1,26 @@
 package com.wojciechkula.locals.presentation.group.dialog
 
-import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.theartofdev.edmodo.cropper.CropImage
 import com.wojciechkula.locals.R
 import com.wojciechkula.locals.common.dialog.LoadingDialogFragment
 import com.wojciechkula.locals.databinding.LayoutGroupDialogBinding
@@ -35,7 +38,18 @@ class GroupDialogFragment(private val group: GroupModel) : DialogFragment() {
 
     private val viewModel: GroupDialogViewModel by viewModels()
 
-    private val PICK_IMAGE = 100
+    private val cropActivityResultContract = object : ActivityResultContract<Any?, Uri?>() {
+        override fun createIntent(context: Context, input: Any?): Intent {
+            return CropImage.activity()
+                .setAspectRatio(1, 1)
+                .getIntent(context)
+        }
+
+        override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
+            return CropImage.getActivityResult(intent)?.uri
+        }
+    }
+    private lateinit var cropActivityResultLauncher: ActivityResultLauncher<Any?>
     private var previewBitmap: Bitmap? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -49,8 +63,21 @@ class GroupDialogFragment(private val group: GroupModel) : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (dialog != null) dialog!!.window!!.setLayout(550, ConstraintLayout.LayoutParams.WRAP_CONTENT)
+        setCropActivityForResult()
         initViews()
         observeViewModel()
+    }
+
+    private fun setCropActivityForResult() {
+        cropActivityResultLauncher = registerForActivityResult(cropActivityResultContract) { uri ->
+            if (uri != null) {
+                val bitmap = BitmapFactory.decodeStream(context?.contentResolver?.openInputStream(uri))
+                val previewWidth = 400
+                val previewHeight = bitmap.height * previewWidth / bitmap.width
+                previewBitmap = Bitmap.createScaledBitmap(bitmap, previewWidth, previewHeight, false)
+                viewModel.changeGroupImage(bitmap, group.id)
+            }
+        }
     }
 
     private fun initViews() {
@@ -66,17 +93,15 @@ class GroupDialogFragment(private val group: GroupModel) : DialogFragment() {
             groupHobbiesOutput.text = hobbies
             groupDescriptionOutput.text = group.description
 
+            avatarCardView.setOnClickListener {
+                cropActivityResultLauncher.launch(null)
+            }
             editAvatarImageView.setOnClickListener {
-                onImageClick()
+                cropActivityResultLauncher.launch(null)
             }
             leaveGroupButton.setOnClickListener { showAcceptDialog() }
             closeButton.setOnClickListener { closeGroupDialog() }
         }
-    }
-
-    private fun onImageClick() {
-        val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-        startActivityForResult(gallery, PICK_IMAGE)
     }
 
     private fun showAcceptDialog() {
@@ -127,19 +152,6 @@ class GroupDialogFragment(private val group: GroupModel) : DialogFragment() {
 
     private fun onError(exception: Exception) {
         binding.showSnackbarError(exception.message.toString())
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE) {
-            val imageUri = data?.data
-            val bitmap =
-                BitmapFactory.decodeStream(imageUri?.let { context?.contentResolver?.openInputStream(it) })
-            val previewWidth = 400
-            val previewHeight = bitmap.height * previewWidth / bitmap.width
-            previewBitmap = Bitmap.createScaledBitmap(bitmap, previewWidth, previewHeight, false)
-            viewModel.changeGroupImage(bitmap, group.id)
-        }
     }
 
     companion object {

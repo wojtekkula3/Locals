@@ -1,19 +1,22 @@
 package com.wojciechkula.locals.presentation.register.userdata
 
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.theartofdev.edmodo.cropper.CropImage
 import com.wojciechkula.locals.R
 import com.wojciechkula.locals.common.dialog.LoadingDialogFragment
 import com.wojciechkula.locals.databinding.FragmentRegisterUserDataBinding
@@ -47,8 +50,20 @@ internal class RegisterUserDataFragment : Fragment() {
     private val phoneNumber get() = binding.phoneNumberInput.text.toString()
     private val terms get() = binding.termsAndConditionsCheckBox.isChecked
 
-    private val PICK_IMAGE = 100
+    private val cropActivityResultContract = object : ActivityResultContract<Any?, Uri?>() {
+        override fun createIntent(context: Context, input: Any?): Intent {
+            return CropImage.activity()
+                .setAspectRatio(1, 1)
+                .getIntent(context)
+        }
+
+        override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
+            return CropImage.getActivityResult(intent)?.uri
+        }
+    }
+    private lateinit var cropActivityResultLauncher: ActivityResultLauncher<Any?>
     private var bitmap: Bitmap? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,8 +75,22 @@ internal class RegisterUserDataFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setCropActivityForResult()
         initViews()
         observeViewModel()
+    }
+
+    private fun setCropActivityForResult() {
+        cropActivityResultLauncher = registerForActivityResult(cropActivityResultContract) { uri ->
+            if (uri != null) {
+                val decodedBitmap = BitmapFactory.decodeStream(context?.contentResolver?.openInputStream(uri))
+                bitmap = decodedBitmap
+                val previewWidth = 400
+                val previewHeight = decodedBitmap.height * previewWidth / decodedBitmap.width
+                val previewBitmap = Bitmap.createScaledBitmap(decodedBitmap, previewWidth, previewHeight, false)
+                binding.avatarImageView.load(previewBitmap)
+            }
+        }
     }
 
     private fun initViews() {
@@ -98,10 +127,10 @@ internal class RegisterUserDataFragment : Fragment() {
 
             backButton.setOnClickListener { findNavController().popBackStack() }
             avatarImageView.setOnClickListener {
-                onImageClick()
+                cropActivityResultLauncher.launch(null)
             }
             addAvatarButton.setOnClickListener {
-                onImageClick()
+                cropActivityResultLauncher.launch(null)
             }
 
             resetAvatarImageView.setOnClickListener {
@@ -111,11 +140,6 @@ internal class RegisterUserDataFragment : Fragment() {
 
             nextButton.setOnClickListener { viewModel.onNextClick(emailInput.text.toString()) }
         }
-    }
-
-    private fun onImageClick() {
-        val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-        startActivityForResult(gallery, PICK_IMAGE)
     }
 
     private fun observeViewModel() {
@@ -177,19 +201,5 @@ internal class RegisterUserDataFragment : Fragment() {
 
     private fun onShowError() {
         binding.showSnackbarError(getString(R.string.register_data_this_email_already_exists_in_database))
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE) {
-            val imageUri = data?.data
-            val decodedBitmap =
-                BitmapFactory.decodeStream(imageUri?.let { context?.contentResolver?.openInputStream(it) })
-            bitmap = decodedBitmap
-            val previewWidth = 400
-            val previewHeight = decodedBitmap.height * previewWidth / decodedBitmap.width
-            val previewBitmap = Bitmap.createScaledBitmap(decodedBitmap, previewWidth, previewHeight, false)
-            binding.avatarImageView.load(previewBitmap)
-        }
     }
 }

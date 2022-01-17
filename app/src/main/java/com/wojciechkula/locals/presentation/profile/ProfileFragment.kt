@@ -1,15 +1,16 @@
 package com.wojciechkula.locals.presentation.profile
 
-import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -18,6 +19,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.google.firebase.auth.FirebaseAuth
+import com.theartofdev.edmodo.cropper.CropImage
 import com.wojciechkula.locals.R
 import com.wojciechkula.locals.common.dialog.LoadingDialogFragment
 import com.wojciechkula.locals.databinding.FragmentProfileBinding
@@ -36,13 +38,25 @@ internal class ProfileFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-    private val PICK_IMAGE = 100
+    private val viewModel: ProfileViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     @Inject
     lateinit var navigator: ProfileNavigator
 
-    private val viewModel: ProfileViewModel by viewModels()
-    private val sharedViewModel: SharedViewModel by activityViewModels()
+    private val cropActivityResultContract = object : ActivityResultContract<Any?, Uri?>() {
+        override fun createIntent(context: Context, input: Any?): Intent {
+            return CropImage.activity()
+                .setAspectRatio(1, 1)
+                .getIntent(context)
+        }
+
+        override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
+            return CropImage.getActivityResult(intent)?.uri
+        }
+    }
+    private lateinit var cropActivityResultLauncher: ActivityResultLauncher<Any?>
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,8 +68,18 @@ internal class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setCropActivityForResult()
         initViews()
         observeViewModel()
+    }
+
+    private fun setCropActivityForResult() {
+        cropActivityResultLauncher = registerForActivityResult(cropActivityResultContract) { uri ->
+            if (uri != null) {
+                val bitmap = BitmapFactory.decodeStream(context?.contentResolver?.openInputStream(uri))
+                viewModel.changeUserPicture(bitmap)
+            }
+        }
     }
 
     private fun initViews() {
@@ -116,8 +140,7 @@ internal class ProfileFragment : Fragment() {
             }
 
             avatarImage.setOnClickListener {
-                val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-                startActivityForResult(gallery, PICK_IMAGE)
+                cropActivityResultLauncher.launch(null)
             }
         }
     }
@@ -215,16 +238,6 @@ internal class ProfileFragment : Fragment() {
             ResourcesCompat.getDrawable(activity!!.resources, R.drawable.ic_visibility_off, null)
         }
 
-//    private fun encodeImage(bitmap: Bitmap): String {
-//        val previewWidth = 150
-//        val previewHeight = bitmap.height * previewWidth / bitmap.width
-//        val previewBitmap = Bitmap.createScaledBitmap(bitmap, previewWidth, previewHeight, false)
-//        val byteArrayOutputStream = ByteArrayOutputStream()
-//        previewBitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream)
-//        val bytes = byteArrayOutputStream.toByteArray()
-//        return Base64.encodeToString(bytes, Base64.DEFAULT)
-//    }
-
     private fun showImageChangeSuccess(uri: Uri?) {
         binding.avatarImage.load(uri)
         binding.showSnackbarInfo(getString(R.string.profile_image_changed_with_success))
@@ -232,14 +245,5 @@ internal class ProfileFragment : Fragment() {
 
     private fun onError(exception: Exception) {
         binding.showSnackbarError(exception.message.toString())
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
-            val imageUri = data?.data
-            val bitmap = BitmapFactory.decodeStream(imageUri?.let { context?.contentResolver?.openInputStream(it) })
-            viewModel.changeUserPicture(bitmap)
-        }
     }
 }
