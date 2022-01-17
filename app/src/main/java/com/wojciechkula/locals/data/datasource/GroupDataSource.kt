@@ -1,6 +1,7 @@
 package com.wojciechkula.locals.data.datasource
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
 import com.firebase.geofire.GeoFireUtils
 import com.firebase.geofire.GeoLocation
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -12,6 +13,8 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.wojciechkula.locals.common.bitmap.BitmapService
 import com.wojciechkula.locals.data.entity.Group
 import com.wojciechkula.locals.data.entity.Hobby
 import com.wojciechkula.locals.data.entity.Location
@@ -25,9 +28,15 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class GroupDataSource @Inject constructor(private val fusedLocationClient: FusedLocationProviderClient) {
+class GroupDataSource @Inject constructor(
+    private val fusedLocationClient: FusedLocationProviderClient,
+    private val bitmapService: BitmapService
+) {
 
     private val db = Firebase.firestore
+    private val storage = FirebaseStorage.getInstance()
+    private val storageRef = storage.reference
+
 
     @SuppressLint("MissingPermission")
     suspend fun getGroupsByDistanceAndHobbies(
@@ -96,7 +105,7 @@ class GroupDataSource @Inject constructor(private val fusedLocationClient: Fused
                                         doc.get("location.longitude") as Double,
                                     ),
                                     distance = distanceInM,
-                                    avatar = null,
+                                    avatar = doc.get("avatar") as String?,
                                     hobbies = doc.get("hobbies") as ArrayList<String>,
                                     members = doc.get("members") as ArrayList<String>,
                                 )
@@ -138,11 +147,36 @@ class GroupDataSource @Inject constructor(private val fusedLocationClient: Fused
             }
         }
 
-    suspend fun createGroup(group: Group): DocumentReference = suspendCoroutine { continuation ->
+    suspend fun createGroup(imageBitmap: Bitmap?, group: Group): DocumentReference = suspendCoroutine { continuation ->
         db.collection("Groups")
             .add(group)
             .addOnSuccessListener { documentReference ->
-                continuation.resume(documentReference)
+                if (imageBitmap != null) {
+                    val imageRef = storageRef.child("Groups avatars/${documentReference.id}.jpg")
+
+                    val data = bitmapService.compressBitmap(imageBitmap)
+                    imageRef.putBytes(data)
+                        .addOnSuccessListener { task ->
+                            imageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
+                                db.collection("Groups").document(documentReference.id)
+                                    .update("avatar", downloadUrl.toString())
+                                    .addOnSuccessListener {
+                                        continuation.resume(documentReference)
+                                    }
+                                    .addOnFailureListener { exception ->
+                                        continuation.resumeWithException(exception)
+                                    }
+                            }
+                                .addOnFailureListener { exception ->
+                                    continuation.resumeWithException(exception)
+                                }
+                        }
+                        .addOnFailureListener { exception ->
+                            continuation.resumeWithException(exception)
+                        }
+                } else {
+                    continuation.resume(documentReference)
+                }
             }
             .addOnFailureListener { exception ->
                 continuation.resumeWithException(exception)

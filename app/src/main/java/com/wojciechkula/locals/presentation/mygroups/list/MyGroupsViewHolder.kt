@@ -1,8 +1,10 @@
 package com.wojciechkula.locals.presentation.mygroups.list
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.google.android.material.card.MaterialCardView
 import com.wojciechkula.locals.R
 import java.util.*
@@ -12,7 +14,9 @@ class MyGroupsViewHolder(
 ) : RecyclerView.ViewHolder(view) {
 
     fun bind(group: MyGroupsItem, onButtonClicked: (selectedGroup: MyGroupsItem) -> Unit) {
-//        (view.findViewById(R.id.avatarImage) as ImageView).drawable =
+        if (!group.avatar.isNullOrEmpty()) {
+            (view.findViewById(R.id.myGroupsImageImageView) as ImageView).load(group.avatar)
+        }
         (view.findViewById(R.id.groupNameOutput) as TextView).text = group.name
         (view.findViewById(R.id.authorAndMessageOutput) as TextView).text = group.author + ": " + group.message
         (view.findViewById(R.id.messageDateOutput) as TextView).text = setTime(group.sentAt)

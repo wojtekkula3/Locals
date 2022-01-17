@@ -1,9 +1,14 @@
 package com.wojciechkula.locals.presentation.group.dialog
 
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +17,13 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.wojciechkula.locals.R
+import com.wojciechkula.locals.common.dialog.LoadingDialogFragment
 import com.wojciechkula.locals.databinding.LayoutGroupDialogBinding
 import com.wojciechkula.locals.domain.model.GroupModel
+import com.wojciechkula.locals.extension.showSnackbarError
+import com.wojciechkula.locals.extension.showSnackbarInfo
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,6 +34,9 @@ class GroupDialogFragment(private val group: GroupModel) : DialogFragment() {
         get() = _binding!!
 
     private val viewModel: GroupDialogViewModel by viewModels()
+
+    private val PICK_IMAGE = 100
+    private var previewBitmap: Bitmap? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -43,6 +55,9 @@ class GroupDialogFragment(private val group: GroupModel) : DialogFragment() {
 
     private fun initViews() {
         with(binding) {
+            if (!group.avatar.isNullOrEmpty()) {
+                groupAvatarImage.load(group.avatar)
+            }
             groupNameOutput.text = group.name
             var hobbies = ""
             for (hobby in group.hobbies) {
@@ -50,9 +65,18 @@ class GroupDialogFragment(private val group: GroupModel) : DialogFragment() {
             }
             groupHobbiesOutput.text = hobbies
             groupDescriptionOutput.text = group.description
+
+            editAvatarImageView.setOnClickListener {
+                onImageClick()
+            }
             leaveGroupButton.setOnClickListener { showAcceptDialog() }
             closeButton.setOnClickListener { closeGroupDialog() }
         }
+    }
+
+    private fun onImageClick() {
+        val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+        startActivityForResult(gallery, PICK_IMAGE)
     }
 
     private fun showAcceptDialog() {
@@ -77,16 +101,45 @@ class GroupDialogFragment(private val group: GroupModel) : DialogFragment() {
 
     private fun observeViewModel() {
         viewModel.viewEvent.observe(viewLifecycleOwner, ::handleEvents)
+        viewModel.showLoading.observe(viewLifecycleOwner, ::handleLoading)
+    }
+
+    private fun handleLoading(isLoading: Boolean) {
+        LoadingDialogFragment.toggle(childFragmentManager, isLoading)
     }
 
     private fun handleEvents(event: GroupDialogViewEvent) {
         when (event) {
+            GroupDialogViewEvent.ShowImageChangeSuccess -> onShowImageChangeSuccess()
             GroupDialogViewEvent.OpenMyGroups -> openMyGroups()
+            is GroupDialogViewEvent.ShowError -> onError(event.exception)
         }
+    }
+
+    private fun onShowImageChangeSuccess() {
+        binding.groupAvatarImage.load(previewBitmap)
+        binding.showSnackbarInfo(getString(R.string.group_image_changed_with_success))
     }
 
     private fun openMyGroups() {
         findNavController().popBackStack()
+    }
+
+    private fun onError(exception: Exception) {
+        binding.showSnackbarError(exception.message.toString())
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE) {
+            val imageUri = data?.data
+            val bitmap =
+                BitmapFactory.decodeStream(imageUri?.let { context?.contentResolver?.openInputStream(it) })
+            val previewWidth = 400
+            val previewHeight = bitmap.height * previewWidth / bitmap.width
+            previewBitmap = Bitmap.createScaledBitmap(bitmap, previewWidth, previewHeight, false)
+            viewModel.changeGroupImage(bitmap, group.id)
+        }
     }
 
     companion object {

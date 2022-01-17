@@ -1,5 +1,6 @@
 package com.wojciechkula.locals.presentation.creategroup
 
+import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -172,16 +173,28 @@ class CreateGroupViewModel @Inject constructor(
 
     }
 
-    fun onNextClick(name: String, description: String, selectedLocation: LocationModel?, groupCreatedMessage: String) {
+    fun onNextClick(
+        avatarImage: Bitmap?,
+        name: String,
+        description: String,
+        selectedLocation: LocationModel?,
+        groupCreatedMessage: String
+    ) {
         val newHobbies = _viewState.value?.newHobbies
         if (!newHobbies.isNullOrEmpty()) {
             _viewEvent.postValue(CreateGroupViewEvent.OpenDialog(newHobbies))
         } else {
-            createGroup(name, description, selectedLocation, groupCreatedMessage)
+            createGroup(avatarImage, name, description, selectedLocation, groupCreatedMessage)
         }
     }
 
-    fun createGroup(name: String, description: String, selectedLocation: LocationModel?, groupCreatedMessage: String) {
+    fun createGroup(
+        image: Bitmap?,
+        name: String,
+        description: String,
+        selectedLocation: LocationModel?,
+        groupCreatedMessage: String
+    ) {
         val newHobbies = viewState.value?.newHobbies?.map { hobbyItem -> HobbyModel(hobbyItem.name) }
         val selectedHobbies =
             viewState.value?.selectedHobbies?.map { hobbyItem -> hobbyItem.name } as ArrayList<String>
@@ -202,18 +215,15 @@ class CreateGroupViewModel @Inject constructor(
                     members = arrayListOf(_viewState.value!!.user.id)
                 )
         }
-
-        Timber.d("Group to create: $group")
-
         viewModelScope.launch {
             _showLoading.postValue(true)
 
             if (!newHobbies.isNullOrEmpty()) {
                 val isSuccess = createNewHobbiesInteractor(newHobbies)
             }
-            val documentReference = createGroupInteractor(group)
+            val documentReference = createGroupInteractor(image, group)
             joinToGroupInteractor(documentReference.id)
-
+            _showLoading.postValue(false)
             _viewEvent.postValue(CreateGroupViewEvent.OpenMyGroups)
         }
     }

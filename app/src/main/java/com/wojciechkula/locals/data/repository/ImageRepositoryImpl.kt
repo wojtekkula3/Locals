@@ -9,6 +9,10 @@ import javax.inject.Inject
 class ImageRepositoryImpl @Inject constructor(
     private val dataSource: ImageDataSource
 ) : ImageRepository {
+
     override suspend fun addUserImage(image: Bitmap, userId: String): Uri? =
         dataSource.addUserImage(image, userId)
+
+    override suspend fun addGroupImage(image: Bitmap, groupId: String): Uri? =
+        dataSource.addGroupImage(image, groupId)
 }

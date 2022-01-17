@@ -36,18 +36,17 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/avatar_default" />
 
-            <ImageButton
-                android:id="@+id/editAvatarButton"
+            <ImageView
+                android:id="@+id/editAvatarImageView"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="2dp"
-                android:layout_marginTop="2dp"
                 android:layout_marginEnd="2dp"
                 android:layout_marginBottom="2dp"
                 android:background="@drawable/ic_edit_photo"
-                android:padding="8dp" />
+                android:padding="20dp" />
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

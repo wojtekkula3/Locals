@@ -156,7 +156,7 @@ internal class ProfileFragment : Fragment() {
     private fun handleEvents(event: ProfileViewEvent) {
         when (event) {
             is ProfileViewEvent.ShowImageChangeSuccess -> showImageChangeSuccess(event.uri)
-            is ProfileViewEvent.ShowError -> showError(event.message)
+            is ProfileViewEvent.ShowError -> onError(event.exception)
         }
     }
 
@@ -230,8 +230,8 @@ internal class ProfileFragment : Fragment() {
         binding.showSnackbarInfo(getString(R.string.profile_image_changed_with_success))
     }
 
-    private fun showError(message: String) {
-        binding.showSnackbarError(message)
+    private fun onError(exception: Exception) {
+        binding.showSnackbarError(exception.message.toString())
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

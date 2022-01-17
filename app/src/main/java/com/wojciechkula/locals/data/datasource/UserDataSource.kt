@@ -60,24 +60,28 @@ class UserDataSource @Inject constructor() {
 
     suspend fun getUsersByGroupMembers(membersId: ArrayList<String>): List<Member> =
         suspendCoroutine { continuation ->
-            db.collection("Users")
-                .whereIn(FieldPath.documentId(), membersId)
-                .get()
-                .addOnSuccessListener { snapshot ->
-                    val users = snapshot.toObjects(User::class.java)
-                    val members = users.map { user ->
-                        Member(
-                            userId = user.id,
-                            name = user.name,
-                            surname = user.surname,
-                            avatar = user.avatarReference
-                        )
+            if (membersId.isNotEmpty()) {
+                db.collection("Users")
+                    .whereIn(FieldPath.documentId(), membersId)
+                    .get()
+                    .addOnSuccessListener { snapshot ->
+                        val users = snapshot.toObjects(User::class.java)
+                        val members = users.map { user ->
+                            Member(
+                                userId = user.id,
+                                name = user.name,
+                                surname = user.surname,
+                                avatar = user.avatarReference
+                            )
+                        }
+                        continuation.resume(members)
                     }
-                    continuation.resume(members)
-                }
-                .addOnFailureListener { exception ->
-                    continuation.resumeWithException(exception)
-                }
+                    .addOnFailureListener { exception ->
+                        continuation.resumeWithException(exception)
+                    }
+            } else {
+                continuation.resume(arrayListOf())
+            }
         }
 
     suspend fun changeEmailVisibility(isVisible: Boolean, user: User): Boolean =

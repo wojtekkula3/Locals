@@ -98,16 +98,24 @@ internal class RegisterUserDataFragment : Fragment() {
 
             backButton.setOnClickListener { findNavController().popBackStack() }
             avatarImageView.setOnClickListener {
-                val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-                startActivityForResult(gallery, PICK_IMAGE)
+                onImageClick()
             }
             addAvatarButton.setOnClickListener {
-                val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-                startActivityForResult(gallery, PICK_IMAGE)
+                onImageClick()
             }
+
+            resetAvatarImageView.setOnClickListener {
+                bitmap = null
+                avatarImageView.load(R.drawable.avatar_default)
+            }
+
             nextButton.setOnClickListener { viewModel.onNextClick(emailInput.text.toString()) }
         }
+    }
 
+    private fun onImageClick() {
+        val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+        startActivityForResult(gallery, PICK_IMAGE)
     }
 
     private fun observeViewModel() {

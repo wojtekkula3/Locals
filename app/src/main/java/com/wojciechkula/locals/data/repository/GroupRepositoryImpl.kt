@@ -1,5 +1,6 @@
 package com.wojciechkula.locals.data.repository
 
+import android.graphics.Bitmap
 import com.google.firebase.firestore.DocumentReference
 import com.wojciechkula.locals.data.datasource.GroupDataSource
 import com.wojciechkula.locals.data.datasource.UserDataSource
@@ -33,8 +34,8 @@ class GroupRepositoryImpl @Inject constructor(
     override suspend fun getUserGroups(): Flow<List<GroupModel>> = dataSource.getUserGroups(userDataSource.getUser())
         .map { group -> groupMapper.mapListToDomain(group) }
 
-    override suspend fun createGroup(group: GroupModel): DocumentReference =
-        dataSource.createGroup(groupMapper.mapToEntity(group))
+    override suspend fun createGroup(image: Bitmap?, group: GroupModel): DocumentReference =
+        dataSource.createGroup(image, groupMapper.mapToEntity(group))
 
     override suspend fun getGroup(groupId: String): Flow<GroupModel> =
         dataSource.getGroup(groupId).map { group -> groupMapper.mapToDomain(group) }

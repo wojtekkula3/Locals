@@ -1,7 +1,12 @@
 package com.wojciechkula.locals.presentation.creategroup
 
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +19,11 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
 import com.wojciechkula.locals.R
+import com.wojciechkula.locals.common.dialog.LoadingDialogFragment
 import com.wojciechkula.locals.databinding.FragmentCreateGroupBinding
 import com.wojciechkula.locals.domain.model.LocationModel
 import com.wojciechkula.locals.navigation.CreateGroupNavigator
@@ -51,6 +58,10 @@ internal class CreateGroupFragment : Fragment() {
     private var selectedLocation: LocationModel? = null
     private lateinit var groupCreatedMessage: String
 
+    private val PICK_IMAGE = 100
+    private var bitmap: Bitmap? = null
+    private var previewBitmap: Bitmap? = null
+
     private val adapter: HobbyListAdapter by lazy {
         HobbyListAdapter { name -> viewModel.selectHobby(name) }
     }
@@ -70,6 +81,7 @@ internal class CreateGroupFragment : Fragment() {
                 placeStatusLabel.setTextColor(ContextCompat.getColor(context!!, R.color.green_600))
                 createGroupLayout.smoothScrollTo(0, createGroupLayout.getChildAt(0).height)
                 viewModel.showChipsWithHobbies()
+                groupAvatarImageView.load(previewBitmap)
             }
         }
     }
@@ -91,6 +103,19 @@ internal class CreateGroupFragment : Fragment() {
 
     private fun initViews() {
         with(binding) {
+
+            groupAvatarImageView.setOnClickListener {
+                onImageClick()
+            }
+            addAvatarButton.setOnClickListener {
+                onImageClick()
+            }
+
+            resetAvatarImageView.setOnClickListener {
+                bitmap = null
+                groupAvatarImageView.load(R.drawable.avatar_default)
+            }
+
             searchLayout.isEndIconVisible = false
             hobbiesRecyclerView.adapter = adapter
             backButton.setOnClickListener { findNavController().popBackStack() }
@@ -132,15 +157,25 @@ internal class CreateGroupFragment : Fragment() {
             }
 
             nextButton.setOnClickListener {
-                viewModel.onNextClick(name, description, selectedLocation, groupCreatedMessage)
+                viewModel.onNextClick(bitmap, name, description, selectedLocation, groupCreatedMessage)
             }
         }
     }
 
+    private fun onImageClick() {
+        val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+        startActivityForResult(gallery, PICK_IMAGE)
+    }
+
     private fun observeViewModel() {
+        viewModel.showLoading.observe(viewLifecycleOwner, ::handleLoading)
+        sharedViewModel.viewState.observe(viewLifecycleOwner, ::bindSharedState)
         viewModel.viewState.observe(viewLifecycleOwner, ::bindState)
         viewModel.viewEvent.observe(viewLifecycleOwner, ::handleEvents)
-        sharedViewModel.viewState.observe(viewLifecycleOwner, ::bindSharedState)
+    }
+
+    private fun handleLoading(isLoading: Boolean) {
+        LoadingDialogFragment.toggle(childFragmentManager, isLoading)
     }
 
     private fun bindSharedState(state: SharedViewState) {
@@ -194,7 +229,7 @@ internal class CreateGroupFragment : Fragment() {
         dialog.setMessage(getString(R.string.create_group_new_hobbies_alert_dialog, hobbiesString))
             .setCancelable(true)
             .setPositiveButton(getString(R.string.common_confirm)) { dialog, id ->
-                viewModel.createGroup(name, description, selectedLocation, groupCreatedMessage)
+                viewModel.createGroup(bitmap, name, description, selectedLocation, groupCreatedMessage)
             }
             .setNegativeButton(getString(R.string.common_decline)) { dialog, id ->
                 dialog.cancel()
@@ -222,5 +257,19 @@ internal class CreateGroupFragment : Fragment() {
             }
         }
         return chip
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE) {
+            val imageUri = data?.data
+            val decodedBitmap =
+                BitmapFactory.decodeStream(imageUri?.let { context?.contentResolver?.openInputStream(it) })
+            bitmap = decodedBitmap
+            val previewWidth = 400
+            val previewHeight = decodedBitmap.height * previewWidth / decodedBitmap.width
+            previewBitmap = Bitmap.createScaledBitmap(decodedBitmap, previewWidth, previewHeight, false)
+            binding.groupAvatarImageView.load(previewBitmap)
+        }
     }
 }

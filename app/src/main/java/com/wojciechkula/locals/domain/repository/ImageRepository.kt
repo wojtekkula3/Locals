@@ -6,4 +6,5 @@ import android.net.Uri
 interface ImageRepository {
 
     suspend fun addUserImage(image: Bitmap, userId: String): Uri?
+    suspend fun addGroupImage(image: Bitmap, groupId: String): Uri?
 }

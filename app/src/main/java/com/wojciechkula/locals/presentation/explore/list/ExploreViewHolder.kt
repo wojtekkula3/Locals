@@ -2,8 +2,10 @@ package com.wojciechkula.locals.presentation.explore.list
 
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.wojciechkula.locals.R
 
 class ExploreViewHolder(
@@ -16,7 +18,9 @@ class ExploreViewHolder(
         for (hobby in group.hobbies) {
             hobbies = "$hobbies$hobby, "
         }
-//        (view.findViewById(R.id.avatarImage) as ImageView).drawable =
+        if (!group.avatar.isNullOrEmpty()) {
+            (view.findViewById(R.id.exploreGroupItemImageView) as ImageView).load(group.avatar)
+        }
         (view.findViewById(R.id.groupNameLabel) as TextView).text = group.name
         (view.findViewById(R.id.hobbiesListLabel) as TextView).text = hobbies
         (view.findViewById(R.id.kmLabel) as TextView).text =

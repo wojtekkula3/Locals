@@ -82,8 +82,8 @@ class ProfileViewModel @Inject constructor(
                 try {
                     val uri = addUserImageInteractor(image, id)
                     _viewEvent.postValue(ProfileViewEvent.ShowImageChangeSuccess(uri))
-                } catch (e: Exception) {
-                    _viewEvent.postValue(ProfileViewEvent.ShowError(e.message.toString()))
+                } catch (exception: Exception) {
+                    _viewEvent.postValue(ProfileViewEvent.ShowError(exception))
                 }
             }
             _showLoading.postValue(false)

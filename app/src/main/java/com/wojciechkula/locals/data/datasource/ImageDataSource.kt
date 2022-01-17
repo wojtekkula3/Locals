@@ -29,13 +29,32 @@ class ImageDataSource @Inject constructor(
                     imageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
                         db.collection("Users").document(userId).update("avatarReference", downloadUrl.toString())
                             .addOnSuccessListener {
+                                continuation.resume(downloadUrl)
+                            }
+                            .addOnFailureListener { exception ->
+                                continuation.resumeWithException(exception)
+                            }
+                    }
+                        .addOnFailureListener { exception ->
+                            continuation.resumeWithException(exception)
+                        }
+                }
+                .addOnFailureListener { exception ->
+                    continuation.resumeWithException(exception)
+                }
+        }
 
-//                            val localFile = File.createTempFile("user_$userId", "jpg")
-//                            imageRef.getFile(localFile).addOnSuccessListener {
-//
-//                                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-//                                continuation.resume(bitmap)
-//                              }
+
+    suspend fun addGroupImage(imageBitmap: Bitmap, groupId: String): Uri? =
+        suspendCoroutine { continuation ->
+            val imageRef = storageRef.child("Groups avatars/$groupId.jpg")
+
+            val data = bitmapService.compressBitmap(imageBitmap)
+            imageRef.putBytes(data)
+                .addOnSuccessListener { task ->
+                    imageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
+                        db.collection("Groups").document(groupId).update("avatar", downloadUrl.toString())
+                            .addOnSuccessListener {
                                 continuation.resume(downloadUrl)
                             }
                             .addOnFailureListener { exception ->

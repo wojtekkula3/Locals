@@ -18,17 +18,16 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/pictureImage"
+                android:id="@+id/exploreGroupItemImageView"
                 android:layout_width="160dp"
                 android:layout_height="160dp"
-                android:scaleType="fitXY"
                 android:src="@mipmap/ic_launcher" />
 
             <TextView
                 android:id="@+id/groupNameLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/pictureImage"
+                android:layout_below="@+id/exploreGroupItemImageView"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="5dp"

@@ -56,6 +56,18 @@
             app:layout_constraintTop_toBottomOf="@+id/avatarImageRegisterCardView"
             tools:ignore="TouchTargetSizeCheck" />
 
+        <ImageView
+            android:id="@+id/resetAvatarImageView"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="4dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_restore"
+            app:layout_constraintBottom_toBottomOf="@id/addAvatarButton"
+            app:layout_constraintStart_toEndOf="@id/addAvatarButton"
+            app:layout_constraintTop_toTopOf="@id/addAvatarButton"
+            app:tint="@color/blue_800" />
+
         <TextView
             android:id="@+id/insertDataLabel"
             android:layout_width="wrap_content"
