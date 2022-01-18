@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainCard"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -12,37 +13,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:id="@+id/cardUp"
+        <ImageView
+            android:id="@+id/exploreGroupItemImageView"
             android:layout_width="160dp"
-            android:layout_height="wrap_content">
+            android:layout_height="160dp"
+            android:layout_marginTop="-4dp"
+            android:src="@drawable/image_default_group_avatar" />
 
-            <ImageView
-                android:id="@+id/exploreGroupItemImageView"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:src="@drawable/image_default_group_avatar" />
-
-            <TextView
-                android:id="@+id/groupNameLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/exploreGroupItemImageView"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="5dp"
-                android:paddingLeft="3dp"
-                android:paddingRight="3dp"
-                android:text="To jest grupa fanych ludzi"
-                android:textAlignment="center"
-                android:textAppearance="?textAppearanceB1"
-                android:textStyle="bold" />
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/groupNameLabel"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/exploreGroupItemImageView"
+            android:layout_marginTop="5dp"
+            android:paddingStart="8dp"
+            android:paddingLeft="3dp"
+            android:paddingEnd="8dp"
+            android:paddingRight="3dp"
+            android:textAlignment="center"
+            android:textAppearance="?textAppearanceB1"
+            android:textStyle="bold"
+            tools:text="Akademicki Chór Politechniki Opolskiej" />
 
         <RelativeLayout
             android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/cardUp">
+            android:layout_below="@+id/groupNameLabel">
 
             <TextView
                 android:id="@+id/hobbiesListLabel"
@@ -52,8 +48,7 @@
                 android:paddingTop="3dp"
                 android:paddingRight="6dp"
                 android:paddingBottom="4dp"
-
-                android:text="jeździectwo, piernikarstwo, smaczne obiadki, lalki, taniec, sklep"
+                tools:text="chór, śpiew, muzyka, muzyka rozrywkowa, politechnika opolska"
                 android:textStyle="italic" />
 
             <View

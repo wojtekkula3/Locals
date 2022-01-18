@@ -6,6 +6,7 @@
     app:startDestination="@id/exploreFragment">
 
     <include app:graph="@navigation/nav_create_group" />
+    <include app:graph="@navigation/nav_group" />
 
     <fragment
         android:id="@+id/exploreFragment"
@@ -16,5 +17,19 @@
             android:id="@+id/openCreateGroup"
             app:destination="@id/nav_create_group" />
     </fragment>
+
+    <action
+        android:id="@+id/openJoinedGroup"
+        app:destination="@+id/nav_group">
+        <argument
+            android:name="groupId"
+            app:argType="string" />
+        <argument
+            android:name="groupName"
+            app:argType="string" />
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </action>
 
 </navigation>

@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import com.wojciechkula.locals.R
 
 class ExploreListAdapter(
-    private val onButtonClicked: (groupId: String) -> Unit
+    private val onButtonClicked: (groupId: String) -> Unit,
+    private val onCardClicked: (group: ExploreItem) -> Unit
 ) : ListAdapter<ExploreItem, ExploreViewHolder>(ExploreDiffCallback()) {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ExploreViewHolder {
@@ -17,7 +18,7 @@ class ExploreListAdapter(
     }
 
     override fun onBindViewHolder(viewHolder: ExploreViewHolder, position: Int) {
-        viewHolder.bind(getItem(position), onButtonClicked)
+        viewHolder.bind(getItem(position), onButtonClicked, onCardClicked)
     }
 }
 

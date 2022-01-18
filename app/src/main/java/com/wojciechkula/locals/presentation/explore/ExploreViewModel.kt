@@ -52,6 +52,8 @@ class ExploreViewModel @Inject constructor(
                         hobbies = groupModel.hobbies,
                         distance = groupModel.distance,
                         size = groupModel.members.size,
+                        description = groupModel.description,
+                        lastActivity = groupModel.latestMessage.sentAt,
                         members = groupModel.members
                     )
                 } as ArrayList<ExploreItem>

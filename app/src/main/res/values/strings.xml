@@ -96,5 +96,7 @@
     <string name="create_group_group_created_latest_message">Group created</string>
     <string name="login_exception_wrong_email_or_password">Wrong email or password</string>
     <string name="group_image_changed_with_success">Group image changed with success</string>
+    <string name="explore_hobby">Hobby:</string>
+    <string name="explore_description">Description:</string>
 
 </resources>

@@ -7,6 +7,7 @@ import com.firebase.geofire.GeoLocation
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Query
@@ -15,10 +16,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.wojciechkula.locals.common.bitmap.BitmapService
-import com.wojciechkula.locals.data.entity.Group
-import com.wojciechkula.locals.data.entity.Hobby
-import com.wojciechkula.locals.data.entity.Location
-import com.wojciechkula.locals.data.entity.User
+import com.wojciechkula.locals.data.entity.*
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -105,6 +103,12 @@ class GroupDataSource @Inject constructor(
                                         doc.get("location.longitude") as Double,
                                     ),
                                     distance = distanceInM,
+                                    latestMessage = LatestMessage(
+                                        doc.get("latestMessage.authorId") as String,
+                                        doc.get("latestMessage.authorName") as String,
+                                        doc.get("latestMessage.message") as String,
+                                        doc.get("latestMessage.sentAt") as Timestamp,
+                                    ),
                                     avatar = doc.get("avatar") as String?,
                                     hobbies = doc.get("hobbies") as ArrayList<String>,
                                     members = doc.get("members") as ArrayList<String>,

@@ -25,6 +25,7 @@ import com.wojciechkula.locals.navigation.ExploreNavigator
 import com.wojciechkula.locals.presentation.common.SharedViewEvent
 import com.wojciechkula.locals.presentation.common.SharedViewModel
 import com.wojciechkula.locals.presentation.explore.ExploreViewEvent.*
+import com.wojciechkula.locals.presentation.explore.dialog.ExploreDialogFragment
 import com.wojciechkula.locals.presentation.explore.list.ExploreItem
 import com.wojciechkula.locals.presentation.explore.list.ExploreListAdapter
 import com.wojciechkula.locals.utils.TrackingUtility
@@ -51,7 +52,9 @@ internal class ExploreFragment : Fragment(), EasyPermissions.PermissionCallbacks
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private val exploreAdapter by lazy {
-        ExploreListAdapter { groupId -> viewModel.joinTheGroup(groupId) }
+        ExploreListAdapter(
+            { groupId -> viewModel.joinTheGroup(groupId) },
+            { group -> ExploreDialogFragment.show(childFragmentManager, group) })
     }
 
     lateinit var searchView: SearchView
