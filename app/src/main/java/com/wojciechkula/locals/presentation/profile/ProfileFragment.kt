@@ -223,7 +223,7 @@ internal class ProfileFragment : Fragment() {
                 if (hobbies != null) {
                     var hobbiesString = ""
                     for (hobby in hobbies) {
-                        hobbiesString += "• ${hobby.name},\n"
+                        hobbiesString += "• ${hobby},\n"
                     }
                     binding.myHobbiesOutput.text = hobbiesString
                 }

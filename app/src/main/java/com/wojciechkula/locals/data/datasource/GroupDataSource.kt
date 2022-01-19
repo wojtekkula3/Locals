@@ -7,7 +7,6 @@ import com.firebase.geofire.GeoLocation
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
-import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Query
@@ -16,7 +15,9 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.wojciechkula.locals.common.bitmap.BitmapService
-import com.wojciechkula.locals.data.entity.*
+import com.wojciechkula.locals.data.entity.Group
+import com.wojciechkula.locals.data.entity.Hobby
+import com.wojciechkula.locals.data.entity.User
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -34,7 +35,6 @@ class GroupDataSource @Inject constructor(
     private val db = Firebase.firestore
     private val storage = FirebaseStorage.getInstance()
     private val storageRef = storage.reference
-
 
     @SuppressLint("MissingPermission")
     suspend fun getGroupsByDistanceAndHobbies(
@@ -77,54 +77,23 @@ class GroupDataSource @Inject constructor(
                                 // accuracy, but most will match
                                 val docLocation = GeoLocation(lat, lng)
                                 val distanceInM = GeoFireUtils.getDistanceBetween(docLocation, center)
-//                                val members = doc.get("members") as ArrayList<Map<Member, Member>>
-//                                val memb = members.map{ member -> member.}
 
-//                                val membersHashMap = doc.get("members") as List<Map<String, Any>>
-//                                val members: ArrayList<Member> = arrayListOf()
-//                                for (member in membersHashMap) {
-//
-//                                    val member = Member(
-//                                        name = member["name"] as String,
-//                                        surname = member["surname"] as String?,
-//                                        userId = member["userId"] as String,
-//                                        avatar = member["avatar"] as String
-//                                    )
-//                                    members.add(member)
-//                                }
+                                val group = doc.toObject(Group::class.java)
+                                group?.distance = distanceInM
 
-                                val group = Group(
-                                    id = doc.id,
-                                    name = doc.get("name") as String,
-                                    description = doc.get("description") as String,
-                                    location = Location(
-                                        doc.get("location.geohash") as String,
-                                        doc.get("location.latitude") as Double,
-                                        doc.get("location.longitude") as Double,
-                                    ),
-                                    distance = distanceInM,
-                                    latestMessage = LatestMessage(
-                                        doc.get("latestMessage.authorId") as String,
-                                        doc.get("latestMessage.authorName") as String,
-                                        doc.get("latestMessage.message") as String,
-                                        doc.get("latestMessage.sentAt") as Timestamp,
-                                    ),
-                                    avatar = doc.get("avatar") as String?,
-                                    hobbies = doc.get("hobbies") as ArrayList<String>,
-                                    members = doc.get("members") as ArrayList<String>,
-                                )
-//                                Timber.d(group.members.toString())
 //                                Dla lokacji oddalonej o 75 600 m, po wybraniu odległości 75km
 //                                75500 < (75000 + 1000)
-                                if (distanceInM < (radiusInM + 1000)) {
-                                    if (selectedHobbies.isNullOrEmpty()) {
-                                        matchingGroups.add(group)
-                                    } else {
-                                        for (selectedHobby in selectedHobbies) {
-                                            for (groupHobby in group.hobbies) {
-                                                if (selectedHobby.name == groupHobby) {
-                                                    if (!matchingGroups.contains(group)) {
-                                                        matchingGroups.add(group)
+                                if (group != null) {
+                                    if (distanceInM < (radiusInM + 1000)) {
+                                        if (selectedHobbies.isNullOrEmpty()) {
+                                            matchingGroups.add(group)
+                                        } else {
+                                            for (selectedHobby in selectedHobbies) {
+                                                for (groupHobby in group.hobbies) {
+                                                    if (selectedHobby.name == groupHobby) {
+                                                        if (!matchingGroups.contains(group)) {
+                                                            matchingGroups.add(group)
+                                                        }
                                                     }
                                                 }
                                             }
@@ -134,7 +103,7 @@ class GroupDataSource @Inject constructor(
                             }
                         }
 
-                        var groupsThatUserIsAMember: ArrayList<Group> = arrayListOf()
+                        val groupsThatUserIsAMember: ArrayList<Group> = arrayListOf()
                         for (group in matchingGroups) {
                             for (member in group.members) {
                                 if (member == user.id) {

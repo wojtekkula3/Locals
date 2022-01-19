@@ -118,12 +118,14 @@ class RegisterHobbiesViewModel @Inject constructor(
                 viewModelScope.launch {
                     registerUserInteractor(args.userData.email, args.userData.password)
                         .addOnSuccessListener {
+                            val hobbiesSelected =
+                                _viewState.value?.selectedHobbiesList?.map { hobbyModel -> hobbyModel.name } as ArrayList<String>
                             val user = UserModel(
                                 name = args.userData.name,
                                 surname = args.userData.surname,
                                 email = args.userData.email,
                                 phoneNumber = args.userData.phoneNumber,
-                                hobbies = _viewState.value?.selectedHobbiesList,
+                                hobbies = hobbiesSelected,
                                 about = null,
                                 elementsVisibility = PersonalElementsVisibilityModel(false, false, true)
                             )

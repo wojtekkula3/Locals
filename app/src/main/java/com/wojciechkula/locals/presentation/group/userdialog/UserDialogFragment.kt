@@ -93,11 +93,10 @@ class UserDialogFragment(private val userId: String) : DialogFragment() {
                 binding.contactLayout.visibility = View.GONE
             }
 
-            val hobbiesList = hobbies?.map { hobbyModel -> hobbyModel.name }
             var hobbiesString = ""
-            if (hobbiesList != null) {
-                for (hobby in hobbiesList) {
-                    hobbiesString = "$hobbiesString$hobby, "
+            if (hobbies != null) {
+                for (hobby in hobbies) {
+                    hobbiesString += "$hobby, "
                 }
             }
             if (elementsVisibility.hobbies) {

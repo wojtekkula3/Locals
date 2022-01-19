@@ -9,7 +9,7 @@ data class Group constructor(
     val name: String = "",
     val description: String = "",
     val location: Location = Location(),
-    @get:Exclude val distance: Double = 0.0,
+    @get:Exclude var distance: Double = 0.0,
     val avatar: String? = "",
     val hobbies: ArrayList<String> = arrayListOf(),
     val members: ArrayList<String> = arrayListOf(),
