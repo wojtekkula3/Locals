@@ -1,6 +1,4 @@
-package com.wojciechkula.locals.presentation.group.dialog
-
-import java.lang.Exception
+package com.wojciechkula.locals.presentation.group.groupdialog
 
 sealed class GroupDialogViewEvent {
     object OpenMyGroups : GroupDialogViewEvent()

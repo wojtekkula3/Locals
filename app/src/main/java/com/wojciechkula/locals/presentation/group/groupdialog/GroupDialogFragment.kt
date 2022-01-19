@@ -1,4 +1,4 @@
-package com.wojciechkula.locals.presentation.group.dialog
+package com.wojciechkula.locals.presentation.group.groupdialog
 
 import android.app.AlertDialog
 import android.content.Context
@@ -14,7 +14,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
@@ -62,7 +61,7 @@ class GroupDialogFragment(private val group: GroupModel) : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (dialog != null) dialog!!.window!!.setLayout(550, ConstraintLayout.LayoutParams.WRAP_CONTENT)
+        if (dialog != null) dialog!!.window!!.setLayout(580, 1000)
         setCropActivityForResult()
         initViews()
         observeViewModel()

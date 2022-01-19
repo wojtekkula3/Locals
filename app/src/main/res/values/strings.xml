@@ -98,5 +98,10 @@
     <string name="group_image_changed_with_success">Group image changed with success</string>
     <string name="explore_hobby">Hobby:</string>
     <string name="explore_description">Description:</string>
+    <string name="user_dialog_contact">Contact:</string>
+    <string name="user_dialog_email">Email:</string>
+    <string name="user_dialog_phone">Phone:</string>
+    <string name="user_dialog_hobby">Hobby:</string>
+    <string name="user_dialog_about_me">About me:</string>
 
 </resources>

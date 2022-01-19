@@ -14,17 +14,18 @@ class MessagesViewHolder(
     private val view: View
 ) : RecyclerView.ViewHolder(view) {
 
-    fun bindSentMessage(message: MessageItem, onButtonClicked: (messageId: String) -> Unit) {
+    fun bindSentMessage(message: MessageItem) {
         (view.findViewById(R.id.messageOutput) as TextView).text = message.message
         (view.findViewById(R.id.dateTimeOutput) as TextView).text = setTime(message.sentAt)
     }
 
-    fun bindReceivedMessage(message: MessageItem, onButtonClicked: (messageId: String) -> Unit) {
+    fun bindReceivedMessage(message: MessageItem, onAvatarClick: (authorId: String) -> Unit) {
         (view.findViewById(R.id.messageOutput) as TextView).text = message.message
         (view.findViewById(R.id.dateTimeOutput) as TextView).text = setTime(message.sentAt)
         if (!message.authorAvatar.isNullOrEmpty()) {
             (view.findViewById(R.id.avatarReceivedMessageOutput) as ImageView).load(message.authorAvatar)
         }
+        (view.findViewById(R.id.avatarReceivedMessageOutput) as ImageView).setOnClickListener { onAvatarClick(message.authorId) }
     }
 
     @SuppressLint("SimpleDateFormat")

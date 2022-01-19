@@ -9,7 +9,7 @@ import com.wojciechkula.locals.R
 
 class MessagesListAdapter(
     private val currentUserId: String,
-    private val onButtonClicked: (messageId: String) -> Unit
+    private val onAvatarClick: (userId: String) -> Unit
 ) : ListAdapter<MessageItem, MessagesViewHolder>(MessagesDiffCallback()) {
 
     private val VIEW_TYPE_SENT = 1
@@ -34,9 +34,9 @@ class MessagesListAdapter(
 
     override fun onBindViewHolder(viewHolder: MessagesViewHolder, position: Int) {
         if (getItemViewType(position) == VIEW_TYPE_SENT) {
-            viewHolder.bindSentMessage(getItem(position), onButtonClicked)
+            viewHolder.bindSentMessage(getItem(position))
         } else {
-            viewHolder.bindReceivedMessage(getItem(position), onButtonClicked)
+            viewHolder.bindReceivedMessage(getItem(position), onAvatarClick)
         }
     }
 

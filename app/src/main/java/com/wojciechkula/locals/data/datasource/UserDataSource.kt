@@ -58,6 +58,20 @@ class UserDataSource @Inject constructor() {
         }
     }
 
+    suspend fun getUserById(userId: String): User = suspendCoroutine { continuation ->
+        db.collection("Users").document(userId)
+            .get()
+            .addOnSuccessListener { document ->
+                val user = document.toObject(User::class.java)
+                if (user != null) {
+                    continuation.resume(user)
+                }
+            }
+            .addOnFailureListener { exception ->
+                continuation.resumeWithException(exception)
+            }
+    }
+
     suspend fun getUsersByGroupMembers(membersId: ArrayList<String>): List<Member> =
         suspendCoroutine { continuation ->
             if (membersId.isNotEmpty()) {

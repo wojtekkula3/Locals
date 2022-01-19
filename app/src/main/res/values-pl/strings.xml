@@ -79,5 +79,12 @@
     <string name="profile_avatar_image_description">Zdjęcie profilowe</string>
     <string name="login_exception_wrong_email_or_password">Podano zły email lub hasło</string>
     <string name="group_image_changed_with_success">Poprawnie zmieniono zdjęcie grupowe</string>
+    <string name="explore_hobby">Hobby:</string>
+    <string name="explore_description">Opis:</string>
+    <string name="user_dialog_contact">Kontakt:</string>
+    <string name="user_dialog_email">Email:</string>
+    <string name="user_dialog_phone">Telefon:</string>
+    <string name="user_dialog_hobby">Hobby:</string>
+    <string name="user_dialog_about_me">O mnie:</string>
 
 </resources>

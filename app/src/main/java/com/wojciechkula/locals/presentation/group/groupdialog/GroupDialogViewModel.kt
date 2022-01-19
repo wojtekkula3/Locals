@@ -1,4 +1,4 @@
-package com.wojciechkula.locals.presentation.group.dialog
+package com.wojciechkula.locals.presentation.group.groupdialog
 
 import android.graphics.Bitmap
 import androidx.lifecycle.LiveData

@@ -15,8 +15,9 @@ import androidx.navigation.fragment.navArgs
 import com.wojciechkula.locals.databinding.FragmentGroupBinding
 import com.wojciechkula.locals.presentation.common.SharedViewModel
 import com.wojciechkula.locals.presentation.common.SharedViewState
-import com.wojciechkula.locals.presentation.group.dialog.GroupDialogFragment
+import com.wojciechkula.locals.presentation.group.groupdialog.GroupDialogFragment
 import com.wojciechkula.locals.presentation.group.list.MessagesListAdapter
+import com.wojciechkula.locals.presentation.group.userdialog.UserDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -33,7 +34,9 @@ class GroupFragment : Fragment() {
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private val adapter by lazy {
-        MessagesListAdapter(currentUserId = args.userId) { messageId -> }
+        MessagesListAdapter(currentUserId = args.userId) { userId ->
+            UserDialogFragment.show(childFragmentManager, userId)
+        }
     }
 
     override fun onCreateView(

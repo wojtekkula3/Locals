@@ -21,6 +21,9 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun getFirestoreUserFlow(): Flow<UserModel> =
         dataSource.getUserFlow().map { user -> mapper.mapToDomain(user) }
 
+    override suspend fun getFirestoreUserById(userId: String): UserModel =
+        mapper.mapToDomain(dataSource.getUserById(userId))
+
     override suspend fun getUsersByGroupMembers(membersId: ArrayList<String>): List<MemberModel> =
         dataSource.getUsersByGroupMembers(membersId).map { member -> memberMapper.mapToDomain(member) }
 
