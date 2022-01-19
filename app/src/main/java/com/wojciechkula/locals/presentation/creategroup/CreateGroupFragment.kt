@@ -87,7 +87,7 @@ internal class CreateGroupFragment : Fragment() {
     }
 
     private fun getResultFromMap() {
-        setFragmentResultListener("requestKey") { requestKey, bundle ->
+        setFragmentResultListener("PLACE_SELECTED") { requestKey, bundle ->
             with(binding)
             {
                 selectedLocation = bundle.getParcelable("selectedLocation")!!
@@ -95,7 +95,19 @@ internal class CreateGroupFragment : Fragment() {
                 placeStatusLabel.setTextColor(ContextCompat.getColor(context!!, R.color.green_600))
                 createGroupLayout.smoothScrollTo(0, createGroupLayout.getChildAt(0).height)
                 viewModel.showChipsWithHobbies()
-                groupAvatarImageView.load(previewBitmap)
+                if (previewBitmap != null) {
+                    groupAvatarImageView.load(previewBitmap)
+                }
+            }
+        }
+        setFragmentResultListener("PLACE_NOT_SELECTED") { requestKey, bundle ->
+            with(binding)
+            {
+                selectedLocation = null
+                viewModel.showChipsWithHobbies()
+                if (previewBitmap != null) {
+                    groupAvatarImageView.load(previewBitmap)
+                }
             }
         }
     }

@@ -106,5 +106,6 @@
     <string name="group_dialog_are_you_sure_you_want_to_delete_the_group">Are you sure you want to delete the group?</string>
     <string name="group_dialog_delete_group">Delete group</string>
     <string name="group_dialog_confirm_to_leave_and_delete">Confirm to leave and delete</string>
+    <string name="map_selected_place">Selected place</string>
 
 </resources>
