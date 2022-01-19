@@ -26,9 +26,9 @@ class GroupDialogViewModel @Inject constructor(
     val viewEvent: LiveData<GroupDialogViewEvent>
         get() = _viewEvent
 
-    fun leaveGroup(groupId: String) {
+    fun leaveGroup(groupId: String, groupSize: Int) {
         viewModelScope.launch {
-            leaveGroupInteractor(groupId)
+            leaveGroupInteractor(groupId, groupSize)
             _viewEvent.postValue(GroupDialogViewEvent.OpenMyGroups)
         }
     }

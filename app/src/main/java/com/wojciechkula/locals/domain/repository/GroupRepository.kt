@@ -13,5 +13,5 @@ interface GroupRepository {
     suspend fun createGroup(image: Bitmap?, group: GroupModel): DocumentReference
     suspend fun getGroup(groupId: String): Flow<GroupModel>
     suspend fun joinGroup(groupId: String): Boolean
-    suspend fun leaveGroup(groupId: String): Boolean
+    suspend fun leaveGroup(groupId: String, groupSize: Int): Boolean
 }

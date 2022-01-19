@@ -27,6 +27,7 @@ import com.wojciechkula.locals.domain.model.GroupModel
 import com.wojciechkula.locals.extension.showSnackbarError
 import com.wojciechkula.locals.extension.showSnackbarInfo
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class GroupDialogFragment(private val group: GroupModel) : DialogFragment() {
@@ -81,6 +82,11 @@ class GroupDialogFragment(private val group: GroupModel) : DialogFragment() {
 
     private fun initViews() {
         with(binding) {
+
+            Timber.d(group.members.size.toString())
+            if (group.members.size == 1) {
+                leaveGroupButton.text = getString(R.string.group_dialog_delete_group)
+            }
             if (!group.avatar.isNullOrEmpty()) {
                 groupAvatarImage.load(group.avatar)
             }
@@ -98,17 +104,23 @@ class GroupDialogFragment(private val group: GroupModel) : DialogFragment() {
             editAvatarImageView.setOnClickListener {
                 cropActivityResultLauncher.launch(null)
             }
-            leaveGroupButton.setOnClickListener { showAcceptDialog() }
+            leaveGroupButton.setOnClickListener {
+                if (group.members.size > 1) {
+                    showLeaveGroupDialog()
+                } else {
+                    showDeleteGroupDialog()
+                }
+            }
             closeButton.setOnClickListener { closeGroupDialog() }
         }
     }
 
-    private fun showAcceptDialog() {
+    private fun showLeaveGroupDialog() {
         val dialog = AlertDialog.Builder(requireContext())
         dialog.setMessage(getString(R.string.group_are_you_sure_you_want_to_leave))
             .setCancelable(true)
             .setPositiveButton(getString(R.string.common_confirm)) { dialog, id ->
-                viewModel.leaveGroup(group.id)
+                viewModel.leaveGroup(group.id, group.members.size)
             }
             .setNegativeButton(getString(R.string.common_decline)) { dialog, id ->
                 dialog.cancel()
@@ -116,6 +128,22 @@ class GroupDialogFragment(private val group: GroupModel) : DialogFragment() {
 
         val alert = dialog.create()
         alert.setTitle(getString(R.string.group_dialog_confirm_to_leave))
+        alert.show()
+    }
+
+    private fun showDeleteGroupDialog() {
+        val dialog = AlertDialog.Builder(requireContext())
+        dialog.setMessage(getString(R.string.group_dialog_are_you_sure_you_want_to_delete_the_group))
+            .setCancelable(true)
+            .setPositiveButton(getString(R.string.common_confirm)) { dialog, id ->
+                viewModel.leaveGroup(group.id, group.members.size)
+            }
+            .setNegativeButton(getString(R.string.common_decline)) { dialog, id ->
+                dialog.cancel()
+            }
+
+        val alert = dialog.create()
+        alert.setTitle(getString(R.string.group_dialog_confirm_to_leave_and_delete))
         alert.show()
     }
 

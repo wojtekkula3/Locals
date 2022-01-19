@@ -42,6 +42,7 @@ class GroupRepositoryImpl @Inject constructor(
 
     override suspend fun joinGroup(groupId: String): Boolean = dataSource.joinGroup(groupId, userDataSource.getUser())
 
-    override suspend fun leaveGroup(groupId: String): Boolean = dataSource.leaveGroup(groupId, userDataSource.getUser())
+    override suspend fun leaveGroup(groupId: String, groupSize: Int): Boolean =
+        dataSource.leaveGroup(groupId, groupSize, userDataSource.getUser())
 
 }

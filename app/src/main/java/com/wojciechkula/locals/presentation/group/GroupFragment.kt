@@ -85,6 +85,9 @@ class GroupFragment : Fragment() {
     private fun bindState(state: GroupViewState) {
         adapter.submitList(state.messages)
         binding.messagesRecyclerView.smoothScrollToPosition(state.messages.size)
+        if (state.messages.isNotEmpty()) {
+            binding.noMessagesInfoLabel.visibility = View.GONE
+        }
     }
 
     private fun handleEvents(event: GroupViewEvent) {

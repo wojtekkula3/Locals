@@ -215,21 +215,35 @@ class GroupDataSource @Inject constructor(
             }
     }
 
-    suspend fun leaveGroup(groupId: String, user: User): Boolean = suspendCoroutine { continuation ->
+    suspend fun leaveGroup(groupId: String, groupSize: Int, user: User): Boolean = suspendCoroutine { continuation ->
         val reference = db.document("/Groups/$groupId")
 
         val deleteGroupFromUser = db.collection("Users").document(user.id)
             .update("groups", FieldValue.arrayRemove(reference))
 
-        val deleteMemberFromGroup = db.collection("Groups").document(groupId)
-            .update("members", FieldValue.arrayRemove(user.id))
+        if (groupSize == 1) {
+            val deleteGroup = db.collection("Groups").document(groupId)
+                .delete()
 
-        Tasks.whenAllSuccess<Any>(deleteGroupFromUser, deleteMemberFromGroup)
-            .addOnSuccessListener {
-                continuation.resume(true)
-            }
-            .addOnFailureListener { exception ->
-                continuation.resumeWithException(exception)
-            }
+            Tasks.whenAllSuccess<Any>(deleteGroupFromUser, deleteGroup)
+                .addOnSuccessListener {
+                    continuation.resume(true)
+                }
+                .addOnFailureListener { exception ->
+                    continuation.resumeWithException(exception)
+                }
+
+        } else {
+            val deleteMemberFromGroup = db.collection("Groups").document(groupId)
+                .update("members", FieldValue.arrayRemove(user.id))
+
+            Tasks.whenAllSuccess<Any>(deleteGroupFromUser, deleteMemberFromGroup)
+                .addOnSuccessListener {
+                    continuation.resume(true)
+                }
+                .addOnFailureListener { exception ->
+                    continuation.resumeWithException(exception)
+                }
+        }
     }
 }
