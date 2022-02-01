@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuthEmailException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.wojciechkula.locals.R
 import com.wojciechkula.locals.common.dialog.LoadingDialogFragment
@@ -101,8 +102,8 @@ internal class LoginFragment : Fragment() {
     }
 
     private fun onError(exception: Exception) {
-        if (exception is FirebaseAuthInvalidCredentialsException) {
-            binding.showSnackbarError(getString(R.string.login_exception_wrong_email_or_password))
+        if (exception is FirebaseAuthInvalidCredentialsException || exception is FirebaseAuthEmailException) {
+            binding.showSnackbarError(getString(R.string.log_in_exception_wrong_email_or_password))
         } else {
             binding.showSnackbarError(exception.message.toString())
         }

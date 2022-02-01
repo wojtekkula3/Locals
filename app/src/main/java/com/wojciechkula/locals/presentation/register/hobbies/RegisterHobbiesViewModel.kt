@@ -114,7 +114,7 @@ class RegisterHobbiesViewModel @Inject constructor(
         _showLoading.postValue(true)
         val selectedHobbiesSize = _viewState.value?.selectedHobbiesList?.size
         if (selectedHobbiesSize != null) {
-            if (selectedHobbiesSize in 3..20) {
+            if (selectedHobbiesSize in 3..15) {
                 viewModelScope.launch {
                     registerUserInteractor(args.userData.email, args.userData.password)
                         .addOnSuccessListener {

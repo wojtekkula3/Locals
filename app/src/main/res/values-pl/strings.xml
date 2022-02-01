@@ -30,7 +30,7 @@
     <string name="explore_distance">Odległość:\u0020</string>
     <string name="explore_there_is_no_groups_to_show">Nie ma grup z takimi kryteriami</string>
     <string name="common_next">Dalej</string>
-    <string name="register_hobbies_select_at_from_3_to_max_20_interests">Wybierz od 3 do 20 zainteresowań</string>
+    <string name="register_hobbies_select_at_from_3_to_max_15_interests">Wybierz od 3 do 15 zainteresowań</string>
     <string name="register_hobbies_select_your_interests">Twoje zainteresowania</string>
     <string name="register_user_data_insert_correct_number_or_leave_empty">Wprowadź poprawny numer lub pozostaw puste pole</string>
     <string name="hello_blank_fragment">Witaj pusty fragmencie</string>
@@ -70,14 +70,14 @@
     <string name="create_group_description">Opis</string>
     <string name="create_group_search_hobby">Wyszukaj hobby...</string>
     <string name="create_group_create_group">Stwórz grupę</string>
-    <string name="submit">Zatwierdź</string>
+    <string name="common_submit">Zatwierdź</string>
     <string name="create_group_location_established">Lokalizacja ustalona</string>
     <string name="create_group_new_hobbies_alert_dialog">Podałeś kilka zainteresowań, które nie istnieją jeszcze w aplikacji. Czy na pewno chcesz dodać poniższe zainteresowania:\n\n%1$s</string>
     <string name="create_group_confirm_to_create_group">Potwierdź by utworzyć grupę</string>
     <string name="create_group_group_created_latest_message">Utworzono grupę</string>
     <string name="profile_image_changed_with_success">Pomyślnie zmieniono zdjęcie profilowe</string>
     <string name="profile_avatar_image_description">Zdjęcie profilowe</string>
-    <string name="login_exception_wrong_email_or_password">Podano zły email lub hasło</string>
+    <string name="log_in_exception_wrong_email_or_password">Podano zły email lub hasło</string>
     <string name="group_image_changed_with_success">Poprawnie zmieniono zdjęcie grupowe</string>
     <string name="explore_hobby">Hobby:</string>
     <string name="explore_description">Opis:</string>
@@ -90,5 +90,6 @@
     <string name="group_dialog_delete_group">Usuń grupę</string>
     <string name="group_dialog_confirm_to_leave_and_delete">Potwierdź by usunąć</string>
     <string name="map_selected_place">Wybrane miejsce</string>
+    <string name="create_group_create">Stwórz</string>
 
 </resources>

@@ -38,22 +38,20 @@ class GroupDataSource @Inject constructor(
 
     @SuppressLint("MissingPermission")
     suspend fun getGroupsByDistanceAndHobbies(
-        distance: Int,
-        selectedHobbies: List<Hobby>?,
-        user: User
+        distance: Int, selectedHobbies: List<Hobby>?, user: User
     ): ArrayList<Group> =
         suspendCoroutine { continuation ->
             fusedLocationClient.lastLocation.addOnCompleteListener { task ->
                 val lat = task.result.latitude
                 val lng = task.result.longitude
 
-                val center = GeoLocation(lat, lng)
-                val radiusInM = (distance * 1000).toDouble()
+                val myLocation = GeoLocation(lat, lng)
+                val selectedRadiusInM = (distance * 1000).toDouble()
 
-                // Each item in 'bounds' represents a startAt/endAt pair. We have to issue
-                // a separate query for each pair. There can be up to 9 pairs of bounds
-                // depending on overlap, but in most cases there are 4.
-                val bounds = GeoFireUtils.getGeoHashQueryBounds(center, radiusInM)
+                // Posiadając punkt centralny oraz dystans w promieniu, „bounds” otrzymuje zestaw granic,
+                // które można połączyć aby znaleźć wszystkie lokalizacje grup
+                // w zasięgu podanej odległości od centrum. Może istnieć aż do 9 elementów "bounds"
+                val bounds = GeoFireUtils.getGeoHashQueryBounds(myLocation, selectedRadiusInM)
                 val tasks: MutableList<Task<QuerySnapshot>> = ArrayList()
                 for (b in bounds) {
                     val q: Query = db.collection("Groups")
@@ -63,37 +61,35 @@ class GroupDataSource @Inject constructor(
                     tasks.add(q.get())
                 }
 
-                // Collect all the query results together into a single list
+                // Zierz wszystkie wyniki i zwróć pojedynczą listę znalezionych grup
                 Tasks.whenAllComplete(tasks)
                     .addOnCompleteListener {
                         val matchingGroups = ArrayList<Group>()
                         for (task in tasks) {
                             val snap = task.result
+
+                            // Wykonaj operacje na każdym znalezionym obiekcie
                             for (doc in snap.documents) {
                                 val lat = doc.getDouble("location.latitude")!!
                                 val lng = doc.getDouble("location.longitude")!!
 
-                                // We have to filter out a few false positives due to GeoHash
-                                // accuracy, but most will match
+                                // Filtrowanie, które pozwala wykryć wadliwe wyniki,
+                                // ich ilość jest znikoma, jednak warta wyodrębnienia
                                 val docLocation = GeoLocation(lat, lng)
-                                val distanceInM = GeoFireUtils.getDistanceBetween(docLocation, center)
+                                val distanceInM = GeoFireUtils.getDistanceBetween(docLocation, myLocation)
 
-                                val group = doc.toObject(Group::class.java)
-                                group?.distance = distanceInM
+                                val group = doc.toObject(Group::class.java)!!
+                                group.distance = distanceInM
 
-//                                Dla lokacji oddalonej o 75 600 m, po wybraniu odległości 75km
-//                                75500 < (75000 + 1000)
-                                if (group != null) {
-                                    if (distanceInM < (radiusInM + 1000)) {
-                                        if (selectedHobbies.isNullOrEmpty()) {
-                                            matchingGroups.add(group)
-                                        } else {
-                                            for (selectedHobby in selectedHobbies) {
-                                                for (groupHobby in group.hobbies) {
-                                                    if (selectedHobby.name == groupHobby) {
-                                                        if (!matchingGroups.contains(group)) {
-                                                            matchingGroups.add(group)
-                                                        }
+                                if (distanceInM < selectedRadiusInM) {
+                                    if (selectedHobbies.isNullOrEmpty()) {
+                                        matchingGroups.add(group)
+                                    } else {
+                                        for (selectedHobby in selectedHobbies) {
+                                            for (groupHobby in group.hobbies) {
+                                                if (selectedHobby.name == groupHobby) {
+                                                    if (!matchingGroups.contains(group)) {
+                                                        matchingGroups.add(group)
                                                     }
                                                 }
                                             }
@@ -103,6 +99,7 @@ class GroupDataSource @Inject constructor(
                             }
                         }
 
+                        // Wyklucz te grupy, których użytkownik jest członkiem
                         val groupsThatUserIsAMember: ArrayList<Group> = arrayListOf()
                         for (group in matchingGroups) {
                             for (member in group.members) {
@@ -112,6 +109,8 @@ class GroupDataSource @Inject constructor(
                             }
                         }
                         matchingGroups.removeAll(groupsThatUserIsAMember)
+
+                        matchingGroups.sortBy { group -> group.distance }
                         continuation.resume(matchingGroups)
                     }
                     .addOnFailureListener { exception ->

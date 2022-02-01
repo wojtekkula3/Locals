@@ -95,6 +95,7 @@
             app:startIconDrawable="@drawable/ic_group">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:maxLength="30"
                 android:id="@+id/nameInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -116,6 +117,8 @@
             app:startIconDrawable="@drawable/ic_description">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:maxLength="140"
+                android:maxLines="6"
                 android:id="@+id/descriptionInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -247,7 +250,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
             android:enabled="false"
-            android:text="@string/common_next"
+            android:text="@string/create_group_create"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

@@ -96,6 +96,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/nameInput"
+                android:maxLength="30"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
@@ -116,6 +117,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/surnameInput"
+                android:maxLength="30"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
@@ -137,6 +139,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/emailInput"
+                android:maxLength="50"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress" />
@@ -158,6 +161,7 @@
             app:startIconDrawable="@android:drawable/ic_lock_lock">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:maxLength="40"
                 android:id="@+id/passwordInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
