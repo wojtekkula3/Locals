@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextAppearance.Locals.H1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="fontFamily">@font/muli</item>
+        <item name="android:fontFamily">@font/muli</item>
+        <item name="android:textSize">101sp</item>
+    </style>
+
+    <style name="TextAppearance.Locals.H2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="fontFamily">@font/muli</item>
+        <item name="android:fontFamily">@font/muli</item>
+        <item name="android:textSize">63sp</item>
+    </style>
+
+    <style name="TextAppearance.Locals.H3" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="fontFamily">@font/muli</item>
+        <item name="android:fontFamily">@font/muli</item>
+        <item name="android:textSize">50sp</item>
+    </style>
+
+    <style name="TextAppearance.Locals.H4" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="fontFamily">@font/muli</item>
+        <item name="android:fontFamily">@font/muli</item>
+        <item name="android:textSize">36sp</item>
+    </style>
+
+    <style name="TextAppearance.Locals.H5" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="fontFamily">@font/muli</item>
+        <item name="android:fontFamily">@font/muli</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name="TextAppearance.Locals.H6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/muli</item>
+        <item name="android:fontFamily">@font/muli</item>
+        <item name="android:textSize">21sp</item>
+    </style>
+
+    <style name="TextAppearance.Locals.S1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/muli</item>
+        <item name="android:fontFamily">@font/muli</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="TextAppearance.Locals.S2" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="fontFamily">@font/muli</item>
+        <item name="android:fontFamily">@font/muli</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="TextAppearance.Locals.B1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/muli</item>
+        <item name="android:fontFamily">@font/muli</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="TextAppearance.Locals.B2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/muli</item>
+        <item name="android:fontFamily">@font/muli</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="TextAppearance.Locals.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="fontFamily">@font/muli</item>
+        <item name="android:fontFamily">@font/muli_bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextAppearance.Locals.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/muli</item>
+        <item name="android:fontFamily">@font/muli</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="TextAppearance.Locals.Overline" parent="TextAppearance.MaterialComponents.Overline">
+        <item name="fontFamily">@font/muli</item>
+        <item name="android:fontFamily">@font/muli</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

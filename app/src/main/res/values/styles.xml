@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Locals.SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:statusBarColor">@color/background_100</item>
+    </style>
+
+    <style name="Widget.Locals.TextInputLayout.OutLined" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="boxBackgroundMode">outline</item>
+        <item name="startIconTint">@color/blue_800</item>
+        <item name="android:textColorHint">@color/gray_500</item>
+        <item name="hintTextAppearance">?textAppearanceOverline</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Locals.TextInputEditText.OutlinedBox</item>
+    </style>
+
+    <style name="ThemeOverlay.Locals.TextInputEditText.OutlinedBox" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="editTextStyle">@style/Widget.Locals.TextInputEditText.OutlinedBox</item>
+    </style>
+
+    <style name="Widget.Locals.TextInputEditText.OutlinedBox" parent="Base.Widget.MaterialComponents.TextInputEditText">
+        <item name="android:textAppearance">?textAppearanceB1</item>
+    </style>
+
+    <style name="Widget.Locals.Button" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/selector_button</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAppearance">?textAppearanceB1</item>
+    </style>
+
+    <style name="Widget.Locals.ButtonCapital" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/selector_button</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAppearance">?textAppearanceB1</item>
+    </style>
+
+    <style name="Widget.Locals.RegisterChip" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="chipBackgroundColor">@drawable/selector_chip_register</item>
+        <item name="android:textColor">@drawable/selector_chip_text_color</item>
+        <item name="chipMinTouchTargetSize">42dp</item>
+    </style>
+
+    <style name="Widget.Locals.SearchChip" parent="Widget.MaterialComponents.Chip.Entry">
+        <item name="chipBackgroundColor">@drawable/selector_chip_explore</item>
+        <item name="android:textColor">@drawable/selector_chip_text_color</item>
+        <item name="chipIconVisible">false</item>
+    </style>
+
+    <style name="Widget.Locals.ToolBarStyle" parent="Theme.AppCompat">
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="android:background">@color/blue_900</item>
+    </style>
+</resources>

@@ -1,3 +1,120 @@
 <resources>
     <string name="app_name">Locals</string>
+
+    <!-- Common strings -->
+    <string name="common_dialog_loading">Please wait...</string>
+    <string name="common_submit">Submit</string>
+    <string name="common_next">Next</string>
+    <string name="common_confirm">Confirm</string>
+    <string name="common_decline">Decline</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Log in -->
+    <string name="log_in_title">Log in</string>
+    <string name="log_in_email">Email</string>
+    <string name="log_in_password">Password</string>
+    <string name="log_in_forgot_password"><b><u>Forgot password?</u></b></string>
+    <string name="log_in_sign_in_button">Log in</string>
+    <string name="log_in_i_am_new_here">I am new here</string>
+    <string name="log_in_credentials_error">Email or password is incorrect</string>
+    <string name="log_in_exception_wrong_email_or_password">Wrong email or password</string>
+
+    <!-- Register information -->
+    <string name="register_information_welcome_friend">Welcome Friend!</string>
+    <string name="register_information_introduction">Locals is the application which will help you get to know locals from your neighbourhood.   Based on your hobbies we will propose you group chats that you may like.    And don\'t worry, your location and personal data are safe here - only you decide which data are shown to public.</string>
+    <string name="register_information_start_registration">Start registration</string>
+    <string name="register_data_name">Name</string>
+    <string name="register_data_surname">Surname</string>
+    <string name="register_data_email">Email</string>
+    <string name="register_data_password">Password</string>
+    <string name="register_data_phone_number">Phone number</string>
+    <string name="register_data_accept_terms_and_conditions">Accept terms and conditions</string>
+    <string name="register_data_this_email_already_exists_in_database">This email already exists in database</string>
+
+    <!-- Register user data -->
+    <string name="register_user_data_name_is_required">Name is required</string>
+    <string name="register_user_data_wrong_email">Wrong email</string>
+    <string name="register_user_data_password_requirements">At least 8 characters, a capital letter, number and special sign</string>
+    <string name="register_user_data_insert_correct_number_or_leave_empty">Enter correct number or leave the empty field</string>
+    <string name="register_user_data_insert_your_data">Insert personal data</string>
+    <string name="register_user_data_add_avatar">Add avatar</string>
+
+
+    <!-- Register user hobbies -->
+    <string name="register_hobbies_select_your_interests">Select your  Interests</string>
+    <string name="register_hobbies_select_at_from_3_to_max_15_interests">Select from 3 to max 15 interests.</string>
+
+    <!-- Explore -->
+    <string name="explore_there_is_no_groups_to_show">There is no groups to show</string>
+    <string name="explore_distance">Distance:\u0020</string>
+    <string name="explore_join">Join</string>
+    <string name="explore_there_is_no_such_interest">There is no such interest</string>
+    <string name="explore_explore">Search...</string>
+    <string name="explore_you_need_accept_location_permissions">You need to accept localisation permissions to use this app.</string>
+    <string name="explore_create_new_group_content_description">Create new Group</string>
+    <string name="explore_10_km">10 km</string>
+    <string name="explore_enter_hobby_hint">Enter hobby...</string>
+    <string name="explore_hobby">Hobby:</string>
+    <string name="explore_description">Description:</string>
+
+    <string name="bottom_nav_explore">Explore</string>
+    <string name="bottom_nav_my_groups">My groups</string>
+    <string name="bottom_nav_profile">Profile</string>
+
+    <!-- My Groups -->
+    <string name="my_groups_you_dont_have_any_group_yet">You don\'t have any group yet</string>
+    <string name="my_groups_enter_name_hint">Enter name...</string>
+
+    <!-- Profile -->
+    <string name="profile_about_me">About me</string>
+    <string name="profile_name">Name</string>
+    <string name="profile_surname">Surname</string>
+    <string name="profile_email">Email</string>
+    <string name="profile_phone">Phone</string>
+    <string name="profile_personal_information">Personal information</string>
+    <string name="profile_my_hobbies">My hobbies</string>
+    <string name="profile_change">Change</string>
+    <string name="profile_change_password">Change password</string>
+    <string name="profile_log_out">Log out</string>
+    <string name="profile_public_visibility_info">Determine which elements can be visible in your profile for the rest of the users.</string>
+    <string name="profile_public_public_visibility">Public visibility</string>
+    <string name="profile_empty">(empty)</string>
+    <string name="profile_image_changed_with_success">Image changed with success</string>
+    <string name="profile_avatar_image_description">Avatar Image</string>
+    <string name="group_image_changed_with_success">Group image changed with success</string>
+
+    <!-- Group -->
+    <string name="group_type_a_message">Type a message...</string>
+    <string name="group_leave_the_group">Leave the Group</string>
+    <string name="group_dialog_confirm_to_leave">Confirm to leave</string>
+    <string name="group_are_you_sure_you_want_to_leave">Are you sure you want to leave the group?</string>
+    <string name="group_there_is_no_messages_yet_say_hello">There is no messages yet.\nSay \'Hello!\'</string>
+    <string name="group_go_back_to_my_groups_content_desc">Go back to my groups</string>
+    <string name="group_more_information_about_current_group_content_desc">More information about current group</string>
+    <string name="create_group_create_new_group">Create new group</string>
+
+    <!-- Group - user dialog -->
+    <string name="user_dialog_contact">Contact:</string>
+    <string name="user_dialog_email">Email:</string>
+    <string name="user_dialog_phone">Phone:</string>
+    <string name="user_dialog_hobby">Hobby:</string>
+    <string name="user_dialog_about_me">About me:</string>
+
+    <!-- Group - group dialog -->
+    <string name="group_dialog_are_you_sure_you_want_to_delete_the_group">Are you sure you want to delete the group?</string>
+    <string name="group_dialog_delete_group">Delete group</string>
+    <string name="group_dialog_confirm_to_leave_and_delete">Confirm to leave and delete</string>
+
+    <!-- Create group -->
+    <string name="create_group_group_name">Group name</string>
+    <string name="create_group_description">Description</string>
+    <string name="create_group_search_hobby">Search hobby...</string>
+    <string name="create_group_create_group">Create group</string>
+    <string name="create_group_location_established">Location established</string>
+    <string name="create_group_confirm_to_create_group">Confirm to create group</string>
+    <string name="create_group_new_hobbies_alert_dialog">You selected interests that don\'t exists in application yet. Are you sure you want to create a group with following interests:\n\n%1$s</string>
+    <string name="create_group_group_created_latest_message">Group created</string>
+    <string name="create_group_create">Create</string>
+    <string name="map_selected_place">Selected place</string>
+
 </resources>

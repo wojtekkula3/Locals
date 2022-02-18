@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="6dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        app:layout_constraintBottom_toBottomOf="@id/messageOutput"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/avatarReceivedMessageOutput"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/image_default_user_avatar" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/messageOutput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:background="@drawable/background_chat_message_received"
+        android:padding="10dp"
+        android:paddingStart="14dp"
+        android:textAppearance="@style/TextAppearance.Locals.B2"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/cardView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="wrap"
+        app:layout_constraintWidth_percent="0.78" />
+
+    <TextView
+        android:id="@+id/dateTimeOutput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:textAppearance="@style/TextAppearance.Locals.Caption"
+        app:layout_constraintStart_toStartOf="@id/messageOutput"
+        app:layout_constraintTop_toBottomOf="@id/messageOutput" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

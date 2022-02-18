@@ -8,6 +8,7 @@
 /build
 /captures
 .cxx
+/app/google-services.json
 
 # Created by https://www.toptal.com/developers/gitignore/api/android,androidstudio,kotlin,firebase,java
 # Edit at https://www.toptal.com/developers/gitignore?templates=android,androidstudio,kotlin,firebase,java

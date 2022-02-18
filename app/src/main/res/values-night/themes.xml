@@ -1,16 +1,57 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <!-- Base application theme. -->
-    <style name="Theme.Locals" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Locals" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/blue_800</item>
+        <item name="colorPrimaryVariant">@color/blue_900</item>
+        <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+
+        <item name="android:colorBackground">@color/background_100</item>
+
+        <!-- Status bar style. -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/background_100</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <!-- Styles -->
+        <item name="textInputStyle">@style/Widget.Locals.TextInputLayout.OutLined</item>
+        <item name="buttonStyle">@style/Widget.Locals.Button</item>
+
+        <!-- Style text appearance -->
+        <item name="textAppearanceH1">@style/TextAppearance.Locals.H1</item>
+        <item name="textAppearanceH2">@style/TextAppearance.Locals.H2</item>
+        <item name="textAppearanceH3">@style/TextAppearance.Locals.H3</item>
+        <item name="textAppearanceH4">@style/TextAppearance.Locals.H4</item>
+        <item name="textAppearanceH5">@style/TextAppearance.Locals.H5</item>
+        <item name="textAppearanceH6">@style/TextAppearance.Locals.H6</item>
+        <item name="textAppearanceS1">@style/TextAppearance.Locals.S1</item>
+        <item name="textAppearanceS2">@style/TextAppearance.Locals.S2</item>
+        <item name="textAppearanceB1">@style/TextAppearance.Locals.B1</item>
+        <item name="textAppearanceB2">@style/TextAppearance.Locals.B2</item>
+        <item name="textAppearanceButtonCapital">@style/TextAppearance.Locals.Button</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.Locals.Caption</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.Locals.Overline</item>
     </style>
+
+    <style name="ThemeOverlay.Locals.Login" parent="Theme.Locals">
+        <!--        <item name="android:windowBackground">@color/green_100</item>-->
+    </style>
+
+    <style name="ThemeOverlay.Locals.Register" parent="Theme.Locals">
+        <!--        <item name="android:background">@color/background_100</item>-->
+    </style>
+
+    <style name="ThemeOverlay.Locals.Explore" parent="">
+        <item name="android:statusBarColor" tools:targetApi="l">@color/blue_900</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <style name="ThemeOverlay.Locals.Profile" parent="Theme.Locals"></style>
+
+    <style name="ThemeOverlay.Locals.MyGroups" parent="Theme.Locals"></style>
+
 </resources>

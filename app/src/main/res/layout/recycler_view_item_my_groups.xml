@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/groupCardView"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginBottom="10dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/avatarRelativeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/myGroupsImageImageView"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/image_default_group_avatar" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="291dp"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/avatarRelativeLayout"
+            android:gravity="center"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/groupNameOutput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Opolanie i gry planszowe i vco więcej ci powiedzieć hahaha"
+                android:textAppearance="?textAppearanceB2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/groupNameOutput"
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <TextView
+                    android:id="@+id/authorAndMessageOutput"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Ty: Chciałby ktoś jutro wpaść do mnie i pograć w planszówki?" />
+
+                <TextView
+                    android:id="@+id/messageDateOutput"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:maxLines="1"
+                    android:text="17:45" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_explore"
+    app:startDestination="@id/exploreFragment">
+
+    <include app:graph="@navigation/nav_create_group" />
+    <include app:graph="@navigation/nav_group" />
+
+    <fragment
+        android:id="@+id/exploreFragment"
+        android:name="com.wojciechkula.locals.presentation.explore.ExploreFragment"
+        android:label="@string/explore_explore"
+        tools:layout="@layout/fragment_explore">
+        <action
+            android:id="@+id/openCreateGroup"
+            app:destination="@id/nav_create_group" />
+    </fragment>
+
+    <action
+        android:id="@+id/openJoinedGroup"
+        app:destination="@+id/nav_group">
+        <argument
+            android:name="groupId"
+            app:argType="string" />
+        <argument
+            android:name="groupName"
+            app:argType="string" />
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </action>
+
+</navigation>

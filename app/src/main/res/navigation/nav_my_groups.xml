@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_my_groups"
+    app:startDestination="@id/myGroupsFragment">
+
+    <include app:graph="@navigation/nav_group" />
+
+    <fragment
+        android:id="@+id/myGroupsFragment"
+        android:name="com.wojciechkula.locals.presentation.mygroups.MyGroupsFragment"
+        android:label="My groups"
+        tools:layout="@layout/fragment_my_groups">
+        <action
+            android:id="@+id/openGroup"
+            app:destination="@id/nav_group">
+            <argument
+                android:name="groupId"
+                app:argType="string" />
+            <argument
+                android:name="groupName"
+                app:argType="string" />
+            <argument
+                android:name="userId"
+                app:argType="string" />
+        </action>
+    </fragment>
+</navigation>

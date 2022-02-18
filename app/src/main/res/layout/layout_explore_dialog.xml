@@ -1,0 +1,188 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/card_view_ractangle">
+
+    <ImageButton
+        android:id="@+id/closeButton"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_margin="2dp"
+        android:background="@drawable/ic_close"
+        android:padding="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/avatarCardView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/groupAvatarImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Group avatar"
+            android:src="@drawable/image_default_group_avatar" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/groupNameOutput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="24dp"
+        android:gravity="center"
+        android:textAppearance="?textAppearanceH5"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/avatarCardView"
+        tools:text="Chór ACPO" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:background="#DDDDDD"
+        app:layout_constraintBottom_toBottomOf="@+id/lastActivityOutput"
+        app:layout_constraintTop_toTopOf="@+id/lastActivityOutput"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <ImageView
+        android:id="@+id/groupSizeIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="Number people in the group"
+        android:src="@drawable/ic_person_in_circle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/groupNameOutput"
+        app:tint="@color/blue_800" />
+
+    <TextView
+        android:id="@+id/groupSizeOutput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textAppearance="?textAppearanceB1"
+        android:textColor="@color/blue_800"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/groupSizeIcon"
+        app:layout_constraintStart_toEndOf="@+id/groupSizeIcon"
+        app:layout_constraintTop_toTopOf="@+id/groupSizeIcon"
+        tools:text="13" />
+
+    <ImageView
+        android:id="@+id/lastActivityImage"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="Last activity"
+        android:src="@drawable/ic_clock_recent_message"
+        app:layout_constraintStart_toEndOf="@id/groupSizeOutput"
+        app:layout_constraintTop_toBottomOf="@+id/groupNameOutput"
+        app:tint="@color/blue_800" />
+
+    <TextView
+        android:id="@+id/lastActivityOutput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:contentDescription="Date of Last activity"
+        android:textAppearance="?textAppearanceB1"
+        android:textColor="@color/blue_800"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/lastActivityImage"
+        app:layout_constraintStart_toEndOf="@+id/lastActivityImage"
+        app:layout_constraintTop_toTopOf="@+id/lastActivityImage"
+        tools:text="21.12.2021" />
+
+    <TextView
+        android:id="@+id/hobbyLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/explore_hobby"
+        android:textAppearance="?textAppearanceS1"
+        android:textColor="@color/blue_800"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/groupHobbiesOutput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="24dp"
+        android:gravity="left"
+        android:textAppearance="?textAppearanceS2"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hobbyLabel"
+        tools:text="śpiew, muzyka rozrywkowa, konkursy, politechnika opolska" />
+
+    <View
+        android:id="@+id/hobbiesSeparatorView"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/gray_500"
+        app:layout_constraintTop_toBottomOf="@id/groupHobbiesOutput" />
+
+    <TextView
+        android:id="@+id/descriptionLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/explore_description"
+        android:textAppearance="?textAppearanceS1"
+        android:textColor="@color/blue_800"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/hobbiesSeparatorView" />
+
+    <TextView
+        android:id="@+id/groupDescriptionOutput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="24dp"
+        android:gravity="left"
+        android:textAppearance="?textAppearanceS2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionLabel"
+        tools:text="Zapraszamy wszystkich do chóru! Rekrutacja otwarta cały czas :D" />
+
+    <Button
+        android:id="@+id/joinGroupButton"
+        style="?buttonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/explore_join"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/groupDescriptionOutput" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
